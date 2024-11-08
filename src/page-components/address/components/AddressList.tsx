@@ -12,8 +12,7 @@ import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import Sorry from "@/components/ui/Sorry/Sorry";
 import { useDispatch } from "react-redux";
 import { setSelectedAddressId } from "@/store/addressSlice";
-import { useAppSelector } from "@/hooks/useAppSelector";
-import { RootState } from "@/store";
+
 
 interface AddressListProps {
   setDefaultAddressId?: ((id: string | null) => void) | undefined;
@@ -27,9 +26,7 @@ const AddressList: React.FC<AddressListProps> = ({
   onAddressSelect,
 }) => {
   const dispatch = useDispatch();
-  const triggerAPI = useAppSelector(
-    (state: RootState) => state.address.triggerAPI
-  );
+
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -67,7 +64,7 @@ const AddressList: React.FC<AddressListProps> = ({
 
   useEffect(() => {
     fetchAddresses();
-  }, [refetchAddress, triggerAPI]);
+  }, [refetchAddress]);
 
   const handleRadioChange = (id: string) => {
     setSelectedAddress(id);

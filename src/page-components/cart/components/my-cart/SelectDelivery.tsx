@@ -10,10 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartApi } from "@/services/cartService";
 import { setCartUpdated } from "@/store/cartSlice";
 import toast from "react-hot-toast";
-import { setSelectedAddressId, setTriggerAPI } from "@/store/addressSlice";
 
 function SelectDelivery() {
   const dispatch = useDispatch();
+  
+
   const { couponDiscount, coinsAmount } = useSelector(
     (state: RootState) => state.cart
   );
@@ -120,11 +121,8 @@ function SelectDelivery() {
     setTotal(newTotal);
   };
 
-  const handleCheckPrimaryAddress = (primaryAddressId: string | null) => {
-    dispatch(setSelectedAddressId(primaryAddressId));
-    console.log("primaryAddressId", primaryAddressId);
-    dispatch(setTriggerAPI(true));
-  };
+  
+
   return (
     <div className="w-96">
       <div className="mt-4">
@@ -164,18 +162,18 @@ function SelectDelivery() {
       </div>
       <div className="mt-5">
         <Link href={`/cart/cartAddress?cartId=${cartId}`}>
-        <Button
-          backgroundColor="bg-customBlueLight"
-          borderRadius="rounded-full"
-          width="w-full"
-          height="h-14"
-          textColor="text-white"
-          fontSize="font-normal"
-          disabled={total <= 0}
-          onClick={() => handleCheckPrimaryAddress(null)}
-        >
-          Select delivery Slot
-        </Button>
+          <Button
+            backgroundColor="bg-customBlueLight"
+            borderRadius="rounded-full"
+            width="w-full"
+            height="h-14"
+            textColor="text-white"
+            fontSize="font-normal"
+            disabled={total <= 0}
+          
+          >
+            Select delivery Slot
+          </Button>
         </Link>
       </div>
     </div>

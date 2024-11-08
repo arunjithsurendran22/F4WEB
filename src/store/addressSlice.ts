@@ -1,3 +1,4 @@
+// src/store/addressSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AddressState {
@@ -14,11 +15,11 @@ const addressSlice = createSlice({
   name: "address",
   initialState,
   reducers: {
-    setSelectedAddressId: (state, action: PayloadAction<string | null>) => {
+    setSelectedAddressId(state, action: PayloadAction<string | null>) {
       state.selectedAddressId = action.payload;
     },
-    setTriggerAPI: (state, action: PayloadAction<boolean>) => {
-      state.triggerAPI = action.payload; 
+    setTriggerAPI(state, action: PayloadAction<boolean>) {
+      state.triggerAPI = action.payload;
     },
   },
 });
