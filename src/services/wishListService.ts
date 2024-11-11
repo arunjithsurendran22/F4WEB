@@ -2,9 +2,14 @@ import api from "@/api/axios";
 import { ENDPOINTS } from "@/api/apiConfiguration";
 
 export const favouriteApi = {
-  getFavourites: async () => {
+  getFavourites: async ({storeId}: {storeId?: string | null }) => {
     try {
-      const response = await api.get(ENDPOINTS.FAVOURITE.GET_FAVOURITES);
+      const params: any = {};
+
+      if (storeId !== undefined && storeId !== null) params.storeId = storeId;
+
+
+      const response = await api.get(ENDPOINTS.FAVOURITE.GET_FAVOURITES, { params });
       return response.data;
     } catch (error: any) {
       console.error(

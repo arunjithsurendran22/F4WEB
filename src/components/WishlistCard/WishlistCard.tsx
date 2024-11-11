@@ -163,7 +163,7 @@ const WishlistCard: React.FC<WishlistCardProps> = ({
       {/* Offer badge */}
       <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
         <div className="flex items-center">
-          <p className="text-lg font-medium">{discountPercentage}% </p>
+          <p className="text-lg font-medium">{discountPercentage?.toPrecision(2)}% </p>
           <p className="ml-2 text-md mt-1 text-gray-200">OFF</p>
         </div>
       </div>

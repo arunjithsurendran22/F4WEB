@@ -111,7 +111,7 @@ const ProfileSideBar: React.FC = () => {
             </div>
             <IoIosArrowForward
               className="text-xl text-customGrayLight2"
-              onClick={toggleSidebar}
+              onClick={ ()=>handleNavigate(item.href)}
             />
           </li>
         ))}

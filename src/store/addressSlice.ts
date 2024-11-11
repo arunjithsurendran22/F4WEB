@@ -1,28 +1,33 @@
 // src/store/addressSlice.ts
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AddressState {
-  selectedAddressId: string | null;
-  triggerAPI: boolean;
+  latitude: number | null;
+  longitude: number | null;
 }
 
 const initialState: AddressState = {
-  selectedAddressId: null,
-  triggerAPI: false,
+  latitude: null,
+  longitude: null,
 };
 
 const addressSlice = createSlice({
-  name: "address",
+  name: 'address',
   initialState,
   reducers: {
-    setSelectedAddressId(state, action: PayloadAction<string | null>) {
-      state.selectedAddressId = action.payload;
+    setCoordinates: (state, action: PayloadAction<{ latitude: number; longitude: number }>) => {
+      state.latitude = action.payload.latitude;
+      state.longitude = action.payload.longitude;
     },
-    setTriggerAPI(state, action: PayloadAction<boolean>) {
-      state.triggerAPI = action.payload;
+    clearCoordinates: (state) => {
+      state.latitude = null;
+      state.longitude = null;
     },
   },
 });
 
-export const { setSelectedAddressId, setTriggerAPI } = addressSlice.actions;
+// Export actions
+export const { setCoordinates, clearCoordinates } = addressSlice.actions;
+
+// Export the reducer
 export default addressSlice.reducer;

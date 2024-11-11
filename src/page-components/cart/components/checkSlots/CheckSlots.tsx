@@ -9,6 +9,7 @@ import { timeSlotApi } from "@/services/timeSlotService";
 import Sorry from "@/components/ui/Sorry/Sorry";
 import RightSidebar from "@/components/ui/RightSidebar/RightSidebar";
 import LocationSearch from "@/components/locationSearch/LocationSearch";
+import { useAppSelector } from "@/hooks/useAppSelector";
 
 interface Slot {
   _id: string;
@@ -23,6 +24,9 @@ interface SlotGroup {
 
 function CheckSlots() {
   const router = useRouter();
+  const coinBalance = useAppSelector(
+    (state: RootState) => state.profile.profile.coinBalance
+  );
   const searchParams = useSearchParams();
   const addressId = searchParams?.get("addressId") ?? undefined;
   const cartId = searchParams?.get("cartId") ?? undefined;
@@ -76,7 +80,7 @@ function CheckSlots() {
   };
 
   return (
-    <div className="px-14 py-8">
+    <div className="px-14 py-8 min-h-96 overflow-y-auto custom-scrollbar">
       <div className="flex justify-between mb-6">
         <h1 className="font-semibold text-lg">Select Booking Slot</h1>
         <div className="flex gap-3 items-center">
@@ -86,7 +90,7 @@ function CheckSlots() {
             width={30}
             height={30}
           />
-          <p className="font-medium">100 Coins</p>
+          <p className="font-medium">{coinBalance} Coins</p>
         </div>
       </div>
 

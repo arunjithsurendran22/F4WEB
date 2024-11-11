@@ -4,6 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ordersApi } from "@/services/ordersService";
 
+function titleCase(word:string) {
+  return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+}
+
 function MyOrders() {
   const router = useRouter();
   const [orders, setOrders] = useState<any[]>([]);
@@ -34,7 +38,7 @@ function MyOrders() {
           id={order._id}
           orderId={order.orderId}
           productName={order.items[0].product.name} // Use the first item's product name
-          status={order.orderStatus}
+          status={titleCase(order.orderStatus)}
           price={order.subTotal}
           imageSrc={order.items[0].product.thumbnail} // Use the first item's product image
           onClick={() => handleDetailsClick(order.orderId)}

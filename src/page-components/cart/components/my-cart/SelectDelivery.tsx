@@ -10,11 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartApi } from "@/services/cartService";
 import { setCartUpdated } from "@/store/cartSlice";
 import toast from "react-hot-toast";
+import { addressApi } from "@/services/addressService";
+import { useRouter } from "next/navigation";
+import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 
 function SelectDelivery() {
   const dispatch = useDispatch();
-  
-
+  const router = useRouter();
   const { couponDiscount, coinsAmount } = useSelector(
     (state: RootState) => state.cart
   );
@@ -28,6 +30,7 @@ function SelectDelivery() {
   const [isCouponApplied, setIsCouponApplied] = useState<boolean>(false);
   const [isCoinsApplied, setIsCoinsApplied] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
+  const [loader, setLoader] = useState(false);
 
   const handleCouponInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValueCoupon(e.target.value);
@@ -120,8 +123,30 @@ function SelectDelivery() {
   const handleTotalChange = (newTotal: number) => {
     setTotal(newTotal);
   };
+  const fetchAddresses = async () => {
+    setLoader(true);
+    try {
+      const response = await addressApi.getAllAddresses();
+      if (Array.isArray(response.data.addresses)) {
+        const primaryAddress = response.data.addresses.find(
+          (address: any) => address.primary
+        );
 
-  
+        if (primaryAddress) {
+          router.push(
+            `/cart/blockDeliverySlot?addressId=${primaryAddress._id}&&cartId=${cartId}`
+          );
+        } else {
+          router.push(`/cart/cartAddress?cartId=${cartId}`);
+        }
+      } else {
+        console.error("Expected an array but got:", response.data);
+      }
+      setLoader(false);
+    } catch (error) {
+      console.error("Error fetching addresses:", error);
+    }
+  };
 
   return (
     <div className="w-96">
@@ -161,20 +186,18 @@ function SelectDelivery() {
         <PaymentDetails onTotalChange={handleTotalChange} />
       </div>
       <div className="mt-5">
-        <Link href={`/cart/cartAddress?cartId=${cartId}`}>
-          <Button
-            backgroundColor="bg-customBlueLight"
-            borderRadius="rounded-full"
-            width="w-full"
-            height="h-14"
-            textColor="text-white"
-            fontSize="font-normal"
-            disabled={total <= 0}
-          
-          >
-            Select delivery Slot
-          </Button>
-        </Link>
+        <Button
+          backgroundColor="bg-customBlueLight"
+          borderRadius="rounded-full"
+          width="w-full"
+          height="h-14"
+          textColor="text-white"
+          fontSize="font-normal"
+          disabled={total <= 0}
+          onClick={fetchAddresses}
+        >
+          {loader ? <SpinnerLoader /> : "Select delivery Slot"}
+        </Button>
       </div>
     </div>
   );

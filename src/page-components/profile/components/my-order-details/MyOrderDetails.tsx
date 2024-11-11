@@ -3,10 +3,12 @@ import OrderCardDetails from "@/components/orderCardDetails/OrderCardDetails";
 import React, { useEffect, useState } from "react";
 import OrderPaymentDetails from '../../../../components/orderPaymentDetails/OrderPaymentDetails';
 import { ordersApi } from "@/services/ordersService";
+import OrderDetailsMap from "@/components/orderDetailsMap/OrderDetailsMap";
 
 interface MyOrderDetailsProps {
   id?: string;
 }
+
 const MyOrderDetails: React.FC<MyOrderDetailsProps> = ({ id }) => {
   console.log(id);
   const [ordersDetails, setOrderDetails] = useState<any>();
@@ -44,7 +46,7 @@ const MyOrderDetails: React.FC<MyOrderDetailsProps> = ({ id }) => {
       </div>
       <div className="mt-3">
         {" "}
-        <Map />
+        <OrderDetailsMap />
       </div>
       <div className="mt-5 w-80">
        <OrderPaymentDetails

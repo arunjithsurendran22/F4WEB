@@ -24,7 +24,7 @@ const InputBoxSearch: React.FC<SearchBoxProps> = ({
     <div className={`relative flex items-center border rounded-full h-12 ${className}`}>
       {/* Search Icon */}
       <div className="absolute left-3">
-        <Image src="/icons/search.png" alt="Search Icon" width={20} height={20} />
+        <Image src="/icons/search.svg" alt="Search Icon" width={20} height={20} />
       </div>
       {/* Input Field */}
       <input

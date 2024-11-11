@@ -7,35 +7,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/store";
 import {
   fetchCurrentLocation,
-  fetchCurrentLocationAddress,
   fetchNearbyStores,
 } from "@/store/locationSlice";
 
 function Location() {
   const dispatch = useDispatch<AppDispatch>();
-  const [isSidebarVisible, setSidebarVisible] = useState(false);
-  const [isClient, setIsClient] = useState(false); 
-
   const latitude = useSelector((state: RootState) => state.location.latitude);
   const longitude = useSelector((state: RootState) => state.location.longitude);
-  const availableStore = useSelector(
-    (state: RootState) => state.location.availableStore
-  );
   const currentAddress = useSelector(
     (state: RootState) => state.location.currentAddress
   );
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
 
   useEffect(() => {
-    setIsClient(true); 
+    setIsClient(true);
   }, []);
 
   useEffect(() => {
-    if (latitude && longitude) {
-      dispatch(fetchCurrentLocationAddress({ latitude, longitude }));
-      dispatch(fetchNearbyStores({ latitude, longitude }));
-    } else {
-      dispatch(fetchCurrentLocation());
-    }
+    const fetchLocation = async () => {
+      setLoading(true); 
+      if (latitude && longitude) {
+        await dispatch(fetchNearbyStores({ latitude, longitude }));
+      } else {
+        await dispatch(fetchCurrentLocation());
+      }
+      setLoading(false); 
+    };
+
+    fetchLocation();
   }, [latitude, longitude, dispatch]);
 
   const closeSidebar = () => {
@@ -55,10 +56,17 @@ function Location() {
         />
       </div>
       <div className="flex gap-3">
-        <p className="text-gray-600 font-semibold text-xs md:text-[12px] cursor-pointer" onClick={openSidebar}>
-          {isClient && availableStore
-            ? currentAddress
-            : "No store available near this location!!!"}
+        <p
+          className="text-gray-600 font-semibold text-xs md:text-[12px] cursor-pointer"
+          onClick={openSidebar}
+        >
+          {loading ? (
+            "Searching for your location..." 
+          ) : (
+            isClient
+              ? currentAddress || "No store available near this location!!!"
+              : "No store available near this location!!!"
+          )}
         </p>
       </div>
       <RightSidebar

@@ -1,5 +1,6 @@
 import ProductCard from "@/components/productCard/ProductCard";
 import Carousel from "@/components/ui/Carousel/Carousel";
+import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import { products } from "@/constant/data";
 import { productApi } from "@/services/productService";
 import { RootState } from "@/store";
@@ -22,6 +23,7 @@ function YourProducts() {
         const response: ProductResponse =
           await productApi.getSubscriptionProducts(storeId);
         if (response.status && response.data) {
+          console.log(response.data.products);
           setProducts(response.data.products);
           setPlan(response.data.plan);
         } else {
@@ -31,69 +33,94 @@ function YourProducts() {
         }
       } catch (error) {
         console.error("Error fetching subscription products:", error);
-        // toast.error(
-        //   "Failed to load subscription products. Please try again later."
-        // );
+        toast.error(
+          "Failed to load subscription products. Please try again later."
+        );
       } finally {
         setLoading(false);
       }
     };
 
     fetchSubscriptionProducts();
-  }, []);
+  }, [storeId]);
 
   return (
     <div className="relative w-full">
       {/* Background Image */}
-      <div className="relative w-full flex overflow-hidden  h-[500px] xl:h-auto">
+      <div className="relative w-full flex overflow-hidden h-[500px] xl:h-[600px]">
         <Image
-          src="/images/subscribedBg.png"
+          src="/images/your.png"
           alt="Wave Image"
           width={500}
           height={550}
-          className="object-cover w-full "
+          className="object-fill w-full"
         />
       </div>
 
       {/* Overlay Content */}
       <div className="absolute inset-0 p-10">
-        <h1 className="text-lg font-semibold text-white mb-4">Your Products</h1>
-
-        <div className="w-full">
-          <Carousel gap={40}>
-            {products.map((product) => (
-              <ProductCard
-                key={product._id}
-                _id={product._id}
-                imageSrc={product.thumbnail}
-                title={product.name}
-                rating={product.rating}
-                price={product.sellingPrice}
-                originalPrice={product.mrp}
-                ratingCount={product.ratingCount}
-                subscriptionProduct={product.subscriptionProduct}
-                width="w-full" // Ensures full width for the product card
-                imgHeight="h-auto" // Remove fixed height for better responsiveness
-              />
-            ))}
-          </Carousel>
+        <div className="flex justify-between">
+          <div className="text-customBlueLight">
+            <h1 className="font-bold mb-4 text-2xl">Subscription Products</h1>
+            <p className="text-lg font-semibold">
+              Unlock savings with every product
+            </p>
+          </div>
+          {/* Adjusted price tag position */}
+          <div
+            style={{
+              position: "relative",
+              top: "-65px",
+              right: "10px",
+            }}
+            className="w-[140px] h-[140px] flex justify-center items-center"
+          >
+            <Image
+              src="/images/price_tag.png"
+              alt="Price Tag"
+              width={140}
+              height={140}
+              className="object-fill"
+            />
+            {/* Overlay text for discount percentage */}
+            <div className="absolute inset-0 ml-10 mt-6 flex flex-col justify-center items-center text-white font-semibold text-md">
+              <p>{plan?.discountPercentage}%</p>
+              <p>OFF</p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Gradient Overlay at Bottom with Absolute Positioning */}
-      <div
-        className="absolute bottom-10 left-0 w-full h-14 flex items-center justify-center text-center"
-        style={{
-          background: "linear-gradient(to right, #BA973B, #F1DD80, #A57D24)",
-        }}
-      >
-        <h2 className="text-xl">
-          <span className="font-semibold mr-2">
-            {" "}
-            🥳 Save {plan?.discountPercentage}%
-          </span>
-          on this order
-        </h2>
+        {/* Loading Indicator */}
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <SpinnerLoader/>
+          </div>
+        ) : products.length === 0 ? (
+          // No Data Message
+          <div className="flex justify-center items-center h-64">
+            <p className="text-lg font-semibold text-white">No Products Available</p>
+          </div>
+        ) : (
+          <div className="w-full">
+            <Carousel gap={40}>
+              {products.map((product) => (
+                <ProductCard
+                  key={product._id}
+                  _id={product._id}
+                  imageSrc={product.thumbnail}
+                  title={product.name}
+                  rating={product.rating}
+                  price={product.sellingPrice}
+                  originalPrice={product.mrp}
+                  ratingCount={product.ratingCount}
+                  subscriptionProduct={product.subscriptionProduct}
+                  width="w-full" 
+                  imgHeight="h-auto" 
+                />
+              ))}
+            </Carousel>
+          </div>
+        )}
       </div>
     </div>
   );

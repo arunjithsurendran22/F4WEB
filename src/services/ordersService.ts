@@ -20,17 +20,11 @@ export const ordersApi = {
   },
 
   // Verify payment of an order
-  verifyPayment: async (paymentData: any, headers: any = {}) => {
+  verifyPayment: async (id: string) => {
     try {
       // Combine the default headers with the custom headers
       const response = await api.post(
-        ENDPOINTS.ORDERS.VERIFY_PATMENT,
-        paymentData,
-        {
-          headers: {
-            ...headers, // Spread any additional headers
-          },
-        }
+        ENDPOINTS.ORDERS.VERIFY_PATMENT(id),
       );
       return response.data;
     } catch (error: any) {

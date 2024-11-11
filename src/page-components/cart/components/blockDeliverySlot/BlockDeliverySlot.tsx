@@ -29,7 +29,7 @@ const BlockDeliverySlot: React.FC<BlockDeliverySlotsProps> = ({
   };
 
   return (
-    <div className="px-14 py-8 lg:flex justify-between lg:w-[52rem]">
+    <div className="px-14 py-8 lg:flex justify-between lg:w-[52rem] min-h-96">
       <div>
         <Map />
       </div>

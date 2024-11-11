@@ -16,8 +16,8 @@ const initialState: WishListState = {
 // Create an async thunk for fetching favourites
 export const fetchFavourites = createAsyncThunk(
   "wishList/fetchFavourites",
-  async () => {
-    const response = await favouriteApi.getFavourites();
+  async ({storeId}: { storeId: string | undefined | null }) => {
+    const response = await favouriteApi.getFavourites({storeId});
     if (response.status && response.data) {
       return response.data.products; 
     } else {

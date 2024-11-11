@@ -19,14 +19,14 @@ const RefferalsCard: React.FC<ReferralCardProps> = ({
   return (
     <div>
       <div className="flex gap-5 items-center mt-3">
-        {profileImageUrl && <Image
-          src={profileImageUrl}
+        <Image
+          src='/icons/profile-blue-2.svg'
           alt=""
           width={70}
           height={70}
           className="rounded-full"
         />
-        }
+        
         <div>
           <h1 className="font-medium text-md">{name}</h1>
           <p className="text-customBlueLight bg-customBlueLight3 p-1 rounded-md mt-2 ">

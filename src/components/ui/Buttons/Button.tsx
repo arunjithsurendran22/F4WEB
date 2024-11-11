@@ -33,10 +33,9 @@ const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       disabled={disabled} // Set disabled attribute
-      className={`transition-colors  ${width} ${height} ${backgroundColor} ${border} ${borderRadius} ${textColor} ${fontSize} ${padding} ${fontWeight} ${
+      className={`transition-colors flex justify-center items-center  ${width} ${height} ${backgroundColor} ${border} ${borderRadius} ${textColor} ${fontSize} ${padding} ${fontWeight} ${
         disabled ? "opacity-50 cursor-not-allowed" : ""
       }`} // Apply disabled styles if disabled
-    
     >
       {children}
     </button>

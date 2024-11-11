@@ -87,8 +87,8 @@ export const ENDPOINTS = {
       `/${API}/${API_VERSION}/${timeSlot}/public-time-slots?storeId=${storeId}&slotType=${slotType}`,
   },
   ORDERS: {
-    CREATE_PAYMENT: `/${API}/${API_VERSION}/${order}/create-order-payment`,
-    VERIFY_PATMENT: `/${API}/${API_VERSION}/${order}/verify-order-payment`,
+    CREATE_PAYMENT: `/${API}/${API_VERSION}/${order}/create-order-payment2`,
+    VERIFY_PATMENT: (id: string) => `/${API}/${API_VERSION}/${order}/verify-order-payment2?id=${id}`,
     CREATE_COD_PAYMENT: `/${API}/${API_VERSION}/${order}/create-cod-order`,
     GET_MY_ORDERS: `/${API}/${API_VERSION}/${order}/get-orders`,
     ADD_RATING: `/${API}/${API_VERSION}/${order}/rate-order`,

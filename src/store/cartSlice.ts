@@ -50,11 +50,13 @@ export const fetchCartItems = createAsyncThunk(
     const response = await cartApi.getCartItems();
     if (response.status) {
       return {
-        items: response.data.cartData.items,
-        cartId: response.data.cartData._id,
-        itemCount: response.data.cartData.itemCount,
-        expressProducts: response.data.cartData.expressProducts,
-        subscribedProducts: response.data.cartData.subscribedProducts
+        items: response.data.cartData?.items || [], // Empty array if cartData is null
+        cartId: response.data.cartData?._id || null, // null if cartData is null
+        itemCount: response.data.cartData
+          ? response.data.cartData.itemCount
+          : 0, // Set itemCount to 0 if cartData is null
+        expressProducts: response.data.cartData?.expressProducts || [],
+        subscribedProducts: response.data.cartData?.subscribedProducts || [],
       };
     } else {
       throw new Error(response.message || "Failed to fetch cart items");

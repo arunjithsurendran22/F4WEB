@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { storeApi } from "@/services/storeService";
+import { toast } from "react-hot-toast";
 
 interface LocationState {
   latitude: number | null;
@@ -88,23 +89,42 @@ export const fetchNearbyStores = createAsyncThunk(
     { latitude, longitude }: { latitude: number; longitude: number },
     { dispatch, getState }
   ) => {
-    const response = await storeApi.getNearbyStores(latitude, longitude);
-    if (response.data && response.data.store) {
-      const state = getState() as { location: LocationState };
-      const storeData: LocationState = {
-        currentAddress: response.data.store.address,
-        availableStore: true,
-        storeId: response.data.store._id,
-        latitude: state.location.latitude,
-        longitude: state.location.longitude,
-        userId: state.location.userId,
-        errorMessage: "",
-      };
-      saveStoreData(storeData);
-      dispatch(setStoreId(response.data.store._id));
-      return storeData;
-    } else {
-      throw new Error("No stores available near this location!");
+    try {
+      const response = await storeApi.getNearbyStores(latitude, longitude);
+      const messageData = "Store fetched successfully";
+      if (response.message !== messageData) {
+        toast.error(response.message);
+      }
+
+      if (response.data && response.data.store) {
+        const state = getState() as { location: LocationState };
+        const storeData: LocationState = {
+          currentAddress: response.data.store.address,
+          availableStore: true,
+          storeId: response.data.store._id,
+          latitude: state.location.latitude,
+          longitude: state.location.longitude,
+          userId: state.location.userId,
+          errorMessage: "",
+        };
+        saveStoreData(storeData); // Save the data to localStorage
+        dispatch(setStoreId(response.data.store._id));
+        return storeData;
+      } else {
+        throw new Error("No stores available near this location!");
+      }
+    } catch (error) {
+      const previousStoreData = loadPreviousStoreData();
+
+      if (previousStoreData.currentAddress) {
+        return {
+          ...previousStoreData,
+          availableStore: false,
+          errorMessage: "No stores available near this location!",
+        };
+      } else {
+        throw new Error("No stores available near this location !");
+      }
     }
   }
 );

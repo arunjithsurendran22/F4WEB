@@ -214,7 +214,7 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
               <p className="text-lg font-medium text-customBlueLight">
                 {Math.min(Math.round(offer || 0), 999)}% {/* Round the offer */}
               </p>
-              <p className="ml-2 text-md mt-1 text-customBlueLight">off</p>
+              <p className="ml-2 text-md mt-1 text-customBlueLight">OFF</p>
             </div>
           </div>
         </div>

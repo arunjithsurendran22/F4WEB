@@ -8,7 +8,8 @@ interface InputBoxProps {
   backgroundColor?: string; // Optional background color for the input
   className?: string; // Optional additional class names for styling
   border?: string;
-  disabled?: boolean; // New prop to indicate if the input should be disabled
+  disabled?: boolean; // Prop to indicate if the input should be disabled
+  error?: string; // Error message for validation
 }
 
 const InputBox: React.FC<InputBoxProps> = ({
@@ -20,22 +21,24 @@ const InputBox: React.FC<InputBoxProps> = ({
   className = "",
   border = "border",
   disabled = false,
+  error, // Error message prop
 }) => {
   return (
-    <div
-      className={`mb-4 ${className} ${disabled ? "cursor-not-allowed" : ""}`}
-    >
-      <label className="block text-customGrayLight2 text-sm mb-2">
-        {label}
-      </label>
+    <div className={`mb-4 ${className}`}>
+      <label className="block text-customGrayLight2 text-sm mb-2">{label}</label>
       <input
         type="text"
         value={value}
         onChange={onChange}
         placeholder={placeHolder}
-        className={`appearance-none rounded-full w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${backgroundColor} ${border} ${disabled ? "bg-gray-200 cursor-not-allowed" : ""}`} // Add styles for disabled state
+        className={`appearance-none rounded-full w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${backgroundColor} ${border} ${disabled ? "cursor-not-allowed opacity-50" : ""} ${
+          error ? "border-red-500" : ""
+        }`} // Adds a red border if there's an error
         disabled={disabled} // Disable the input if the prop is true
       />
+      {error && (
+        <p className="text-red-500 text-xs mt-2">{error}</p> // Display error message
+      )}
     </div>
   );
 };

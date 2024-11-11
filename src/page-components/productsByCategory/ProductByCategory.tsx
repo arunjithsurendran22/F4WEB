@@ -10,9 +10,10 @@ import Sorry from "@/components/ui/Sorry/Sorry";
 
 interface ProductByCategoryProps {
   id?: string | null | undefined;
+  name?: string | null | undefined;
 }
 
-const ProductByCategory: React.FC<ProductByCategoryProps> = ({ id }) => {
+const ProductByCategory: React.FC<ProductByCategoryProps> = ({ id, name }) => {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const storeId = useSelector(
@@ -22,7 +23,8 @@ const ProductByCategory: React.FC<ProductByCategoryProps> = ({ id }) => {
   useEffect(() => {
     const fetchCategoryByProduct = async () => {
       try {
-        const response = await productApi.getAllProducts({ category: id });
+        console.log(id)
+        const response = await productApi.getAllProducts({ category: id, storeId: storeId });
         setProducts(response.data.products);
       } catch (error) {
         console.error("Error fetching products by category:", error);
@@ -44,7 +46,7 @@ const ProductByCategory: React.FC<ProductByCategoryProps> = ({ id }) => {
 
   return (
     <div className="px-14 py-8">
-      <Header />
+      <Header name = {name}/>
       {products.length === 0 ? (
         <div className="text-center mt-10 text-gray-500">
           <Sorry/>
@@ -62,6 +64,7 @@ const ProductByCategory: React.FC<ProductByCategoryProps> = ({ id }) => {
               price={product.sellingPrice}
               originalPrice={product.mrp}
               ratingCount={product.ratingCount}
+              offer={product.discountPercentage}
               hasSubProducts={product.hasSubProducts}
               subscriptionProduct={product.subscriptionProduct}
               express={product.express}

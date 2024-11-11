@@ -28,6 +28,7 @@ function TicketList() {
     setError(null);
     try {
       const response = await ticketApi.getAllTickets(searchTerm);
+      console.log(response.data.tickets)
       setTickets(response.data.tickets);
     } catch (err) {
       console.error("Error fetching tickets:", err);

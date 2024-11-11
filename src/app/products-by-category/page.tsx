@@ -6,10 +6,11 @@ import React from "react";
 function ProductByCategoryPage() {
   const searchParams = useSearchParams();
   const id = searchParams?.get("id");
+  const name = searchParams?.get("name");
 
   return (
     <div>
-      <ProductByCategory id={id} />
+      <ProductByCategory id={id} name={name} />
     </div>
   );
 }

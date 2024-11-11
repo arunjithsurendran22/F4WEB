@@ -7,14 +7,13 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 
 function PaymentMethod() {
-  // Extract addressId and slotId from query parameters
   const searchParams = useSearchParams();
   const addressId = searchParams?.get("addressId") ?? "";
   const slotId = searchParams?.get("slotId") ?? "";
   const cartId = searchParams?.get("cartId") ?? "";
 
   return (
-    <div className="px-14 py-8 flex gap-28">
+    <div className="px-14 py-8 flex gap-28 min-h-96">
       <div>
         <Map />
       </div>

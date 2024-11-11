@@ -24,7 +24,7 @@ function ProfileName() {
           <>
             <h1 className="font-medium">{profile.name || "Unknown"}</h1>
             <p className="text-customGrayLight2">
-              {profile.countryCode} {profile.mobileNumber || "N/A"}
+              +{profile.countryCode} {profile.mobileNumber || "N/A"}
             </p>
           </>
         )}

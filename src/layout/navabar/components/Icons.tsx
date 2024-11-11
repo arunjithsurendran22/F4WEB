@@ -50,15 +50,15 @@ function Icons() {
     setWishListCount(count);
   }, [count, loading]);
   useEffect(() => {
-    const fetchFavorites = async () => {
+    const fetchFavorites = async ({storeId}:{storeId: string | null | undefined}) => {
       try {
-        await dispatch(fetchFavourites() as any).unwrap();
+        await dispatch(fetchFavourites({storeId}) as any).unwrap();
       } catch (error) {
         console.error("Error fetching favourites:", error);
       }
     };
 
-    fetchFavorites();
+    fetchFavorites({storeId});
   }, [dispatch]);
 
   const toggleSidebar = () => {
@@ -165,7 +165,7 @@ function Icons() {
       <div className="relative">
         <IoNotificationsOutline
           onClick={isLoggedIn ? toggleSidebar : checkAccessible}
-          className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-4xl"
+          className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-3xl"
         />
         {notificationCount > 0 && (
           <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
@@ -215,7 +215,7 @@ function Icons() {
 
       <Link href={isLoggedIn ? `/profile` : ""} onClick={checkAccessible}>
         <Image
-          src="/icons/king.png"
+          src="/icons/king.svg"
           alt="king Icon"
           width={32}
           height={32}

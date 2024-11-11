@@ -31,7 +31,7 @@ function Coins() {
     <div>
       <Header />
       <div className="mt-8 flex  gap-3 items-center">
-        <Image src="/icons/star-coin 2.png" alt="" width={60} height={60} />
+        <Image src="/icons/star-coin.svg" alt="" width={60} height={60} />
         <p className="text-xl font-normal">{profile.coinBalance} Coins</p>
       </div>
     </div>

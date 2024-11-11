@@ -182,7 +182,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const checkFavoriteStatus = async () => {
     try {
-      const response = await favouriteApi.getFavourites();
+      const response = await favouriteApi.getFavourites({storeId});
       if (response.status && response.statusCode === 200) {
         const favoriteProducts = response.data.products;
         const isFavorite = favoriteProducts.some(
@@ -212,7 +212,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           toast.success("Removed from wishlist");
         }
 
-        const updatedResponse = await favouriteApi.getFavourites();
+        const updatedResponse = await favouriteApi.getFavourites({storeId});
         if (updatedResponse.status && updatedResponse.data) {
           const productCount = updatedResponse.data.products.length;
           dispatch(setCount(productCount));
@@ -244,12 +244,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
       className={`${width} md:w-48 lg:w-52 xl:w-60  rounded-3xl shadow-xl hover:shadow-lg transition-shadow relative`}
     >
       {/* Offer badge */}
+      {discountPercentage &&
       <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
         <div className="flex items-center">
           <p className="text-lg font-medium">{discountPercentage?.toFixed(2)}%</p>
           <p className="ml-2 text-md mt-1 text-gray-200">OFF</p>
         </div>
       </div>
+      }
 
       {/* Love icon */}
       <div className="absolute top-3 right-3 bg-white text-white p-[.3rem] rounded-full">
@@ -300,7 +302,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         {/* Price and Button */}
         <div className="flex items-center justify-between space-x-1 ">
           <p className=" font-bold text-gray-800">₹{price}</p>
-          {originalPrice && (
+          {(originalPrice > price) && (
             <p className=" line-through text-customRed font-medium">
               ₹{originalPrice}
             </p>

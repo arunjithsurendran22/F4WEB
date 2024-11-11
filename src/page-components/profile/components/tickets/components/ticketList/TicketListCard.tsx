@@ -33,9 +33,10 @@ function TicketListCard({
         >
           {status.charAt(0).toUpperCase() + status.slice(1)}
         </button>
-        <div className="bg-customBlueLight p-1 w-7 h-7 text-white rounded-full flex items-center justify-center">
+        { ticketCount ?  (<div className="bg-customBlueLight p-1 w-7 h-7 text-white rounded-full flex items-center justify-center">
           <p>{ticketCount}</p>
-        </div>
+        </div>) : ''
+        }
       </div>
     </div>
   );

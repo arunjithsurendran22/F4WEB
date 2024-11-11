@@ -14,8 +14,8 @@ import toast from "react-hot-toast";
 
 function AddAddressForm() {
   const router = useRouter();
-  const latitude = useSelector((state: RootState) => state.location.latitude);
-  const longitude = useSelector((state: RootState) => state.location.longitude);
+  const latitude = useSelector((state: RootState) => state.address.latitude);
+  const longitude = useSelector((state: RootState) => state.address.longitude);
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -24,6 +24,7 @@ function AddAddressForm() {
   const [address, setAddress] = useState<string>("");
   const [city, setCity] = useState<string>("");
   const [state, setState] = useState<string>("");
+  const [isFormDisabled, setIsFormDisabled] = useState(true);
 
   const [countryOptions, setCountryOptions] = useState<
     { label: string; value: string }[]
@@ -35,7 +36,14 @@ function AddAddressForm() {
     { label: string; value: string }[]
   >([]);
 
-  // Fetch countries on component mount
+  console.log("latitude", latitude);
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      setIsFormDisabled(false);
+    }
+  }, [latitude, longitude]);
+
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -87,6 +95,9 @@ function AddAddressForm() {
   }, [country]);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    if (!latitude && !longitude) {
+      toast.error("please search your location")
+    }
     e.preventDefault();
     const addressData = {
       fullName,
@@ -120,9 +131,6 @@ function AddAddressForm() {
     }
   };
 
-  // Determine if the form should be disabled
-  const isFormDisabled = !latitude || !longitude;
-
   return (
     <div className="mt-10 xl:w-6/12">
       <p className="mb-2 text-customGrayLight2">Search your place...</p>
@@ -131,7 +139,7 @@ function AddAddressForm() {
       </div>
 
       <div
-        className={`${isFormDisabled ? "cursor-not-allowed opacity-50" : ""}`}
+      // className={`${isFormDisabled ? "cursor-not-allowed opacity-50" : ""}`}
       >
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-14">
@@ -161,7 +169,7 @@ function AddAddressForm() {
                 placeHolder="Enter Phone Number"
                 onChange={(e) => setPhone(e.target.value)}
                 border="border-none"
-                disabled={isFormDisabled} // Disable until lat/long are available
+                disabled={isFormDisabled}
               />
               {/* Country */}
               <SelectionBox
@@ -169,27 +177,23 @@ function AddAddressForm() {
                 options={countryOptions}
                 value={country}
                 onChange={(value) => {
-                  console.log("Selected Country:", value);
                   setCountry(value);
-                  setState(""); // Reset state when country changes
-                  setCity(""); // Reset city when country changes
-                  setStateOptions([]); // Clear previous state options
-                  setCityOptions([]); // Clear previous city options
+                  setState("");
+                  setCity("");
+                  setStateOptions([]);
+                  setCityOptions([]);
                 }}
                 placeholder="Select Country"
-                disabled={isFormDisabled} // Disable until lat/long are available
+                disabled={isFormDisabled}
               />
               {/* State */}
               <SelectionBox
                 label="State"
                 options={stateOptions}
                 value={state}
-                onChange={(value) => {
-                  console.log("Selected State:", value);
-                  setState(value);
-                }}
+                onChange={(value) => setState(value)}
                 placeholder="Select State"
-                disabled={!country || isFormDisabled} // Disable if no country or lat/long is selected
+                disabled={!country || isFormDisabled}
               />
               {/* City */}
               <InputBox
@@ -198,7 +202,7 @@ function AddAddressForm() {
                 placeHolder="Enter City"
                 onChange={(e) => setCity(e.target.value)}
                 border="border-none"
-                disabled={isFormDisabled} // Disable until lat/long are available
+                disabled={isFormDisabled}
               />
             </div>
             <div>
@@ -209,7 +213,7 @@ function AddAddressForm() {
                 placeHolder="Enter Zip Code"
                 onChange={(e) => setZipCode(e.target.value)}
                 border="border-none"
-                disabled={isFormDisabled} // Disable until lat/long are available
+                disabled={isFormDisabled}
               />
               {/* Detail Address */}
               <TextArea
@@ -217,7 +221,7 @@ function AddAddressForm() {
                 value={address}
                 placeHolder="Enter Your Address"
                 onChange={(e) => setAddress(e.target.value)}
-                disabled={isFormDisabled} // Disable until lat/long are available
+                disabled={isFormDisabled}
               />
               <div className="mt-12">
                 <Button
@@ -226,9 +230,7 @@ function AddAddressForm() {
                   backgroundColor="bg-customGrayLight4"
                   textColor="text-customGrayLight2"
                   border="border-none"
-                  padding=""
                   fontWeight="font-[600]"
-                  disabled={isFormDisabled} // Disable the button until lat/long are available
                 >
                   Save Address
                 </Button>

@@ -5,6 +5,7 @@ import { useLoadScript, Libraries } from "@react-google-maps/api";
 import SpinnerLoader from "../ui/SpinnerLoader/SpinnerLoader";
 import { useDispatch } from "react-redux";
 import { setLatLong } from "../../store/locationSlice";
+import { setCoordinates } from "../../store/addressSlice";
 
 const libraries: Libraries = ["places"];
 
@@ -65,9 +66,10 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ close }) => {
       }
     };
 
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }
   }, []);
 
@@ -76,7 +78,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ close }) => {
     if (isLoaded) {
       autocompleteService.current =
         new google.maps.places.AutocompleteService();
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         placesServiceRef.current = new google.maps.places.PlacesService(
           document.createElement("div")
         );
@@ -114,6 +116,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ close }) => {
           if (status === google.maps.places.PlacesServiceStatus.OK && place) {
             const { lat, lng } = place.geometry.location;
             dispatch(setLatLong({ lat: lat(), lng: lng() }));
+            dispatch(setCoordinates({ latitude: lat(), longitude: lng() }));
             if (close) {
               close();
             }

@@ -1,15 +1,16 @@
 import React from "react";
 
 interface TextAreaProps {
-  label: string; // Label for the textarea
-  value: string; // Textarea value
+  label: string;
+  value: string;
   placeHolder?: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void; // Function to handle changes
-  className?: string; // Optional additional class names for styling
-  backgroundColor?: string; // Optional background color (default is light gray)
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  className?: string;
+  backgroundColor?: string;
   height?: string;
   border?: string;
-  disabled?: boolean; // New prop to indicate if the textarea should be disabled
+  disabled?: boolean;
+  error?: string; // New prop for error message
 }
 
 const TextArea: React.FC<TextAreaProps> = ({
@@ -19,9 +20,10 @@ const TextArea: React.FC<TextAreaProps> = ({
   onChange,
   className = "",
   backgroundColor = "bg-customBlueLight2",
-  height = 'h-40',
+  height = "h-40",
   border = "border-none",
-  disabled = false, // Default value for disabled
+  disabled = false,
+  error, // Destructure errorMessage prop
 }) => {
   return (
     <div className={`mb-4 ${className}`}>
@@ -32,10 +34,13 @@ const TextArea: React.FC<TextAreaProps> = ({
         value={value}
         onChange={onChange}
         placeholder={placeHolder}
-        className={`block w-full ${backgroundColor} ${height} ${border} text-gray-700 py-2 px-3 rounded-2xl leading-tight focus:outline-none ${disabled ? "bg-gray-200 cursor-not-allowed" : ""}`} // Add styles for disabled state
-        rows={4} // You can adjust the default number of rows
-        disabled={disabled} // Disable the textarea if the prop is true
+        className={`block w-full ${backgroundColor} ${height} ${border} text-gray-700 py-2 px-3 rounded-2xl leading-tight focus:outline-none ${
+          disabled ? "cursor-not-allowed" : ""
+        } ${error ? "border-red-500" : ""}`} // Add red border if error
+        rows={4}
+        disabled={disabled}
       />
+      {error && <p className="text-red-500 text-xs italic mt-2">{error}</p>}
     </div>
   );
 };

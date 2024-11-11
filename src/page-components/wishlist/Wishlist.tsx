@@ -23,7 +23,7 @@ const Wishlist: React.FC = () => {
   useEffect(() => {
     const loadFavourites = async () => {
       try {
-        await dispatch(fetchFavourites() as any).unwrap();
+        await dispatch(fetchFavourites({storeId}) as any).unwrap();
       } catch (error) {
         console.error("Error fetching favourites:", error);
         toast.error("Failed to load favourites. Please try again later.");
@@ -37,7 +37,7 @@ const Wishlist: React.FC = () => {
     try {
       const response = await favouriteApi.changeFavouriteStatus(productId);
       if (response.status) {
-        dispatch(fetchFavourites() as any);
+        dispatch(fetchFavourites({storeId}) as any);
         toast.success("Removed from favourites");
       } else {
         throw new Error(response.message || "Failed to remove from favourites");
