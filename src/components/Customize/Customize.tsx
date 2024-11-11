@@ -65,7 +65,8 @@ const Customize: React.FC<CustomizeProps> = ({
       try {
         setLoading(true);
         const response: SubProductResponse = await productApi.getSubProducts(
-          productId
+          productId,
+          storeId,
         );
         if (response.status && response.data) {
           setSubProducts(response.data.subProducts);

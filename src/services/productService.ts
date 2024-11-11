@@ -50,7 +50,7 @@ export const productApi = {
     }
   },
 
-  getProductById: async (id: string ) => {
+  getProductById: async (id: string) => {
     try {
       const response = await api.get(ENDPOINTS.PRODUCT.GET_BY_ID(id));
       return response.data;
@@ -63,12 +63,14 @@ export const productApi = {
     }
   },
 
-  getFlashSaleProducts: async ({storeId}:{storeId?: string}) => {
+  getFlashSaleProducts: async ({ storeId }: { storeId?: string }) => {
     try {
       const params: any = {};
       if (storeId !== undefined && storeId !== null) params.storeId = storeId;
 
-      const response = await api.get(ENDPOINTS.PRODUCT.GET_FLASH_SALE, {params});
+      const response = await api.get(ENDPOINTS.PRODUCT.GET_FLASH_SALE, {
+        params,
+      });
       return response.data;
     } catch (error: any) {
       console.error(
@@ -79,12 +81,14 @@ export const productApi = {
     }
   },
 
-  getRecommendedProducts: async ({storeId}:{storeId?: string}) => {
+  getRecommendedProducts: async ({ storeId }: { storeId?: string }) => {
     try {
       const params: any = {};
       if (storeId !== undefined && storeId !== null) params.storeId = storeId;
 
-      const response = await api.get(ENDPOINTS.PRODUCT.GET_RECOMMENDED, {params});
+      const response = await api.get(ENDPOINTS.PRODUCT.GET_RECOMMENDED, {
+        params,
+      });
       return response.data;
     } catch (error: any) {
       console.error(
@@ -94,10 +98,13 @@ export const productApi = {
       throw error;
     }
   },
-  getSubProducts: async (mainProductId: string) => {
+  getSubProducts: async (
+    mainProductId: string,
+    storeId: string | undefined
+  ) => {
     try {
       const response = await api.get(ENDPOINTS.PRODUCT.GET_SUB_PRODUCTS, {
-        params: { mainProductId },
+        params: { mainProductId, storeId },
       });
       return response.data;
     } catch (error: any) {
@@ -109,12 +116,12 @@ export const productApi = {
     }
   },
 
-  getDealsProducts: async ({storeId}:{storeId?: string})  => {
+  getDealsProducts: async ({ storeId }: { storeId?: string }) => {
     try {
       const params: any = {};
       if (storeId !== undefined && storeId !== null) params.storeId = storeId;
 
-      const response = await api.get(ENDPOINTS.PRODUCT.GET_DEALS, {params});
+      const response = await api.get(ENDPOINTS.PRODUCT.GET_DEALS, { params });
       return response.data;
     } catch (error: any) {
       console.error(
@@ -125,11 +132,14 @@ export const productApi = {
     }
   },
 
-  getSubscriptionProducts: async (storeId :string | null) => {
+  getSubscriptionProducts: async (storeId: string | null) => {
     try {
       const params: any = {};
-      params.storeId = storeId
-      const response = await api.get(ENDPOINTS.PRODUCT.GET_SUBSCRIPTION_PRODUCTS, {params} );
+      params.storeId = storeId;
+      const response = await api.get(
+        ENDPOINTS.PRODUCT.GET_SUBSCRIPTION_PRODUCTS,
+        { params }
+      );
       return response.data;
     } catch (error: any) {
       console.error(

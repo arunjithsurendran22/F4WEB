@@ -52,7 +52,7 @@ function Recommended() {
   }, []);
 
   return (
-    <div className="p-4">
+    <div >
       <div className="flex justify-between items-center mb-5">
         <div>
           <h1 className="text-2xl font-semibold">

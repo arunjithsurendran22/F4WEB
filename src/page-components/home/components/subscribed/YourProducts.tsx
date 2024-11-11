@@ -45,9 +45,9 @@ function YourProducts() {
   }, [storeId]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full ">
       {/* Background Image */}
-      <div className="relative w-full flex overflow-hidden h-[500px] xl:h-[600px]">
+      <div className="relative w-full flex overflow-hidden h-[500px] xl:h-[550px]">
         <Image
           src="/images/your.png"
           alt="Wave Image"
@@ -58,7 +58,7 @@ function YourProducts() {
       </div>
 
       {/* Overlay Content */}
-      <div className="absolute inset-0 p-10">
+      <div className="absolute inset-0 p-14">
         <div className="flex justify-between">
           <div className="text-customBlueLight">
             <h1 className="font-bold mb-4 text-2xl">Subscription Products</h1>

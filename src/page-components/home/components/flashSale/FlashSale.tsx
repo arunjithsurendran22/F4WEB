@@ -48,13 +48,13 @@ const FlashSale: React.FC = () => {
   const displayedProducts = products.slice(0, 10);
 
   return (
-    <div className="p-4">
+    <div >
       <div className="flex justify-between mb-8">
         <h2 className="text-2xl font-semibold">Flash Sale ⏰️</h2>
         <ViewAll onClick={handleClick} />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-2 lg:gap-20 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-14 md:gap-12  w-full">
         {loading ? (
           <>
             {[...Array(5)].map((_, index) => (
@@ -73,7 +73,7 @@ const FlashSale: React.FC = () => {
           </div>
         ) : (
           displayedProducts.map((product) => (
-            <div key={product._id} className="mb-10">
+            <div key={product._id} className="">
               <ProductCard
                 _id={product._id}
                 imageSrc={product.thumbnail}

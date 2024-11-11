@@ -40,27 +40,27 @@ const Subscribe: React.FC = () => {
   };
 
   return (
-    <div className="bg-subscribe flex justify-between items-center px-16 py-10">
+    <div className="bg-subscribe flex justify-between items-center p-14 ">
       {/* Left section */}
-      <div className="w-6/12 ">
-        <h1 className="text-3xl font-semibold mb-2">
+      <div>
+        <h1 className="xl:text-3xl font-semibold mb-2">
           Subscribe to our Newsletter
         </h1>
-        <p className="text-sm w-6/12 text-gray-500">
+        <p className="text-sm text-gray-500">
           Pellentesque eu nibh eget mauris congue mattis mattis nec tellus.
           Phasellus imperdiet elit eu magna.
         </p>
       </div>
 
       {/* Right section with InputBoxWithButton */}
-      <div className="w-6/12 flex justify-end ">
+      <div className="xl:w-6/12 w-full flex justify-end ">
         <InputBoxWithButton
           placeholder="Enter your email..."
           value={inputValue}
           onChange={handleInputChange}
           buttonText={isLoading ? "Subscribing..." : "Subscribe"}
           onButtonClick={handleButtonClick}
-          className="w-8/12"
+          className=""
         />
       </div>
     </div>

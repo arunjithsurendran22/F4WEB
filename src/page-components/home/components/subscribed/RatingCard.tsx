@@ -27,7 +27,7 @@ function RatingCard() {
   }, []);
 
   return (
-    <div className="p-8">
+    <div className="p-10">
       <Carousel gap={10}>
         {ratings.map((item) => (
           <RatingCardItem

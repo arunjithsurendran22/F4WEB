@@ -35,7 +35,7 @@ export default function RootLayout({
           <Header />
 
           {/* Main Page Content */}
-          <main>
+          <main className="min-h-96">
             <Suspense
               fallback={
                 <div>

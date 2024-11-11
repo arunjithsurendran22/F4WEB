@@ -8,10 +8,8 @@ import TrendingNow from "./components/trendingNow/TrendingNow";
 import Recomended from "./components/Recomended/Recomended";
 import Subscribed from "./components/subscribed/Subscribed";
 
-
 function HomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
- 
 
   useEffect(() => {
     const accessToken =
@@ -22,17 +20,23 @@ function HomePage() {
   }, []);
 
   return (
-    <div>
-      <div className="p-10">
+    <div className="">
+      <div className="px-14 py-5 mt-5">
+        {" "}
         <Banner />
+      </div>
+      <div className="px-14 py-5">
+        {" "}
         <Categories />
+      </div>
+      <div className="px-14 py-5">
         <FlashSale />
-        {isLoggedIn && <Subscribed />}
-        <>
-          <Recomended />
-          <TrendingNow />
-          <BannerTwo />
-        </>
+      </div>
+      {isLoggedIn && <Subscribed />}
+      <div className="px-14 py-5">
+        <Recomended />
+        <TrendingNow />
+        <BannerTwo />
       </div>
     </div>
   );

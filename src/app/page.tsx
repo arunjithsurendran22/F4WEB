@@ -14,5 +14,9 @@ export default function Home() {
   }, []);
   if (!isMounted) return null;
 
-  return <div>{storeId ? <HomePage /> : <NoStoreAvailable />}</div>;
+  return (
+    <div >
+      {storeId ? <HomePage /> : <NoStoreAvailable />}
+    </div>
+  );
 }

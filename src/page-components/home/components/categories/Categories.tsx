@@ -59,7 +59,7 @@ const Categories: React.FC = () => {
   );
 
   return (
-    <div className="p-4">
+    <div>
       <div className="flex justify-between mb-8">
         <h4 className="text-customBlueLight font-semibold text-lg">
           Categories
@@ -67,7 +67,7 @@ const Categories: React.FC = () => {
         <ViewAll onClick={handleClick} />
       </div>
       {/* Grid View for Larger Screens */}
-      <div className="hidden xl:grid grid-cols-6 gap-4">
+      <div className="hidden xl:grid grid-cols-6 gap-9">
         {loading ? (
           renderSkeletons()
         ) : categories.length === 0 ? (
@@ -84,7 +84,7 @@ const Categories: React.FC = () => {
 
       {/* Carousel for Smaller Screens */}
       <div className="xl:hidden">
-        <Carousel gap={20}>
+        <Carousel gap={30}>
           {loading ? (
             renderSkeletons()
           ) : categories.length === 0 ? (

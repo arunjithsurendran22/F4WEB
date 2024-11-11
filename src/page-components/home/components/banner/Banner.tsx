@@ -34,7 +34,7 @@ const Banner: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-4 flex justify-center">
+    <div >
       <Carousel>
         {loading ? (
           <BannerSkeletons />

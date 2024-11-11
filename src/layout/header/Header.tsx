@@ -21,8 +21,8 @@ function Header() {
           <nav className="space-x-6">
             <a href="/" className="text-gray-300 font-medium no-underline hover:text-white">Home</a>
             <a href="/categories" className="text-gray-300 font-medium no-underline hover:text-white">Categories</a>
-            <a href="/" className="text-gray-300 font-medium no-underline hover:text-white">Offers</a>
-            <a href="/" className="text-gray-300 font-medium no-underline hover:text-white">Contact Us</a>
+            <a href="#footer" className="text-gray-300 font-medium no-underline hover:text-white">Offers</a>
+            <a href="#footer" className="text-gray-300 font-medium no-underline hover:text-white">Contact Us</a>
           </nav>
           <div className="flex items-center gap-2 text-lg font-semibold">
             <Image src="/icons/call.png" alt="Call Icon" width={20} height={20} />

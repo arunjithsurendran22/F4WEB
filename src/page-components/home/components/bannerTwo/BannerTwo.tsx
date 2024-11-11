@@ -29,7 +29,7 @@ const BannerTwo: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
+    <div >
       {promocodes.length === 0 ? (
         <div>
          
