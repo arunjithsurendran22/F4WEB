@@ -149,7 +149,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
 
   return (
     <div className="flex flex-col">
-      <div className="lg:flex space-x-6 p-6">
+      <div className="lg:flex space-x-6 mb-5">
         <div className="w-[35rem] h-[25rem] bg-gradient-to-b from-gray-200 to-gray-400 flex justify-center items-center rounded-lg shadow-lg">
           <div className="relative w-full h-full">
             <Slider {...sliderSettings}>
@@ -160,7 +160,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
                     alt={title}
                     width={500}
                     height={500}
-                    className="rounded-lg object-contain"
+                    className="rounded-lg object-cover"
                   />
                 </div>
               ))}
@@ -172,7 +172,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
           <div className="flex gap-5 mb-4">
             <div className="bg-customYellowLight py-[1px] w-24 text-customBlueLight px-2 rounded-lg">
               <div className="flex items-center text-center">
-                <span className="text-lg font-medium text-customBlueLight">
+                <span className="text-md py-2 font-medium text-customBlueLight">
                   {discount.toFixed(1)}% Off
                 </span>
               </div>

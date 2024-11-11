@@ -54,7 +54,7 @@ const Categories: React.FC = () => {
         <h5 className="font-semibold text-xl">Categories</h5>
       </div>
       {/* Grid View for Larger Screens */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-10 xl:gap-20">
         {loading
           ? [...Array(10)].map((_, index) => (
               <div key={index} className="flex-shrink-0">

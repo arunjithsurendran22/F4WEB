@@ -7,6 +7,7 @@ import { Product } from "@/types/product";
 import ProductDetailsCardSkeleton from "@/components/Skeletons/ProductDetailsCardSkeleton";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import Sorry from "@/components/ui/Sorry/Sorry";
 
 interface ProductDetailsProps {
   id: string;
@@ -57,7 +58,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ id }) => {
           storeId={storeId}
         />
       ) : (
-        <div>Product not found</div>
+        <div className="flex justify-center flex-col items-center h-96">
+          <Sorry />
+          <p className="text-gray-400 italic">Product not found</p>
+        </div>
       )}
     </div>
   );
