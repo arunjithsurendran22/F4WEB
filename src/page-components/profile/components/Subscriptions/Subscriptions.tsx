@@ -8,6 +8,8 @@ import { subscriptionApi } from "@/services/subscriptionService";
 import SubscriptionCard from "./SubscriptionCard";
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import Sorry from "@/components/ui/Sorry/Sorry";
+import Image from "next/image";
+import SubscriptionCardGreen from "./SubscriptionCardGreen";
 
 const Subscriptions = () => {
   const storeId = useSelector((state: RootState) => state.location.storeId);
@@ -60,7 +62,7 @@ const Subscriptions = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {subscriptionsData.map((subscription: any, index: number) => (
-                <SubscriptionCard
+                <SubscriptionCardGreen
                   key={subscription._id}
                   plan={subscription}
                   index={index}

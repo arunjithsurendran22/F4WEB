@@ -21,7 +21,7 @@ const SubscriptionHeader: React.FC<SubscriptionHeaderProps> = ({ handleNavigate,
         <h1 className="font-semibold text-lg mb-2">Subscriptions</h1>
       <ViewAll onClick={handleNavigate} buttonText={isSubscribed ? "Subscribed" : "View All"} />
     </div>
-      <div className="flex justify-end mb-8">
+      <div className="flex justify-end ">
         <h1 className='text-xl font-semibold cursor-pointer' onClick={handleQClick}>?</h1>
       </div>
     </>
