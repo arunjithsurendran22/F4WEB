@@ -4,7 +4,7 @@ import Image from "next/image";
 import Button from "../ui/Buttons/Button";
 
 interface SuccessfullCardProps {
-  onContinue: () => void; // Prop to handle the continue button click
+  onContinue: () => void;   
   grandTotal: number
 }
 

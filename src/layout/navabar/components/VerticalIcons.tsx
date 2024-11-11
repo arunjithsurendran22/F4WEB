@@ -5,25 +5,35 @@ import Modal from "@/components/ui/modal/Modal";
 import RightSidebar from "@/components/ui/RightSidebar/RightSidebar";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { CiHeart } from "react-icons/ci";
+import { CiHeart, CiUser } from "react-icons/ci";
 import { SlHandbag } from "react-icons/sl";
 import { IoNotificationsOutline } from "react-icons/io5";
-import { CiUser } from "react-icons/ci";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import toast from "react-hot-toast";
 
-function VerticalIcons() {
+interface VerticalIconsProps {
+  closeSidebarVertical?: (() => void) | undefined;
+}
+
+const VerticalIcons: React.FC<VerticalIconsProps> = ({
+  closeSidebarVertical,
+}) => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [isProfilePopupVisible, setProfilePopupVisible] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
+  const itemCount = useSelector((state: RootState) => state.cart.itemCount);
+  const wishListCount = useSelector((state: RootState) => state.wishList.count);
+  const storeId = useSelector((state: RootState) => state.location.storeId);
   const router = useRouter();
 
   useEffect(() => {
-    //const accessToken = localStorage.getItem("accessToken");
-    const accessToken = typeof window !== "undefined" ? window.localStorage.getItem("accessToken") : ''
-
+    const accessToken =
+      typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
     setIsLoggedIn(!!accessToken);
   }, []);
 
@@ -50,7 +60,7 @@ function VerticalIcons() {
     setIsLoggedIn(!!accessToken);
   };
 
-  const handleLogout =async () => {
+  const handleLogout = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     localStorage.setItem("loggedIn", JSON.stringify(false));
@@ -58,14 +68,23 @@ function VerticalIcons() {
     setProfilePopupVisible(false);
     await router.push("/");
     window.location.reload();
-  };
-  const onNotificationCountChange = (count: number) => {
-    setNotificationCount(count); // Update the notification count
+    if (closeSidebarVertical) {
+      closeSidebarVertical();
+    }
   };
 
-  const changeNotificationCount = () => {
-    setNotificationCount(0)
-  }
+  const onNotificationCountChange = (count: number) => {
+    setNotificationCount(count);
+  };
+
+  const checkAccessible = () => {
+    if (!isLoggedIn) toast.error("Please login to continue!");
+    if (!storeId) toast.error("Please select nearby store!");
+    if (closeSidebarVertical) {
+      closeSidebarVertical;
+    }
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -76,55 +95,81 @@ function VerticalIcons() {
       }
     };
 
-    if (typeof window !== 'undefined') {
-
-      if (isProfilePopupVisible) {
-        document.addEventListener("click", handleClickOutside);
-      }
-
-      return () => {
-        document.removeEventListener("click", handleClickOutside);
-      };
+    if (isProfilePopupVisible) {
+      document.addEventListener("click", handleClickOutside);
     }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
   }, [isProfilePopupVisible]);
 
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col gap-8 items-center ">
-        {" "}
-        {/* Vertical layout with flex-col */}
-        <Link href="/wishlist">
+      <div className="flex flex-col gap-8 items-center">
+        <Link
+          href={isLoggedIn && storeId ? `/wishlist` : ""}
+          onClick={checkAccessible}
+          className="relative"
+        >
           <CiHeart className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-3xl" />
+          {storeId && wishListCount > 0 && (
+            <span className="absolute top-0 right-0 bg-customBlue text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
+              {wishListCount}
+            </span>
+          )}
         </Link>
-        <Link href="/cart">
+
+        <Link
+          href={isLoggedIn && storeId ? `/cart` : ""}
+          onClick={() => {
+            if (!isLoggedIn || !storeId) {
+              checkAccessible();
+            }
+          }}
+          className="relative"
+        >
           <SlHandbag className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-2xl" />
+          {storeId && itemCount > 0 && (
+            <span className="absolute top-0 right-0 bg-customBlue text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
+              {itemCount}
+            </span>
+          )}
         </Link>
+
         <IoNotificationsOutline
-          onClick={toggleSidebar}
+          onClick={isLoggedIn ? toggleSidebar : checkAccessible}
           className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-3xl"
         />
+        {notificationCount > 0 && (
+          <span className="absolute top-0 right-0 bg-customBlue text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
+            {notificationCount}
+          </span>
+        )}
+
         <div className="relative">
           <CiUser
             onClick={toggleProfilePopup}
             className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-3xl"
           />
 
-          {/* Profile Popup */}
           {isProfilePopupVisible && (
             <div
               id="profile-popup"
-              className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg font-semibold z-50 p-4"
+              className="absolute right-0 mt-2 w-20 bg-white rounded-lg shadow-lg font-semibold z-10 p-2"
             >
-              <Link
-                href="/profile"
-                className="block px-4 py-2 text-gray-700 rounded-lg"
-                onClick={() => setProfilePopupVisible(false)} // Hide popup when clicked
-              >
-                Profile
-              </Link>
+              {isLoggedIn && (
+                <Link
+                  href="/profile"
+                  className="block px-4 py-2 text-gray-700 rounded-lg text-xs"
+                  onClick={() => setProfilePopupVisible(false)}
+                >
+                  Profile
+                </Link>
+              )}
               {isLoggedIn ? (
                 <button
-                  className="block px-4 py-2 text-gray-700 rounded-lg w-full text-left"
+                  className="block px-4 py-2 text-gray-700 rounded-lg w-full text-left text-xs"
                   onClick={handleLogout}
                 >
                   Logout
@@ -140,31 +185,30 @@ function VerticalIcons() {
             </div>
           )}
         </div>
-        <Link href="/profile">
+
+        <Link href={isLoggedIn ? `/profile` : ""} onClick={checkAccessible}>
           <Image
-            src="/icons/king.png"
-            alt="king Icon"
+            src="/icons/king.svg"
+            alt="King Icon"
             width={32}
             height={32}
             className="hover:opacity-80 transition-opacity duration-200 cursor-pointer"
           />
         </Link>
-        {/* Right Sidebar for Notifications */}
+
         <RightSidebar
           isVisible={isSidebarVisible}
           onClose={closeSidebar}
           title="Notification"
         >
-          <div>
-            <Notifications
-              onNotificationCountChange={onNotificationCountChange}
-            />
-          </div>
+          <Notifications
+            onNotificationCountChange={onNotificationCountChange}
+          />
         </RightSidebar>
-        {/* Modal for Login */}
+
         <Modal
           isOpen={isModalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={closeModal}
           title=""
           showCloseButton={false}
         >
@@ -173,6 +217,6 @@ function VerticalIcons() {
       </div>
     </div>
   );
-}
+};
 
 export default VerticalIcons;

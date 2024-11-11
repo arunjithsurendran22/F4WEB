@@ -50,15 +50,19 @@ function Icons() {
     setWishListCount(count);
   }, [count, loading]);
   useEffect(() => {
-    const fetchFavorites = async ({storeId}:{storeId: string | null | undefined}) => {
+    const fetchFavorites = async ({
+      storeId,
+    }: {
+      storeId: string | null | undefined;
+    }) => {
       try {
-        await dispatch(fetchFavourites({storeId}) as any).unwrap();
+        await dispatch(fetchFavourites({ storeId }) as any).unwrap();
       } catch (error) {
         console.error("Error fetching favourites:", error);
       }
     };
 
-    fetchFavorites({storeId});
+    fetchFavorites({ storeId });
   }, [dispatch]);
 
   const toggleSidebar = () => {
@@ -138,7 +142,7 @@ function Icons() {
       >
         <CiHeart className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-3xl" />
         {storeId && wishListCount > 0 && (
-          <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
+          <span className="absolute top-0 right-0 bg-customBlue text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
             {wishListCount}
           </span>
         )}
@@ -156,7 +160,7 @@ function Icons() {
         <SlHandbag className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-2xl" />
 
         {storeId && cartCount > 0 && (
-          <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
+          <span className="absolute top-0 right-0 bg-customBlue text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
             {cartCount}
           </span>
         )}
@@ -168,7 +172,7 @@ function Icons() {
           className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-3xl"
         />
         {notificationCount > 0 && (
-          <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
+          <span className="absolute top-0 right-0 bg-customBlue text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
             {notificationCount}
           </span>
         )}

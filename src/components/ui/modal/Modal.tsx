@@ -7,8 +7,9 @@ interface ModalProps {
   onClose: () => void;
   title?: string | ReactNode;
   children?: ReactNode;
-  showCloseButton?: boolean; // New prop to control the visibility of the close button
+  showCloseButton?: boolean;
   showCloseBtnRounded?: boolean;
+  backgroundClickClose?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -18,6 +19,7 @@ const Modal: React.FC<ModalProps> = ({
   children,
   showCloseButton = true,
   showCloseBtnRounded = false,
+  backgroundClickClose = true,
 }) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -27,17 +29,18 @@ const Modal: React.FC<ModalProps> = ({
     };
 
     if (isOpen) {
-      if (typeof window !== 'undefined') document.addEventListener("keydown", handleKeyDown);
+      if (typeof window !== "undefined")
+        document.addEventListener("keydown", handleKeyDown);
     } else {
-      if (typeof window !== 'undefined') document.removeEventListener("keydown", handleKeyDown);
+      if (typeof window !== "undefined")
+        document.removeEventListener("keydown", handleKeyDown);
     }
 
-    if (typeof window !== 'undefined'){
+    if (typeof window !== "undefined") {
       return () => {
         document.removeEventListener("keydown", handleKeyDown);
       };
     }
-    
   }, [isOpen, onClose]);
 
   // Change backdrop to transparent black instead of blur
@@ -88,7 +91,7 @@ const Modal: React.FC<ModalProps> = ({
             animate="visible"
             exit="hidden"
             variants={backdropVariants}
-            onClick={onClose}
+            {...(backgroundClickClose ? { onClick: onClose } : {})}
           ></motion.div>
 
           {/* Modal content */}

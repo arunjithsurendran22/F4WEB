@@ -199,6 +199,7 @@ const OnlinePayment: React.FC<OnlinePaymentProps> = ({
         onClose={handleCloseSuccessModal}
         title=""
         showCloseButton={false}
+        backgroundClickClose={false}
       >
         <SuccessfullCard
           grandTotal={paymentData.grandTotal}
@@ -212,6 +213,7 @@ const OnlinePayment: React.FC<OnlinePaymentProps> = ({
         title=""
         showCloseButton={true}
         showCloseBtnRounded={true}
+        backgroundClickClose={false}
       >
         <div className="p-4">
           <ReviewCard orderId={ordersId} closeModal={handleCloseReviewModal} />

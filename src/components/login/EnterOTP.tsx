@@ -130,7 +130,7 @@ function EnterOTP({ verificationId, phoneNumber, closeModal }: EnterOTPProps) {
   }
 
   if (userData) {
-    return <Success userData={userData} closeModal={closeModal} />;
+    return <Success userData={userData} closeModal={closeModal}  />;
   }
 
   return (

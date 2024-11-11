@@ -74,7 +74,7 @@ function Navbar() {
       >
         {/* Sidebar Content */}
         <div className="flex flex-col items-center gap-8">
-          <VerticalIcons />
+          <VerticalIcons closeSidebarVertical={closeSidebar}/>
         </div>
       </RightSidebar>
     </>

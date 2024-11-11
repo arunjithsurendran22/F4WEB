@@ -87,3 +87,22 @@
   border: 3px solid #f6f6f6; /* Matches track background for a seamless look */
 }
 
+
+
+.curve-container {
+  width: 100%;
+  height: 300px; /* Height of the container */
+  background: #4338ca; /* Background color */
+  position: relative;
+  overflow: hidden;
+  display: flex; /* Ensures .curve divs are aligned side-by-side */
+  align-items: flex-end; /* Aligns the .curve elements to the bottom */
+}
+
+.curve {
+  width: 10%; /* Width of each curve segment */
+  height: 50px; /* Height of the curve */
+  background: #f0f0f0; /* Wave color */
+  border-radius: 50% 50% 0 0; /* Makes a half-circle shape */
+  flex-shrink: 0; /* Prevents the .curve elements from shrinking */
+}

@@ -112,6 +112,7 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
         onClose={() => setIsSuccessModalOpen(false)}
         title=""
         showCloseButton={false}
+        backgroundClickClose={false}
       >
         <SuccessfullCard
           grandTotal={grandTotal}
@@ -127,6 +128,7 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
         onClose={handleCloseModal}
         title=""
         showCloseButton={true}
+        backgroundClickClose={false}
       >
         <div className="p-4">
           <ReviewCard orderId={ordersId} closeModal={handleCloseModal} />
