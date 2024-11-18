@@ -6,9 +6,9 @@ function Header() {
   return (
     <div className="mt-5 flex justify-between">
       <h1 className="font-medium text-lg">Tickets</h1>
-      <Link href="/profile/tickets/ticket-List">
+      {/* <Link href="/profile/tickets/ticket-List">
         <ViewAll />
-      </Link>
+      </Link> */}
     </div>
   );
 }

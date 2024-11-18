@@ -53,7 +53,7 @@ export const cartApi = {
     productId: string;
     storeId?: string;
     isSubProduct: boolean;
-    subProductId?: string;
+    subProductId?: string | null
   }) => {
     try {
       const response = await api.post(ENDPOINTS.CART.REMOVE_FROM_CART, item); // Send the item in the request body

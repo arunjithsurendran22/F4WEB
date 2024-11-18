@@ -88,6 +88,26 @@ const WishlistCard: React.FC<WishlistCardProps> = ({
         const response = await dispatch(addToCart(item) as any).unwrap();
         if (response.cartData) {
           setIsProductInCart(true);
+          toast.success("🛒 Item added to your cart!", {
+            style: {
+              background: "linear-gradient(135deg, #005FA8, #002E59)",
+              color: "#fff",
+              fontSize: "16px",
+              fontStyle: "italic",
+              fontWeight: "bold",
+              borderRadius: "12px",
+              padding: "16px 24px",
+              boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+              border: "2px solid #005FA8",
+              transform: "scale(1)",
+              transition: "transform 0.2s ease",
+            },
+            iconTheme: {
+              primary: "#00FF00",
+              secondary: "#002E59",
+            },
+            duration: 3000,
+          });
         }
       } catch (error: any) {
         console.error("Error adding to cart:", error.message);
@@ -163,7 +183,7 @@ const WishlistCard: React.FC<WishlistCardProps> = ({
       {/* Offer badge */}
       <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
         <div className="flex items-center">
-          <p className="text-lg font-medium">{discountPercentage?.toPrecision(2)}% </p>
+          <p className="text-lg font-medium">{discountPercentage?.toFixed(2)}% </p>
           <p className="ml-2 text-md mt-1 text-gray-200">OFF</p>
         </div>
       </div>

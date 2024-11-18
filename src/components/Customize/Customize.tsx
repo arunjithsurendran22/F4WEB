@@ -22,6 +22,8 @@ interface SubProduct {
   thumbnail: string;
   images: string[];
   videoLink: string;
+  rating: number;
+  ratingCount: number;
   unit: string;
   quantity: number;
   mrp: number;
@@ -66,7 +68,7 @@ const Customize: React.FC<CustomizeProps> = ({
         setLoading(true);
         const response: SubProductResponse = await productApi.getSubProducts(
           productId,
-          storeId,
+          storeId
         );
         if (response.status && response.data) {
           setSubProducts(response.data.subProducts);
@@ -84,7 +86,7 @@ const Customize: React.FC<CustomizeProps> = ({
   }, [productId]);
 
   return (
-    <div className={`${column ? "grid grid-cols-5" : ""}`}>
+    <div className={`${column ? "grid grid-cols-4" : "gap-2"}`}>
       {loading ? (
         [...Array(4)].map((_, index) => (
           <ProductCustomizeSkeleton key={index} />
@@ -97,14 +99,16 @@ const Customize: React.FC<CustomizeProps> = ({
             mainProduct={subProduct.mainProduct}
             imageSrc={subProduct.thumbnail}
             title={subProduct.name}
-            rating={0}
+            rating={subProduct.rating}
             price={subProduct.sellingPrice}
             originalPrice={subProduct.mrp}
-            ratingCount={0}
+            ratingCount={subProduct.ratingCount}
             offer={subProduct.discountPercentage}
             storeId={storeId}
             subscribedProduct={subscribedProduct}
             expressProduct={expressProduct}
+            unit={subProduct.unit}
+            quantity={subProduct.quantity}
           />
         ))
       ) : (

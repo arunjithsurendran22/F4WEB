@@ -52,7 +52,7 @@ function Recommended() {
   }, []);
 
   return (
-    <div >
+    <div  className="mb-10">
       <div className="flex justify-between items-center mb-5">
         <div>
           <h1 className="text-2xl font-semibold">
@@ -60,10 +60,10 @@ function Recommended() {
           </h1>
         </div>
         <Link href="/products">
-          <ViewAll />
+          { products.length>0 && <ViewAll />}
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-3 lg:w-9/12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-3 lg:w-10/12">
         {loading ? (
           <>
             {[...Array(5)].map((_, index) => (
@@ -74,10 +74,10 @@ function Recommended() {
             ))}
           </>
         ) : products.length === 0 ? (
-          <div className="col-span-3 text-center text-gray-500">
+          <div className="w-full text-center items-center justify-cener text-gray-500">
           
-            <h3 className="text-lg font-semibold italic items-end">
-              No Recommended Products Found
+            <h3 className="text-lg font-semibold italic items-end mb-8">
+              No Recommended Products Found!
             </h3>
           </div>
         ) : (
@@ -99,6 +99,8 @@ function Recommended() {
                 subscriptionProduct={product.subscriptionProduct}
                 express={product.express}
                 storeId={storeId}
+                unit={product.unit}
+                quantity={product.quantity}
               />
             ))
         )}

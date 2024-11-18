@@ -26,7 +26,7 @@ const AddressList: React.FC<AddressListProps> = ({
   onAddressSelect,
 }) => {
   const dispatch = useDispatch();
-  
+
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -87,7 +87,6 @@ const AddressList: React.FC<AddressListProps> = ({
         setAddresses((prev) =>
           prev.filter((address) => address._id !== selectedAddress)
         );
-        console.log(`Address ${selectedAddress} deleted`);
       } catch (error) {
         console.error("Error deleting address:", error);
       }
@@ -116,46 +115,51 @@ const AddressList: React.FC<AddressListProps> = ({
           <SpinnerLoader />
         </div>
       ) : (
-        <ul className="space-y-14">
+
+        <>
           {addresses.length > 0 ? (
-            addresses.map((address) => (
-              <li key={address._id} className="lg:w-[45rem] items-center">
-                <div className="flex justify-between">
-                  <div>
-                    <h3 className="font-semibold text-lg">
-                      {address.fullName}
-                    </h3>
-                    <p className="text-customGrayLight2">{address.phone}</p>
-                    <div className="flex gap-3">
-                      <p className="text-customGrayLight2">{address.address}</p>
-                      <p className="text-customGrayLight2">{`${address.city}, ${address.state} ${address.zipcode}`}</p>
+            <ul className="space-y-14">
+              {
+                addresses.map((address) => (
+                  <li key={address._id} className="lg:w-[45rem] items-center">
+                    <div className="flex justify-between">
+                      <div>
+                        <h3 className="font-semibold text-lg">
+                          {address.fullName}
+                        </h3>
+                        <p className="text-customGrayLight2">{address.phone}</p>
+                        <div className="flex gap-3">
+                          <p className="text-customGrayLight2">{address.address}</p>
+                          <p className="text-customGrayLight2">{`${address.city}, ${address.state} ${address.zipcode}`}</p>
+                        </div>
+                      </div>
+                      <RadioButton
+                        checked={address._id === selectedAddress}
+                        onChange={() => handleRadioChange(address._id)}
+                        name="address"
+                      />
                     </div>
-                  </div>
-                  <RadioButton
-                    checked={address._id === selectedAddress}
-                    onChange={() => handleRadioChange(address._id)}
-                    name="address"
-                  />
-                </div>
-                <div className="mt-2 flex justify-between">
-                  <Button
-                    width="32"
-                    height="10"
-                    borderRadius="rounded-2xl"
-                    padding="px-4 py-1"
-                    onClick={() => handleEditClick(address)}
-                  >
-                    Edit Address
-                  </Button>
-                  <DeleteButton
-                    onClick={() => handleDeleteClick(address._id)}
-                    hoverColor="text-customBlueLight"
-                  />
-                </div>
-              </li>
-            ))
+                    <div className="mt-2 flex justify-between">
+                      <Button
+                        width="32"
+                        height="10"
+                        borderRadius="rounded-2xl"
+                        padding="px-4 py-1"
+                        onClick={() => handleEditClick(address)}
+                      >
+                        Edit Address
+                      </Button>
+                      <DeleteButton
+                        onClick={() => handleDeleteClick(address._id)}
+                        hoverColor="text-customBlueLight"
+                      />
+                    </div>
+                  </li>
+                ))
+              }
+            </ul>
           ) : (
-            <div className="flex justify-center items-center">
+            <div className="flex items-center justify-center h-full">
               <div>
                 <Sorry />
                 <p className="text-center italic text-gray-400">
@@ -164,7 +168,8 @@ const AddressList: React.FC<AddressListProps> = ({
               </div>
             </div>
           )}
-        </ul>
+        </>
+
       )}
       <Modal
         isOpen={isModalOpen}

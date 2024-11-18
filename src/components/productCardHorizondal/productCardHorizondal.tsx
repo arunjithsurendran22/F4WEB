@@ -33,6 +33,8 @@ interface ProductCardProps {
   subscriptionProduct?: boolean | undefined;
   express?: boolean | undefined;
   storeId?: string;
+  unit?: string
+  quantity?: number
 }
 
 const ProductCardHorizondal: React.FC<ProductCardProps> = ({
@@ -48,6 +50,8 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
   subscriptionProduct,
   express,
   storeId,
+  unit,
+  quantity
 }) => {
   const loggedIn = useAppSelector((state: RootState) => state.profile.loggedIn);
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
@@ -93,6 +97,26 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
           const response = await dispatch(addToCart(item) as any);
           if (response.payload && response.payload.cartData) {
             setIsProductInCart(true);
+            toast.success("🛒 Item added to your cart!", {
+              style: {
+                background: "linear-gradient(135deg, #005FA8, #002E59)",
+                color: "#fff",
+                fontSize: "16px",
+                fontStyle: "italic",
+                fontWeight: "bold",
+                borderRadius: "12px",
+                padding: "16px 24px",
+                boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+                border: "2px solid #005FA8",
+                transform: "scale(1)",
+                transition: "transform 0.2s ease",
+              },
+              iconTheme: {
+                primary: "#00FF00",
+                secondary: "#002E59",
+              },
+              duration: 3000,
+            });
           }
         } catch (error: any) {
           console.error("Error adding to cart:", error.message);
@@ -113,10 +137,16 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
       try {
         const responseCart = await dispatch(fetchCartItems() as any).unwrap();
 
-        const isInCart = responseCart.items.some(
-          (item: any) => item.product._id === _id
+        const productInCart = responseCart.items.find(
+          (item: any) =>  item.isSubProduct ? (item.subProduct._id === _id) : (item.product._id === _id)
         );
-        setIsProductInCart(isInCart);
+        setIsProductInCart(!!productInCart);
+        if (productInCart) {
+          setItemQuantity(productInCart.cartQuantity);
+        } else {
+          setItemQuantity(1);
+        }
+        
       } catch (error) {
         console.error("Failed to fetch cart items:", error);
       }
@@ -141,7 +171,7 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
       subProductId: "",
       cartQuantity: newQuantity,
       subscribedProduct: subscriptionProduct,
-      expressProduct: false,
+      expressProduct: express,
     };
   
     try {
@@ -176,6 +206,26 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
       setIsProductInCart(false);
       dispatch(setCartUpdated(true));
       setItemQuantity(1);
+      toast.error("🗑️ Item removed from your cart!", {
+        style: {
+          background: "linear-gradient(135deg, #FF4C4C, #D32F2F)",
+          color: "#fff",
+          fontSize: "16px",
+          fontWeight: "bold",
+          fontStyle: "italic",
+          borderRadius: "12px",
+          padding: "16px 24px",
+          boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+          border: "2px solid #FF4C4C",
+          transform: "scale(1)",
+          transition: "transform 0.2s ease",
+        },
+        iconTheme: {
+          primary: "#FF0000",
+          secondary: "#D32F2F",
+        },
+        duration: 3000,
+      });
     } catch (error: any) {
       console.error("Error removing from cart:", error.message);
       toast.error(
@@ -184,10 +234,17 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
     }
   };
 
+  const formattedDiscount = (discount: any) => {
+    return discount ? Number.isInteger(discount)
+    ? discount.toFixed(0) // No decimal places
+    : discount.toFixed(2) // Round to 2 decimal places 
+    : '0';
+  } 
+
   return (
     <div key={_id} className="lg:w-[21rem] flex">
       {/* Image section */}
-      <div className="w-32 h-32 bg-customGrayLight rounded-2xl overflow-hidden flex items-center justify-center">
+      {/* <div className="w-full h-auto bg-customGrayLight rounded-2xl overflow-hidden flex items-center justify-center">
         <Image
           src={imageSrc}
           alt={title}
@@ -196,10 +253,22 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
           className="object-cover cursor-pointer"
           onClick={() => handleNavigate(_id)}
         />
+      </div> */}
+
+      <div className="min-w-[7rem] w-[7rem] h-[8rem] bg-customGrayLight rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer">
+        <Image
+          src={imageSrc}
+          alt={title}
+          width={112}
+          height={128}
+          className="object-cover w-[7rem] h-[8rem]"
+          onClick={() => handleNavigate(_id)}
+
+        />
       </div>
 
       {/* Product details */}
-      <div className="p-3">
+      <div className="p-3 pt-0">
         <div className="flex gap-5">
           <div className="flex items-center mb-1">
             <FaStar className="text-customYellow h-4 w-4" />
@@ -211,18 +280,23 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
           {/* Offer badge */}
           <div className="bg-customYellowLight py-[1px] text-customBlueLight px-2 rounded-lg">
             <div className="flex items-center">
-              <p className="text-lg font-medium text-customBlueLight">
-                {Math.min(Math.round(offer || 0), 999)}% {/* Round the offer */}
+              <p className="text-md font-medium text-customBlueLight">
+              {formattedDiscount(offer)}%
               </p>
-              <p className="ml-2 text-md mt-1 text-customBlueLight">OFF</p>
+              <p className="ml-2 text-sm mt-1 text-customBlueLight">OFF</p>
             </div>
           </div>
         </div>
 
         {/* Title */}
         <div className="h-12 w-48">
-          <h3 className="text-md font-semibold mb-2">{title}</h3>
+          <h3 className="text-md font-semibold mb-1">{title}</h3>
         </div>
+
+
+        <p className="text-sm text-customBlueLight font-semibold">
+            {quantity} {unit}
+          </p>
 
         <div className="flex items-center justify-between space-x-2">
           <p className="text-lg font-bold text-gray-800">₹{price}</p>

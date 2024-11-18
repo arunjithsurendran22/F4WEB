@@ -17,6 +17,11 @@ const Subscribe: React.FC = () => {
   // Handle button click to call API
   const handleButtonClick = async () => {
     if (!inputValue) {
+      toast.error("Email is required!"); // Show error toast
+      return;
+    }
+
+    if (!(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(inputValue))) {
       toast.error("Please enter a valid email."); // Show error toast
       return;
     }
@@ -27,10 +32,14 @@ const Subscribe: React.FC = () => {
       const response = await newsletterApi.subscribe(inputValue);
 
       // Handle success response
-      if (response.message === "Newsletter subscription added successfully") {
+      if (response.success) {
         toast.success("Subscribed successfully!");
-        setInputValue("");
+      }else{
+        toast.error(response.message);
+
       }
+      setInputValue("");
+
     } catch (error) {
       console.error("Subscription error:", error);
       toast.error("Something went wrong. Please try again later.");

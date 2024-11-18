@@ -12,7 +12,7 @@ interface InputBoxProps {
 
 const InputBoxAddButton: FC<InputBoxProps> = ({
   label, // Destructure label prop
-  placeholder = "Enter text",
+  placeholder = "Search for your place",
   value,
   onChange,
   buttonLabel = "Add",

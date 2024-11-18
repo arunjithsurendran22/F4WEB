@@ -50,7 +50,6 @@ function HelpTopics() {
 
     try {
       const result = await ticketApi.createTicket(selectedCategoryId);
-      console.log("Ticket created successfully:", result);
       if (result) {
         toast.success(result.message);
         router.push("/profile/tickets/ticket-List");

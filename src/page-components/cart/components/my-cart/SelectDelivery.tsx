@@ -48,12 +48,17 @@ function SelectDelivery() {
           storeId,
           couponCode: inputValueCoupon,
         });
-        if (response.data) {
-          toast.success("Coupon applied successfully!");
-          dispatch(setCartUpdated(true));
-          setInputValueCoupon("");
-          setIsCouponApplied(true);
+        if(!response.status){
+          toast.error(response.message);
+        }else{
+          if (response.data) {
+            toast.success("Coupon applied successfully!");
+            dispatch(setCartUpdated(true));
+            setInputValueCoupon("");
+            setIsCouponApplied(true);
+          }
         }
+        
       }
     } catch (error: any) {
       console.error("Failed to apply coupon:", error);
@@ -89,13 +94,17 @@ function SelectDelivery() {
           storeId,
           coins: inputValueCoins,
         });
-        toast.error(response.message);
-        if (response.data) {
-          toast.success("Coins applied successfully!");
-          dispatch(setCartUpdated(true));
-          setInputValueCoins("");
-          setIsCoinsApplied(true);
+        if(!response.status) {
+          toast.error(response.message);
+        }else{
+          if (response.data) {
+            toast.success("Coins applied successfully!");
+            dispatch(setCartUpdated(true));
+            setInputValueCoins("");
+            setIsCoinsApplied(true);
+          }
         }
+        
       }
     } catch (error: any) {
       console.error("Failed to apply coins:", error);
@@ -193,7 +202,6 @@ function SelectDelivery() {
           height="h-14"
           textColor="text-white"
           fontSize="font-normal"
-          disabled={total <= 0}
           onClick={fetchAddresses}
         >
           {loader ? <SpinnerLoader /> : "Select delivery Slot"}

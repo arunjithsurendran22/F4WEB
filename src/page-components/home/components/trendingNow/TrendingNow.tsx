@@ -52,7 +52,7 @@ const TrendingNow: React.FC = () => {
     <div >
       <div className="flex justify-between mb-8">
         <h2 className="text-2xl font-semibold">Trending Now</h2>
-        <ViewAll onClick={handleClick} />
+        { products.length>0 && <ViewAll onClick={handleClick} /> }
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-14 md:gap-12  w-full">
@@ -67,13 +67,13 @@ const TrendingNow: React.FC = () => {
           </>
         ) : products.length === 0 ? (
           <div className="col-span-5 text-center text-gray-500">
-            <h3 className="text-lg font-semibold">
-              No Trending Products Found
+            <h3 className="text-lg font-semibold italic mb-8">
+              No Trending Products Found!
             </h3>
           </div>
         ) : (
           displayedProducts.map((product) => (
-            <div key={product._id} className="mb-10">
+            <div key={product._id} className="mb-10 w-full">
               <ProductCard
                 _id={product._id}
                 imageSrc={product.thumbnail}
@@ -87,6 +87,10 @@ const TrendingNow: React.FC = () => {
                 subscriptionProduct={product.subscriptionProduct}
                 express={product.express}
                 storeId={storeId}
+                width="w-full" 
+                imgHeight="h-auto"
+                unit={product.unit}
+                quantity={product.quantity}
               />
             </div>
           ))

@@ -5,9 +5,12 @@ import { notificationsApi } from "@/services/notificationService";
 import { formatDistanceToNow } from "date-fns"; 
 import Sorry from "../ui/Sorry/Sorry";
 import SpinnerLoader from "../ui/SpinnerLoader/SpinnerLoader";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { fetchNotifications } from "@/store/notificationSlice";
 
 interface Notification {
-  id: string;
+  _id: string;
   icon: string;
   title: string;
   description: string;
@@ -20,17 +23,28 @@ interface NotificationsProps {
 }
 
 function Notifications({ onNotificationCountChange }: NotificationsProps) {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const storeId = useSelector((state: RootState) => state.location.storeId);
+  const notitificationResponse = useSelector((state: RootState) => state.notification.notifications);
+
+  const [notifications, setNotifications] = useState<Notification[]>(notitificationResponse);
+
+
+
 
   // Fetch notifications on component mount
-  const fetchNotifications = async () => {
+  const fetchNotification = async () => {
     try {
-      const response: any = await notificationsApi.getAllNotifications();
-      const data = response?.data?.notifications || [];
+
+      const response: any = await dispatch(fetchNotifications({ storeId }) as any);
+
+      console.log(response)
+  
+      const data = response?.payload?.notifications || [];
       const formattedNotifications = data.map((notification: any) => ({
-        id: notification._id,
+        _id: notification._id,
         icon: notification.icon,
         title: notification.title,
         description: notification.description,
@@ -52,14 +66,18 @@ function Notifications({ onNotificationCountChange }: NotificationsProps) {
   };
 
   useEffect(() => {
-    fetchNotifications();
-  }, []);
+    setNotifications(notitificationResponse);
+  }, [notitificationResponse]);
+
+  useEffect(() => {
+    fetchNotification();
+  }, [dispatch]);
 
   // Function to mark a notification as viewed
   const handleViewNotification = async (id: string) => {
     try {
       await notificationsApi.viewNotification(id);
-      fetchNotifications();
+      fetchNotification();
     } catch (err) {
       console.error("Failed to update view status", err);
     }
@@ -69,7 +87,7 @@ function Notifications({ onNotificationCountChange }: NotificationsProps) {
   const handleClearNotifications = async () => {
     try {
       await notificationsApi.clearAllNotifications();
-      fetchNotifications();
+      fetchNotification();
     } catch (err) {
       console.error("Failed to clear notifications", err);
     }
@@ -95,21 +113,22 @@ function Notifications({ onNotificationCountChange }: NotificationsProps) {
       {notifications.length > 0 ? (
         notifications.map((notification) => (
           <div
-            key={notification.id}
+            key={notification._id}
             className={`flex items-start space-x-4 mb-4 cursor-pointer ${
               notification.viewStatus ? "opacity-50" : ""
             }`}
-            onClick={() => handleViewNotification(notification.id)}
+            onClick={() => handleViewNotification(notification._id)}
           >
             <div className="bg-customBlueLight3 rounded-full w-12 h-12 flex items-center justify-center">
               <Image
                 src={notification.icon}
                 alt="Notification Icon"
-                width={30}
-                height={30}
+                width={26}
+                height={26}
+                className="object-cover"
               />
             </div>
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center w-10/12">
               <p className="text-base font-bold">{notification.title}</p>
               <p className="text-base">{notification.description}</p>
               <p className="text-customGrayLight text-sm mt-1">

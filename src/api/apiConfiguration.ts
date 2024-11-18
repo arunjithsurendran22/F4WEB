@@ -32,6 +32,7 @@ export const ENDPOINTS = {
       `/${API}/${API_VERSION}/${product}/customer/get-product/${id}`,
     GET_FLASH_SALE: `/${API}/${API_VERSION}/${product}/customer/get-flash-sale`,
     GET_RECOMMENDED: `/${API}/${API_VERSION}/${product}/customer/get-recommended`,
+    GET_EXPRESS: `/${API}/${API_VERSION}/${product}/customer/get-express-products`,
     GET_DEALS: `/${API}/${API_VERSION}/${product}/customer/get-deals`,
     GET_SIMILAR_PRODUCTS: (id: string) =>
       `/${API}/${API_VERSION}/${product}/customer/get-similar-products/${id}`,
@@ -114,8 +115,8 @@ export const ENDPOINTS = {
   SUBSCRIPTION: {
     GET_ALL_SUBSCRIPTION_PLANS: (storeId: string | null) =>
       `/${API}/${API_VERSION}/${subscription}/get-plans?storeId=${storeId}`,
-    CREATE_PAYMENT: `/${API}/${API_VERSION}/${subscription}/create-subscription-payment`,
-    VERIFY_PAYMENT: `/${API}/${API_VERSION}/${subscription}/verify-subscription-payment`,
+    CREATE_PAYMENT: `/${API}/${API_VERSION}/${subscription}/create-subscription-payment2`,
+    VERIFY_PAYMENT: (id: string) => `/${API}/${API_VERSION}/${subscription}/verify-subscription-payment2?id=${id}`,
     GET_ACTIVE_SUBSCRIPTIONS: (storeId: string | null) =>
       `/${API}/${API_VERSION}/${subscription}/get-active-subscriptions?storeId=${storeId}`,
   },

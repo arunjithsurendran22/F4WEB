@@ -18,7 +18,7 @@
     "firebase-auth": "^0.1.2",
     "framer-motion": "^11.5.4",
     "lottie-react": "^2.4.0",
-    "next": "14.2.8",
+    "next": "^14.2.18",
     "razorpay": "^2.9.5",
     "rc-slider": "^11.1.5",
     "react": "^18",

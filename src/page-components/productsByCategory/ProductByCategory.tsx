@@ -23,7 +23,6 @@ const ProductByCategory: React.FC<ProductByCategoryProps> = ({ id, name }) => {
   useEffect(() => {
     const fetchCategoryByProduct = async () => {
       try {
-        console.log(id)
         const response = await productApi.getAllProducts({ category: id, storeId: storeId });
         setProducts(response.data.products);
       } catch (error) {
@@ -53,7 +52,8 @@ const ProductByCategory: React.FC<ProductByCategoryProps> = ({ id, name }) => {
           No products available in this category.
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5 2xl:w-8/12 mt-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-3 lg:w-10/12 mt-5">
+          
           {products.map((product, index) => (
             <ProductCardHorizondal
               key={index}
@@ -69,6 +69,8 @@ const ProductByCategory: React.FC<ProductByCategoryProps> = ({ id, name }) => {
               subscriptionProduct={product.subscriptionProduct}
               express={product.express}
               storeId={storeId}
+              unit={product.unit}
+              quantity={product.quantity}
             />
           ))}
         </div>

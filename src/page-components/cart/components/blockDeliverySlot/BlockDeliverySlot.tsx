@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Map from "@/components/map/Map";
 import PaymentDetails from "@/components/PaymentDetails/PaymentDetails";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowForward, IoIosRemoveCircleOutline } from "react-icons/io";
 import Button from "@/components/ui/Buttons/Button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 interface BlockDeliverySlotsProps {
   selectedDate: string;
@@ -22,11 +24,17 @@ const BlockDeliverySlot: React.FC<BlockDeliverySlotsProps> = ({
 }) => {
   const router = useRouter();
 
-  const isSlotSelected = !!selectedSlot;
+  const expressProducts = useSelector((state: RootState) => state.cart.expressProducts);
+
+  const isSlotSelected = !!selectedSlot || expressProducts;
 
   const handleNavigateToCheckSlot = () => {
     router.push(`/cart/checkSlots?addressId=${addressId}&&cartId=${cartId}`);
   };
+
+  const handleRemoveSlot = () => {
+    router.push(`/cart/blockDeliverySlot?addressId=${addressId}&&cartId=${cartId}`);
+  }
 
   return (
     <div className="px-14 py-8 lg:flex justify-between lg:w-[52rem] min-h-96">
@@ -37,15 +45,39 @@ const BlockDeliverySlot: React.FC<BlockDeliverySlotsProps> = ({
         <PaymentDetails />
         <div>
           <h1 className="font-semibold text-lg">Select Booking Slot</h1>
-          <button
-            className="border rounded-full flex justify-between w-full h-12 items-center p-4 mt-5"
-            onClick={handleNavigateToCheckSlot}
-          >
-            {selectedSlot ? selectedSlot : "Check Slots"}
-            <span>
-              <IoIosArrowForward />
-            </span>
-          </button>
+          {
+            expressProducts ? (
+              <button
+                className="border rounded-full flex justify-between w-full h-12 items-center p-4 mt-5"
+              >
+                Express
+
+              </button>
+            ) : (
+              <>
+                <button
+                  className="border rounded-full flex justify-between w-full h-12 items-center p-4 mt-5"
+                  onClick={handleNavigateToCheckSlot}
+                >
+                  Check Slots
+                  <span>
+                    <IoIosArrowForward />
+                  </span>
+                </button>
+
+                {!!selectedSlot ? (
+                  <button
+                    className="rounded-full flex justify-between w-full h-12 items-center p-4 mt-5"
+                  >
+                    {selectedSlot} 
+                    <span>
+                      <IoIosRemoveCircleOutline onClick={handleRemoveSlot} />
+                    </span>
+                  </button>
+                ) : ''}
+              </>
+            )
+          }
 
           <div className="mt-5">
             {/* Conditionally disable the button based on slot selection */}

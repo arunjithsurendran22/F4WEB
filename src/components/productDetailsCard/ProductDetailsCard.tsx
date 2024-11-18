@@ -1,5 +1,5 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Slider from "react-slick";
 import { FaStar } from "react-icons/fa";
 import QuantityButton from "../ui/Buttons/QuantityButton";
@@ -15,15 +15,11 @@ import {
   setCartUpdated,
 } from "@/store/cartSlice";
 import TrendingNow from "@/page-components/home/components/trendingNow/TrendingNow";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { RootState } from "@/store";
+import { showLoginToast } from "@/utils/toastUtils";
 
-const sliderSettings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrows: true,
-};
+
 
 interface ProductDetailsCardProps {
   _id: string;
@@ -40,6 +36,8 @@ interface ProductDetailsCardProps {
   expressProduct?: boolean;
   subscribedProduct?: boolean;
   storeId?: string;
+  unit: string;
+  quantity: number;
 }
 
 const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
@@ -56,18 +54,36 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   expressProduct,
   subscribedProduct,
   storeId,
+  unit,
+  quantity
 }) => {
+  const loggedIn = useAppSelector((state: RootState) => state.profile.loggedIn);
+
   const [isExpanded, setIsExpanded] = useState(false);
-  const [shouldFetchSubProducts, setShouldFetchSubProducts] = useState(false);
+  const [shouldFetchSubProducts, setShouldFetchSubProducts] = useState(hasSubProducts);
   const [isProductInCart, setIsProductInCart] = useState(false);
   const [itemQuantity, setItemQuantity] = useState(1);
   const dispatch = useDispatch();
+
+  const sliderSettings = {
+    dots: true,
+    infinite: images.length > 1,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: images.length > 1,
+  };
 
   const toggleDescription = () => {
     setIsExpanded(!isExpanded);
   };
 
   const handleAddToCart = async () => {
+    if (!loggedIn) {
+      showLoginToast(loggedIn);
+      return;
+    }
+
     if (hasSubProducts) {
       setShouldFetchSubProducts(true);
     } else {
@@ -84,9 +100,9 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
       try {
         const response = await dispatch(addToCart(item) as any);
         //console.log(response)
-        if(response.payload && response.payload.cartData){
+        if (response.payload && response.payload.cartData) {
           setIsProductInCart(true);
-        } 
+        }
       } catch (error: any) {
         console.error("Error adding to cart:", error.message);
         toast.error(error.message || "An error occurred while adding to cart.");
@@ -98,10 +114,17 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
     const fetchCartData = async () => {
       try {
         const responseCart = await dispatch(fetchCartItems() as any).unwrap();
-        const isInCart = responseCart.items.some(
+
+        const productInCart = responseCart.items.find(
           (item: any) => item.product._id === _id
         );
-        setIsProductInCart(isInCart);
+        setIsProductInCart(!!productInCart);
+        if (productInCart) {
+          setItemQuantity(productInCart.cartQuantity);
+        } else {
+          setItemQuantity(1);
+        }
+
       } catch (error) {
         console.error("Failed to fetch cart items:", error);
       }
@@ -147,6 +170,13 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
     }
   };
 
+  const formattedDiscount = (discount: any) => {
+    return discount ? Number.isInteger(discount)
+      ? discount.toFixed(0) // No decimal places
+      : discount.toFixed(2) // Round to 2 decimal places 
+      : '0';
+  }
+
   return (
     <div className="flex flex-col">
       <div className="lg:flex space-x-6 mb-5">
@@ -155,12 +185,10 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
             <Slider {...sliderSettings}>
               {images.map((img, index) => (
                 <div key={index} className="flex justify-center items-center">
-                  <Image
+                  <img
                     src={img}
                     alt={title}
-                    width={500}
-                    height={500}
-                    className="rounded-lg object-cover"
+                    className="rounded-lg object-cover w-[35rem] h-[25rem]"
                   />
                 </div>
               ))}
@@ -169,11 +197,11 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
         </div>
 
         <div className="mt-10 lg:mt-0 flex-1 space-y-5">
-          <div className="flex gap-5 mb-4">
-            <div className="bg-customYellowLight py-[1px] w-24 text-customBlueLight px-2 rounded-lg">
+          <div className="flex gap-4 mb-4">
+            <div className="bg-customYellowLight py-[1px] w-26 text-customBlueLight px-2 rounded-lg">
               <div className="flex items-center text-center">
-                <span className="text-md py-2 font-medium text-customBlueLight">
-                  {discount.toFixed(1)}% Off
+                <span className="text-base font-medium text-customBlueLight">
+                  {formattedDiscount(discount)}% Off
                 </span>
               </div>
             </div>
@@ -188,9 +216,8 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
 
           <div className="relative w-full max-w-[38rem]">
             <p
-              className={`text-customGrayLight2 transition-all duration-300 ${
-                isExpanded ? "h-auto" : "line-clamp-2"
-              }`}
+              className={`text-customGrayLight2 transition-all duration-300 ${isExpanded ? "h-auto" : "line-clamp-2"
+                }`}
             >
               {isExpanded
                 ? description
@@ -203,35 +230,49 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
               {isExpanded ? "Read Less" : "Read More"}
             </button>
           </div>
+          <p className="text-xl text-customBlueLight font-semibold">
+            {quantity} {unit}
+          </p>
+          {
+            !shouldFetchSubProducts && (
 
-          <div className="flex items-center gap-10 mt-10">
-            <p className="text-xl font-bold">₹ {price}</p>
-            {originalPrice && (
-              <p className="text-xl line-through text-customRed font-semibold">
-                ₹ {originalPrice}
-              </p>
-            )}
+              <div className="flex items-center gap-10 mt-10">
+                {
+                  !subscribedProduct ? (
+                    <div className="flex items-center gap-10">
+                      <p className="text-xl font-bold">₹ {price}</p>
+                      {originalPrice && (
+                        <p className="text-xl line-through text-customRed font-semibold">
+                          ₹ {originalPrice}
+                        </p>
+                      )}
+                    </div>
 
-            {isProductInCart ? (
-              <QuantityButton
-                buttonSize="w-6 h-9"
-                initialQuantity={itemQuantity}
-                onRemove={handleUpdateRemove}
-                onUpdateQuantity={handleUpdateQuantity}
-              />
-            ) : (
-              <Button
-                width="w-20 md:w-20 lg:w-28"
-                height="h-8 md:h-10 lg:h-10"
-                onClick={handleAddToCart}
-              >
-                <div className="flex justify-center items-center">
-                  <p>Add</p>
-                  {hasSubProducts && <MdArrowForwardIos className="ml-1" />}
-                </div>
-              </Button>
-            )}
-          </div>
+                  ) : ''
+                }
+
+                {isProductInCart ? (
+                  <QuantityButton
+                    buttonSize="w-6 h-9"
+                    initialQuantity={itemQuantity}
+                    onRemove={handleUpdateRemove}
+                    onUpdateQuantity={handleUpdateQuantity}
+                  />
+                ) : (
+                  <Button
+                    width="w-20 md:w-20 lg:w-28"
+                    height="h-8 md:h-10 lg:h-10"
+                    onClick={handleAddToCart}
+                  >
+                    <div className="flex justify-center items-center">
+                      <p>Add</p>
+                      {hasSubProducts && <MdArrowForwardIos className="ml-1" />}
+                    </div>
+                  </Button>
+                )}
+              </div>
+            )
+          }
         </div>
       </div>
       {shouldFetchSubProducts && (

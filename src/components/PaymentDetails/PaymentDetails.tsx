@@ -9,7 +9,7 @@ interface PaymentDetailsProps {
 }
 
 const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onTotalChange }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const dispatch = useDispatch();
 
   const { cartTotal, loading, error, cartUpdated } = useSelector(
@@ -59,6 +59,50 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onTotalChange }) => {
 
       {isExpanded && (
         <div className="mt-4">
+        { cartTotal.subTotal > localTotal ? (
+
+          <div className="flex justify-between items-center mb-4">
+            <p className="text-lg text-customGrayLight2">Sub Total</p>
+            {loading ? (
+              <h2 className="text-lg font-semibold">
+                <SpinnerLoader />
+              </h2>
+            ) : (
+              <h2 className="text-lg font-semibold">₹{cartTotal.subTotal}</h2>
+            )}
+          </div>
+          ) : '' 
+        }
+
+          { cartTotal.couponDiscount> 0 ? (
+          <div className="flex justify-between items-center mb-4">
+            <p className="text-lg text-customGrayLight2">Coupon Discount</p>
+            {loading ? (
+              <h2 className="text-lg font-semibold">
+                <SpinnerLoader />
+              </h2>
+            ) : (
+              <h2 className="text-lg font-semibold">₹{cartTotal.couponDiscount}</h2>
+            )}
+          </div>
+          ) : '' 
+          }
+
+          { cartTotal.coinsAmount> 0 ? (
+
+          <div className="flex justify-between items-center mb-4">
+            <p className="text-lg text-customGrayLight2">Coins Amount</p>
+            {loading ? (
+              <h2 className="text-lg font-semibold">
+                <SpinnerLoader />
+              </h2>
+            ) : (
+              <h2 className="text-lg font-semibold">₹{cartTotal.coinsAmount}</h2>
+            )}
+          </div>
+          ) : '' 
+        }
+
           <div className="flex justify-between items-center mb-4">
             <p className="text-lg text-customGrayLight2">Total</p>
             {loading ? (

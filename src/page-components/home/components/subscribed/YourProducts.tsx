@@ -23,7 +23,7 @@ function YourProducts() {
         const response: ProductResponse =
           await productApi.getSubscriptionProducts(storeId);
         if (response.status && response.data) {
-          console.log(response.data.products);
+          //console.log(response.data.products);
           setProducts(response.data.products);
           setPlan(response.data.plan);
         } else {

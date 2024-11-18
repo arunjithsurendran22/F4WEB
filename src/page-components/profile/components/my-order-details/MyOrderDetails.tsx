@@ -10,7 +10,6 @@ interface MyOrderDetailsProps {
 }
 
 const MyOrderDetails: React.FC<MyOrderDetailsProps> = ({ id }) => {
-  console.log(id);
   const [ordersDetails, setOrderDetails] = useState<any>();
   const [loading, setLoading] = useState(true);
 
@@ -38,11 +37,19 @@ const MyOrderDetails: React.FC<MyOrderDetailsProps> = ({ id }) => {
   return (
     <div>
       <div>
-        <OrderCardDetails
-          imageSrc={ordersDetails?.items[0].product.thumbnail}
-          productName={ordersDetails?.items[0].product.name}
+      {ordersDetails?.items.map((item :any) => (
+          <OrderCardDetails
+          key={ item.isSubProduct ? item.subProduct._id : item.product._id}
+          imageSrc={item.isSubProduct ? item.subProduct.thumbnail : item.product.thumbnail}
+          productName={item.isSubProduct ? item.subProduct.name : item.product.name}
           orderId={ordersDetails?.orderId}
+          cartQuantity={item?.cartQuantity}
+          unit={item.isSubProduct ? item.subProduct.unit : item.product.unit}
+          baseQuantity={item.isSubProduct ? item.subProduct.quantity : item.product.quantity}
+
         />
+      ))}
+        
       </div>
       <div className="mt-3">
         {" "}
@@ -59,6 +66,7 @@ const MyOrderDetails: React.FC<MyOrderDetailsProps> = ({ id }) => {
        coinsUsed= {ordersDetails?.coinsUsed}
        expressProducts= {ordersDetails?.expressProducts}
        orderStatus= {ordersDetails?.orderStatus}
+       timeSlotDetails = {ordersDetails?.timeSlotDetails}
        />
       </div>
     </div>

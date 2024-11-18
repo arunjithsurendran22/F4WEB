@@ -98,6 +98,23 @@ export const productApi = {
       throw error;
     }
   },
+  getExpressProducts: async ({ storeId }: { storeId?: string }) => {
+    try {
+      const params: any = {};
+      if (storeId !== undefined && storeId !== null) params.storeId = storeId;
+
+      const response = await api.get(ENDPOINTS.PRODUCT.GET_EXPRESS, {
+        params,
+      });
+      return response.data;
+    } catch (error: any) {
+      console.error(
+        "Failed to fetch recommended products:",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
+    }
+  },
   getSubProducts: async (
     mainProductId: string,
     storeId: string | undefined

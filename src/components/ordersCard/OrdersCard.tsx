@@ -28,6 +28,9 @@ const OrdersCard: React.FC<OrdersCardProps> = ({
         imageSrc={imageSrc}
         orderId={orderId}
         productName={productName}
+        cartQuantity={0}
+        unit=""
+        baseQuantity={0}
       />
 
       {/* Bottom section with status, price, and button */}

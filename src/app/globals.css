@@ -7,6 +7,17 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* Hide scrollbar for all elements */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 .hide-scrollbar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -105,4 +116,17 @@
   background: #f0f0f0; /* Wave color */
   border-radius: 50% 50% 0 0; /* Makes a half-circle shape */
   flex-shrink: 0; /* Prevents the .curve elements from shrinking */
+}
+
+.banner-container {
+  height: 300px; /* Set the fixed height */
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image scales and crops as needed */
+  border-radius: 16px; /* Retain rounded corners */
 }

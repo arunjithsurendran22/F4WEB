@@ -38,7 +38,7 @@ const Wishlist: React.FC = () => {
       const response = await favouriteApi.changeFavouriteStatus(productId);
       if (response.status) {
         dispatch(fetchFavourites({storeId}) as any);
-        toast.success("Removed from favourites");
+        toast.success("Item removed from favourites");
       } else {
         throw new Error(response.message || "Failed to remove from favourites");
       }

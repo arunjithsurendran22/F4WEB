@@ -25,6 +25,7 @@ interface CartState {
   cartId: string | null;
   itemCount: number;
   itemAddedToCart: boolean;
+  expressProducts: boolean
 }
 
 // Initial state for the cart
@@ -41,6 +42,7 @@ const initialState: CartState = {
   cartId: null,
   itemCount: 0,
   itemAddedToCart: false,
+  expressProducts: false
 };
 
 // Async thunk to fetch cart items
@@ -55,8 +57,8 @@ export const fetchCartItems = createAsyncThunk(
         itemCount: response.data.cartData
           ? response.data.cartData.itemCount
           : 0, // Set itemCount to 0 if cartData is null
-        expressProducts: response.data.cartData?.expressProducts || [],
-        subscribedProducts: response.data.cartData?.subscribedProducts || [],
+        expressProducts: response.data.cartData?.expressProducts || false,
+        subscribedProducts: response.data.cartData?.subscribedProducts || false,
       };
     } else {
       throw new Error(response.message || "Failed to fetch cart items");
@@ -69,8 +71,9 @@ export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async (item: CartItem, { dispatch }) => {
     const response = await cartApi.addToCart(item);
+
     if (response.status) {
-      toast.success(response.message);
+      // toast.success(response.message);
       await dispatch(fetchCartItems());
       return response.data;
     } else {
@@ -107,7 +110,7 @@ export const removeFromCart = createAsyncThunk(
       productId: string;
       storeId?: string;
       isSubProduct: boolean;
-      subProductId?: string;
+      subProductId?: string | null
     },
     { dispatch, rejectWithValue }
   ) => {
@@ -116,7 +119,7 @@ export const removeFromCart = createAsyncThunk(
       if (!response.status) {
         throw new Error("Failed to remove item from cart");
       }
-      toast.success("Item removed from cart!");
+      // toast.success("Item removed from cart!");
       await dispatch(fetchCartItems());
       return item.productId;
     } catch (error: any) {
@@ -146,6 +149,7 @@ const cartSlice = createSlice({
         state.items = action.payload.items;
         state.cartId = action.payload.cartId;
         state.itemCount = action.payload.itemCount;
+        state.expressProducts = action.payload.expressProducts;
       })
       .addCase(fetchCartItems.rejected, (state, action) => {
         state.loading = false;

@@ -33,15 +33,15 @@ const Categories: React.FC = () => {
     router.push("/categories");
   };
 
-  const handleClickProducts = (id: string) => {
-    router.push(`/products-by-category?id=${encodeURIComponent(id)}`);
+  const handleClickProducts = (id: string, name: string) => {
+    router.push(`/products-by-category?id=${encodeURIComponent(id)}&name=${encodeURIComponent(name)}`);
   };
 
   const renderCategoryItem = (category: Category) => (
     <div
       key={category._id}
       className="flex-shrink-0 cursor-pointer"
-      onClick={() => handleClickProducts(category._id)}
+      onClick={() => handleClickProducts(category._id, category.categoryName)}
     >
       <CategoriesCard
         imageSrc={category.categoryImage}

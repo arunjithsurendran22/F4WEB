@@ -35,17 +35,11 @@ export const subscriptionApi = {
   },
 
   // Verify payment of an order
-  verifyPayment: async (paymentData: any, headers: any = {}) => {
+  verifyPayment: async (id: string) => {
     try {
       // Combine the default headers with the custom headers
       const response = await api.post(
-        ENDPOINTS.SUBSCRIPTION.VERIFY_PAYMENT,
-        paymentData,
-        {
-          headers: {
-            ...headers, // Spread any additional headers
-          },
-        }
+        ENDPOINTS.SUBSCRIPTION.VERIFY_PAYMENT(id),
       );
       return response.data;
     } catch (error: any) {

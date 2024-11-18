@@ -48,7 +48,7 @@ function Navbar() {
             <div className="xl:w-6/12">
               <Location />
             </div>
-            <div className="xl:w-6/12 flex justify-end">
+            <div className="xl:w-6/12 justify-end">
               {/* Hide Icons on xl screens */}
               <div className="hidden xl:flex">
                 <Icons />

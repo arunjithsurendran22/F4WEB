@@ -13,10 +13,11 @@ import { toast } from "react-hot-toast";
 import { fetchCartItems } from "@/store/cartSlice";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useRouter } from "next/navigation";
+import { fetchNotifications } from "@/store/notificationSlice";
 
 interface CashOnDeliveryProps {
   addressId: string;
-  timeSlotId: string;
+  timeSlotId: string | null;
   cartId: string;
 }
 
@@ -32,6 +33,7 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
     coinsAmount = 0,
   } = useSelector((state: RootState) => state.cart);
   const storeId = useSelector((state: RootState) => state.location.storeId);
+  if(!timeSlotId) timeSlotId = null;
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -44,10 +46,10 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
   const handleCheckout = async () => {
-    if (grandTotal <= 0) {
-      console.error("Total amount must be greater than 0 to proceed.");
-      return;
-    }
+    // if (grandTotal <= 0) {
+    //   console.error("Total amount must be greater than 0 to proceed.");
+    //   return;
+    // }
     setIsLoading(true);
     const orderData = {
       cartId,
@@ -63,19 +65,39 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
 
     try {
       const result = await ordersApi.createCodPayment(orderData);
-      if (result) setIsLoading(false);
-      toast.error(result.message);
+      setIsLoading(false);
+      if(result.status){
+        toast.success(result.message);
+      }else{
+        toast.error(result.message);
+      }
       if (result.data.orderDetails) {
         setOrdersId(result.data.orderDetails.orderId);
         setIsSuccessModalOpen(true);
       }
     } catch (error) {
       console.error("Error creating COD payment:", error);
+    }finally{
+      setIsLoading(false);
     }
+
   };
 
   const handleCloseModal = () => {
     dispatch(fetchCartItems());
+    setIsReviewModalOpen(false);
+    router.push("/");
+  };
+
+  const handleCloseSuccessModal = () => {
+    setIsSuccessModalOpen(false);
+    setIsReviewModalOpen(true);
+  };
+
+  const handleCloseReviewModal = () => {
+    setIsReviewModalOpen(false);
+    dispatch(fetchCartItems() as any);
+    dispatch(fetchNotifications({storeId}) as any)
     setIsReviewModalOpen(false);
     router.push("/");
   };
@@ -101,6 +123,7 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
             textColor="text-white"
             width="w-full"
             onClick={handleCheckout}
+            disabled = {isLoading}
           >
             {isLoading ? <SpinnerLoader /> : "Checkout"}
           </Button>
@@ -109,29 +132,26 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
 
       <Modal
         isOpen={isSuccessModalOpen}
-        onClose={() => setIsSuccessModalOpen(false)}
+        onClose={handleCloseSuccessModal}
         title=""
         showCloseButton={false}
         backgroundClickClose={false}
       >
         <SuccessfullCard
           grandTotal={grandTotal}
-          onContinue={() => {
-            setIsSuccessModalOpen(false);
-            setIsReviewModalOpen(true);
-          }}
+          onContinue={handleCloseSuccessModal}
         />
       </Modal>
 
       <Modal
         isOpen={isReviewModalOpen}
-        onClose={handleCloseModal}
+        onClose={handleCloseReviewModal}
         title=""
         showCloseButton={true}
         backgroundClickClose={false}
       >
         <div className="p-4">
-          <ReviewCard orderId={ordersId} closeModal={handleCloseModal} />
+          <ReviewCard orderId={ordersId} closeModal={handleCloseReviewModal} />
         </div>
       </Modal>
     </div>

@@ -10,9 +10,11 @@ import { Provider } from "react-redux";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Subscribe from "@/page-components/home/components/subscribe/Subscribe";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { store } from "@/store";
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
+import { useRouter, usePathname } from "next/navigation";
+import { useScreenSize } from "@/hooks/useScreenSize";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700"],
@@ -26,13 +28,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const screenWidth = useScreenSize();
+
+  useEffect(() => {
+    if (screenWidth && screenWidth < 768 && pathname !== '/download') {
+      router.replace('/download');
+    }
+  }, [screenWidth, router]);
+
+  const isDownloadPage = pathname === '/download';
+
   return (
     <html lang="en">
+      <head>
+        <link
+        rel="icon"
+        href="icon.png"
+        type="image/png"
+        sizes="any"
+      />
+      </head>
       <body className={plusJakartaSans.className}>
         <Provider store={store}>
           {/* Global Navbar */}
-          <Navbar />
-          <Header />
+          {!isDownloadPage && (
+            <>
+              {/* Global Navbar */}
+              <Navbar />
+              <Header />
+            </>
+          )}
 
           {/* Main Page Content */}
           <main className="min-h-96">
@@ -46,9 +73,13 @@ export default function RootLayout({
               {children}
             </Suspense>
           </main>
-          <Subscribe />
-          {/* Global Footer */}
-          <Footer />
+          {!isDownloadPage && (
+            <>
+              <Subscribe />
+              {/* Global Footer */}
+              <Footer />
+            </>
+          )}
 
           {/* Toast Notifications */}
           <Toaster />

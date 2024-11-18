@@ -7,6 +7,7 @@ import BannerTwo from "./components/bannerTwo/BannerTwo";
 import TrendingNow from "./components/trendingNow/TrendingNow";
 import Recomended from "./components/Recomended/Recomended";
 import Subscribed from "./components/subscribed/Subscribed";
+import Express from "./components/Express/Express";
 
 function HomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,6 +35,7 @@ function HomePage() {
       </div>
       {isLoggedIn && <Subscribed />}
       <div className="px-14 py-5">
+        <Express/>
         <Recomended />
         <TrendingNow />
         <BannerTwo />

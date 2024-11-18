@@ -9,16 +9,18 @@ interface InputBoxProps {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onButtonClick?: () => void;
   clearInput?: boolean; // New prop for clearing input
+  input?: string;
 }
 
-const InputBoxCloseButton: FC<InputBoxProps> = ({
+const InputBoxCloseButton2: FC<InputBoxProps> = ({
   label,
-  placeholder = "Enter text",
+  placeholder = "Search for your place",
   onChange,
   onButtonClick,
   clearInput, // Destructure clearInput prop
+  input
 }) => {
-  const [inputValue, setInputValue] = useState(""); // Local input state
+  const [inputValue, setInputValue] = useState( input || ""); // Local input state
 
   // Effect to clear the input box when clearInput becomes true
   useEffect(() => {
@@ -60,4 +62,4 @@ const InputBoxCloseButton: FC<InputBoxProps> = ({
   );
 };
 
-export default InputBoxCloseButton;
+export default InputBoxCloseButton2;

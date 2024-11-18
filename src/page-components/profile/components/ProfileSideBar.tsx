@@ -81,6 +81,11 @@ const ProfileSideBar: React.FC = () => {
             label: "Terms and Conditions",
             icon: "/icons/contact_page.png",
           },
+          {
+            href: "/profile/help-and-support",
+            label: "Help and Support",
+            icon: "/icons/support_agent.png",
+          },
         ].map((item) => (
           <li
             key={item.href}

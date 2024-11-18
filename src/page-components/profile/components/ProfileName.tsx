@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfileDetails } from "@/store/profileSlice";
@@ -31,7 +31,7 @@ function ProfileName() {
       </div>
       <div>
         <Link
-          href={`/profile/edit-profile?name=${profile.name}&&email=${profile.email}`}
+          href={`/profile/edit-profile?name=${profile.name}&&email=${profile.email}&&mobileNumber=${profile.mobileNumber}`}
         >
           <Image
             src="/icons/Editprofile.png"

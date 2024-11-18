@@ -15,6 +15,8 @@ import toast from "react-hot-toast";
 import { fetchFavourites } from "@/store/wishListSlice";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from "@/hooks/useAppSelector";
+import { fetchCartItems } from "@/store/cartSlice";
+import { fetchNotifications } from "@/store/notificationSlice";
 
 function Icons() {
   const dispatch = useAppDispatch();
@@ -22,6 +24,10 @@ function Icons() {
   const loading = useSelector((state: RootState) => state.cart.loading);
   const count = useSelector((state: RootState) => state.wishList.count);
   const storeId = useAppSelector((state: RootState) => state.location.storeId);
+  const notitificationResponse = useSelector((state: RootState) => state.notification.notifications);
+
+  const [notifications, setNotifications] = useState<Notification[]>(notitificationResponse);
+
 
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
   const [isProfilePopupVisible, setProfilePopupVisible] =
@@ -49,6 +55,14 @@ function Icons() {
   useEffect(() => {
     setWishListCount(count);
   }, [count, loading]);
+
+  useEffect(() => {
+    setNotifications(notitificationResponse);
+    //.log(notitificationResponse)
+    setNotificationCount(notitificationResponse.filter((n: any) => !n.viewStatus).length)
+
+  }, [notitificationResponse]);
+
   useEffect(() => {
     const fetchFavorites = async ({
       storeId,
@@ -63,6 +77,29 @@ function Icons() {
     };
 
     fetchFavorites({ storeId });
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchNotification = async ({
+      storeId,
+    }: {
+      storeId: string | null | undefined;
+    }) => {
+      try {
+        await dispatch(fetchNotifications({ storeId }) as any);
+      } catch (error) {
+        console.error("Error fetching favourites:", error);
+      }
+    };
+
+    fetchNotification({ storeId });
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      const action = await dispatch(fetchCartItems() as any);
+    };
+    fetchItems();
   }, [dispatch]);
 
   const toggleSidebar = () => {
@@ -103,7 +140,9 @@ function Icons() {
   };
 
   const onNotificationCountChange = (count: number) => {
-    setNotificationCount(count);
+    // if(count != notificationCount){
+    //   setNotificationCount(count);
+    // }
   };
 
   const checkAccessible = () => {
@@ -219,11 +258,12 @@ function Icons() {
 
       <Link href={isLoggedIn ? `/profile` : ""} onClick={checkAccessible}>
         <Image
-          src="/icons/king.svg"
+          src="/icons/king.gif"
           alt="king Icon"
           width={32}
           height={32}
-          className="hover:opacity-80 transition-opacity duration-200 cursor-pointer"
+          style={{ width: '50px', height: '50px' }}
+          className=" absolute top-7 hover:opacity-80 transition-opacity duration-200 cursor-pointer"
         />
       </Link>
 

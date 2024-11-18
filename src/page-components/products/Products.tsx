@@ -193,6 +193,10 @@ const Products: React.FC = () => {
                     subscriptionProduct={product.subscriptionProduct}
                     express={product.express}
                     storeId={storeId}
+                    unit={product.unit}
+                    quantity={product.quantity}
+                    width="w-full" 
+                    imgHeight="h-auto"
                   />
                 </div>
               ))}

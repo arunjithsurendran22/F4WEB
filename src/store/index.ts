@@ -6,6 +6,7 @@ import locationReducer from "./locationSlice";
 import wishListReducer from "./wishListSlice";
 import profileReducer from "./profileSlice";
 import addressReducer from "./addressSlice";
+import notificationReducer from "./notificationSlice"
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     wishList: wishListReducer,
     profile: profileReducer,
     address: addressReducer,
+    notification: notificationReducer
   },
 });
 

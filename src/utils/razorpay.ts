@@ -44,7 +44,6 @@ export const initiatePayment = async (paymentData: PaymentOptions): Promise<Razo
             order_id: paymentData.order_id, // Use order_id obtained from your server
             handler: function (response: RazorpayPaymentResponse) {
                 // Handle successful payment here
-                console.log(response);
                 resolve(response); // Resolve with the response
             },
             modal: {

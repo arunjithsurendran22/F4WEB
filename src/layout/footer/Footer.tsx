@@ -91,7 +91,7 @@ function Footer() {
                 <li className="text-customGrayLight2">
                   {" "}
                   <Link
-                    href={isLoggedIn ? "/profile" : ""}
+                    href={isLoggedIn ? "/profile/my-orders" : ""}
                     onClick={checkAccessible}
                   >
                     Order History{" "}

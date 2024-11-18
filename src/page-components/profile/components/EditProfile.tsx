@@ -11,6 +11,7 @@ function EditProfile() {
   const searchParams = useSearchParams();
   const userName = searchParams.get("name") ?? "";
   const userEmail = searchParams.get("email") ?? "";
+  const userMobile = searchParams.get("mobileNumber") ?? "";
   const [fullName, setFullName] = useState(userName);
   const [email, setEmail] = useState(userEmail);
   const [loading, setLoading] = useState(false);
@@ -26,15 +27,13 @@ function EditProfile() {
       email: email,
     };
 
-    setLoading(true); // Start loading
+    setLoading(true);
 
     try {
-      // Call the API to update profile
       const response = await profileApi.updateProfile(formData);
 
       if (response.data) {
         toast.success(response.message);
-        console.log("Profile updated successfully:", response);
         router.push("/profile");
       }
 
@@ -44,7 +43,7 @@ function EditProfile() {
       console.error("Failed to update profile:", error);
       toast.error(error.message);
     } finally {
-      setLoading(false); // End loading
+      setLoading(false);
     }
   };
 
@@ -68,6 +67,15 @@ function EditProfile() {
         />
       </div>
       <div className="mt-8">
+        <InputBoxWithBorderBlue
+          label="Mobile Number"
+          value={userMobile}
+          placeHolder="Mobile number"
+          onChange={() => {}}
+          readOnly
+        />
+      </div>
+      <div className="mt-8">
         <Button
           width="w-full"
           height="h-14"
@@ -76,7 +84,7 @@ function EditProfile() {
           textColor="text-customGrayLight2"
           fontWeight="font-medium"
           onClick={handleFormSubmit}
-          disabled={loading} // Disable button when loading
+          disabled={loading}
         >
           {loading ? "Saving..." : "Save Changes"}
         </Button>

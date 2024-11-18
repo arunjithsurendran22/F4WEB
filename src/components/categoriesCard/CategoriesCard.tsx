@@ -17,7 +17,7 @@ const CategoriesCard: React.FC<CategoriesCardProps> = ({ imageSrc, title }) => {
           height={80} // Height in pixels
           className="rounded-full object-contain" // You can apply the same styling as before
         />
-        <div className="text-center">
+        <div className="text-center pt-2">
           <h3 className="text-md font-semibold">{title}</h3>
         </div>
       </div>

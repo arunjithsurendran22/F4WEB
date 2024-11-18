@@ -55,6 +55,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ id }) => {
           images={product.images || []}
           expressProduct={product.express}
           subscribedProduct={product.subscriptionProduct}
+          unit={product.unit}
+          quantity={product.quantity}
           storeId={storeId}
         />
       ) : (

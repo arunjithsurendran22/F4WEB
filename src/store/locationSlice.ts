@@ -91,10 +91,10 @@ export const fetchNearbyStores = createAsyncThunk(
   ) => {
     try {
       const response = await storeApi.getNearbyStores(latitude, longitude);
-      const messageData = "Store fetched successfully";
-      if (response.message !== messageData) {
-        toast.error(response.message);
-      }
+      //const messageData = "Store fetched successfully";
+      // if (response.message !== messageData) {
+      //   toast.error(response.message);
+      // }
 
       if (response.data && response.data.store) {
         const state = getState() as { location: LocationState };
@@ -111,12 +111,16 @@ export const fetchNearbyStores = createAsyncThunk(
         dispatch(setStoreId(response.data.store._id));
         return storeData;
       } else {
+        toast.error(response.message);
         throw new Error("No stores available near this location!");
       }
     } catch (error) {
       const previousStoreData = loadPreviousStoreData();
 
       if (previousStoreData.currentAddress) {
+        if(previousStoreData.latitude && previousStoreData.longitude){
+          dispatch(setLatLong({ lat: previousStoreData.latitude, lng: previousStoreData.longitude }));
+        }
         return {
           ...previousStoreData,
           availableStore: false,

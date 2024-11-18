@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { ordersApi } from "@/services/ordersService";
 import toast from "react-hot-toast";
@@ -9,6 +9,8 @@ import Modal from "@/components/ui/modal/Modal";
 import SuccessfullCard from "@/components/successfullCard/SuccessfullCard";
 import ReviewCard from "@/components/reviewCard/ReviewCard";
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
+import { fetchCartItems } from "@/store/cartSlice";
+import { fetchNotifications } from "@/store/notificationSlice";
 
 interface OrderStatusProps {
     orderId: string;
@@ -18,6 +20,7 @@ const OrderStaus: React.FC<OrderStatusProps> = ({
     orderId
 }) => {
     const router = useRouter();
+    const dispatch = useDispatch();
     const storeId = useSelector((state: RootState) => state.location.storeId);
 
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -31,7 +34,7 @@ const OrderStaus: React.FC<OrderStatusProps> = ({
         const verifyPayment = async () => {
             try {
                 const response = await ordersApi.verifyPayment(orderId);
-                console.log(response)
+                
                 if (response && response.status) {
                     if (response.data && response.data.paymentStatus) {
                         if (response.data.paymentStatusCode == 'PAYMENT_SUCCESS') {
@@ -79,6 +82,8 @@ const OrderStaus: React.FC<OrderStatusProps> = ({
 
     const handleCloseReviewModal = () => {
         setIsReviewModalOpen(false);
+        dispatch(fetchCartItems() as any);
+        dispatch(fetchNotifications({storeId}) as any)
     };
 
     const handleGoHome = () => {

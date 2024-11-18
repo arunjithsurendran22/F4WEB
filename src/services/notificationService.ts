@@ -2,9 +2,10 @@ import { ENDPOINTS } from "@/api/apiConfiguration";
 import api from "@/api/axios";
 
 interface NotificationApiResponse {
-  data: Array<any>;
-  success: boolean;
+  data: any;
+  status: boolean;
   message: string;
+  count? :number
 }
 
 export const notificationsApi = {

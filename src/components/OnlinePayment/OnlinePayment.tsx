@@ -17,10 +17,11 @@ import { initiatePayment } from "@/utils/razorpay";
 import toast from "react-hot-toast";
 import SpinnerLoader from "../ui/SpinnerLoader/SpinnerLoader";
 import { useRouter } from "next/navigation";
+import { fetchNotifications } from "@/store/notificationSlice";
 
 interface OnlinePaymentProps {
   addressId: string;
-  timeSlotId: string;
+  timeSlotId: string | null;
   cartId: string;
 }
 
@@ -38,8 +39,9 @@ const OnlinePayment: React.FC<OnlinePaymentProps> = ({
     coinsAmount = 0,
   } = useSelector((state: RootState) => state.cart);
   const storeId = useSelector((state: RootState) => state.location.storeId);
+  if(!timeSlotId) timeSlotId = null;
 
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [ordersId, setOrdersId] = useState<string | null>(null);
@@ -97,13 +99,12 @@ const OnlinePayment: React.FC<OnlinePaymentProps> = ({
     try {
       dispatch(setCartUpdated(true));
       const response = await ordersApi.createPayment(paymentData);
-      console.log(response);
       if (!response || !response.status) {
         setIsLoading(false);
         toast.error(response.message);
       } else {
         const { paymentOrderDetails } = response.data;
-
+        setIsLoading(false);
         const url = paymentOrderDetails.instrumentResponse.redirectInfo.url;
         router.push(url);
 
@@ -163,7 +164,7 @@ const OnlinePayment: React.FC<OnlinePaymentProps> = ({
   const handleCloseReviewModal = () => {
     setIsReviewModalOpen(false);
     dispatch(fetchCartItems() as any);
-    setIsReviewModalOpen(false);
+    dispatch(fetchNotifications({storeId}) as any)
     router.push("/");
   };
 
@@ -211,7 +212,7 @@ const OnlinePayment: React.FC<OnlinePaymentProps> = ({
         isOpen={isReviewModalOpen}
         onClose={handleCloseReviewModal}
         title=""
-        showCloseButton={true}
+        showCloseButton={false}
         showCloseBtnRounded={true}
         backgroundClickClose={false}
       >

@@ -14,9 +14,11 @@ function MyAddress() {
       try {
         const response = await addressApi.setDefaultPrimary(defaultAddressId);
 
-        if (response.message === "Address updated successfully") {
-          toast.success("set as address default");
+        if (response.status) {
+          toast.success("Success! Default address changed!");
           setRefetchAddress(true)
+        }else {
+          toast.error(response.message)
         }
         
       } catch (error) {

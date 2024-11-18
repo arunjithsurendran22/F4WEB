@@ -37,10 +37,10 @@ function MyOrders() {
           key={order._id}
           id={order._id}
           orderId={order.orderId}
-          productName={order.items[0].product.name} // Use the first item's product name
+          productName={order.items[0].isSubProduct ? order.items[0].subProduct.name : order.items[0].product.name} // Use the first item's product name
           status={titleCase(order.orderStatus)}
-          price={order.subTotal}
-          imageSrc={order.items[0].product.thumbnail} // Use the first item's product image
+          price={order.grandTotal}
+          imageSrc={order.items[0].isSubProduct ? order.items[0].subProduct.thumbnail : order.items[0].product.thumbnail} // Use the first item's product image
           onClick={() => handleDetailsClick(order.orderId)}
         />
       ))}

@@ -2,16 +2,16 @@
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import { categoryApi } from "@/services/categoryService";
 import React, { useEffect, useState } from "react";
-import { FaChevronUp, FaChevronDown } from "react-icons/fa"; 
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 interface Category {
-  _id: string; 
-  categoryName: string; 
+  _id: string;
+  categoryName: string;
 }
 
 interface PopularCategoryFilterProps {
   selectedCategory: string | null;
-  setSelectedCategory: (categoryId: string) => void; 
+  setSelectedCategory: (categoryId: string) => void;
 }
 
 const PopularCategoryFilter: React.FC<PopularCategoryFilterProps> = ({
@@ -29,9 +29,8 @@ const PopularCategoryFilter: React.FC<PopularCategoryFilterProps> = ({
     const fetchPopularCategories = async () => {
       try {
         const response = await categoryApi.getPopularCategories();
-        console.log(response);
-        const categories: Category[] = response.data.categories; 
-        setPopularCategories(categories); 
+        const categories: Category[] = response.data.categories;
+        setPopularCategories(categories);
       } catch (error) {
         console.error("Error fetching popular categories:", error);
         setError("Failed to load popular categories.");
@@ -59,31 +58,35 @@ const PopularCategoryFilter: React.FC<PopularCategoryFilterProps> = ({
 
       {expanded && (
         <div className="text-sm font-normal mt-5 mb-5">
-          <div className="grid grid-cols-3 gap-4">
-            {loading ? ( 
+          <div className="grid grid-cols-3 gap-2">
+            {loading ? (
               <div className="flex justify-center items-center col-span-3 h-24">
-                {/* Center loader */}
                 <SpinnerLoader />
               </div>
             ) : (
               popularCategories.map((category) => (
                 <div
-                  key={category._id} 
-                  className={`border border-customGrayLight text-[9px] h-10 rounded-full items-center flex justify-center font-semibold text-customGrayLight2 
-                    cursor-pointer // Always allow cursor pointer
+                  key={category._id}
+                  className={`border border-customGrayLight text-[12px] h-10 rounded-full items-center flex justify-center font-semibold text-customGrayLight2 
+                    cursor-pointer 
                     ${
                       category._id === selectedCategory
                         ? "bg-customBlueLight"
                         : "hover:bg-customBlueLight3"
                     }`}
-                  style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} 
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  title={category.categoryName} // Tooltip added here
                   onClick={() => {
-                    setSelectedCategory(category._id); 
+                    setSelectedCategory(category._id);
                   }}
                 >
-                  {category.categoryName.length > 10 
-                    ? `${category.categoryName.substring(0, 10)}..` 
-                    : category.categoryName} 
+                  {category.categoryName.length > 10
+                    ? `${category.categoryName.substring(0, 10)}..`
+                    : category.categoryName}
                 </div>
               ))
             )}

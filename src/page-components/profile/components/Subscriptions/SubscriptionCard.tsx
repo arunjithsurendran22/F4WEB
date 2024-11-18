@@ -62,28 +62,28 @@ const subscribe = async (_id: string) => {
       responsePayment;
 
     // Verify payment
-    const verificationResponse = await subscriptionApi.verifyPayment(
-      {
-        order_id: razorpay_order_id,
-        payment_id: razorpay_payment_id,
-      },
-      {
-        headers: {
-          "x-razorpay-signature": razorpay_signature, // Send the Razorpay signature in the header
-        },
-      }
-    );
+    // const verificationResponse = await subscriptionApi.verifyPayment(
+    //   {
+    //     order_id: razorpay_order_id,
+    //     payment_id: razorpay_payment_id,
+    //   },
+    //   {
+    //     headers: {
+    //       "x-razorpay-signature": razorpay_signature, // Send the Razorpay signature in the header
+    //     },
+    //   }
+    // );
 
-    console.log("Payment Verification Response:", verificationResponse);
+    // console.log("Payment Verification Response:", verificationResponse);
 
-    // Assuming payment verification is successful
-    if (verificationResponse.data.subscriptionDetails) {
-      toast.success("Success! Subscription activated");
-      //window.location.reload() 
-      typeof window !== "undefined" ? window.location.reload() : '';
-    } else {
-      toast.error("Payment verification failed. Please try again.");
-    }
+    // // Assuming payment verification is successful
+    // if (verificationResponse.data.subscriptionDetails) {
+    //   toast.success("Success! Subscription activated");
+    //   //window.location.reload() 
+    //   typeof window !== "undefined" ? window.location.reload() : '';
+    // } else {
+    //   toast.error("Payment verification failed. Please try again.");
+    // }
 
   } catch (error: any) {
     console.error("Payment failed:", error.message || error);

@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Button from "@/components/ui/Buttons/Button";
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import Address from "@/page-components/address/Address";
+import toast from "react-hot-toast";
 
 function SelectAddress() {
   const router = useRouter();
@@ -22,7 +23,7 @@ function SelectAddress() {
         `/cart/blockDeliverySlot?addressId=${selectedAddressId}&&cartId=${cartId}`
       );
     } else {
-      console.warn("No address selected.");
+      toast.error("Select an address or add new address to proceed");
       setLoading(false);
     }
   };
@@ -33,7 +34,7 @@ function SelectAddress() {
         navigationUrl="/cart/cartAddAddress"
         onAddressSelect={setSelectedAddressId}
       />
-      <div className="flex justify-end w-5/12 mb-5 mt-5">
+      <div className="flex justify-center w-full mb-5 mt-5">
         <Button
           borderRadius="rounded-xl"
           backgroundColor="bg-customBlueLight"

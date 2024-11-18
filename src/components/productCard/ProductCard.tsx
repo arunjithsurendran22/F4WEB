@@ -36,6 +36,8 @@ interface ProductCardProps {
   storeId?: string;
   width?: string;
   imgHeight?: string;
+  unit?: string;
+  quantity?: number
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -53,6 +55,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   storeId,
   width = "w-72",
   imgHeight = "h-52",
+  unit,
+  quantity
 }) => {
   const loggedIn = useSelector((state: RootState) => state.profile.loggedIn);
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
@@ -76,7 +80,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const handleNavigate = (id: string) => {
-    router.push(`productDetails/${id}`);
+    router.push(`/productDetails/${id}`);
   };
 
   const handleAddToCart = async () => {
@@ -99,7 +103,29 @@ const ProductCard: React.FC<ProductCardProps> = ({
       };
       try {
         const response = await dispatch(addToCart(item) as any).unwrap();
-        if (response.cartData) setIsProductInCart(true);
+        if (response.cartData) {
+          setIsProductInCart(true);
+          toast.success("🛒 Item added to your cart!", {
+            style: {
+              background: "linear-gradient(135deg, #005FA8, #002E59)",
+              color: "#fff",
+              fontSize: "16px",
+              fontStyle: "italic",
+              fontWeight: "bold",
+              borderRadius: "12px",
+              padding: "16px 24px",
+              boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+              border: "2px solid #005FA8",
+              transform: "scale(1)",
+              transition: "transform 0.2s ease",
+            },
+            iconTheme: {
+              primary: "#00FF00",
+              secondary: "#002E59",
+            },
+            duration: 3000,
+          });
+        }
       } catch (error: any) {
         console.error("Error adding to cart:", error.message);
         toast.error(error.message || "An error occurred while adding to cart.");
@@ -113,7 +139,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         const responseCart = await dispatch(fetchCartItems() as any).unwrap();
 
         const productInCart = responseCart.items.find(
-          (item: any) => item.product._id === _id
+          (item: any) => item.isSubProduct ? (item.subProduct._id === _id) : (item.product._id === _id)
         );
         setIsProductInCart(!!productInCart);
         if (productInCart) {
@@ -144,7 +170,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       subProductId: "",
       cartQuantity: newQuantity,
       subscribedProduct: subscriptionProduct,
-      expressProduct: false,
+      expressProduct: express,
     };
 
     try {
@@ -172,6 +198,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
       setIsProductInCart(false);
       dispatch(setCartUpdated(true));
       setItemQuantity(1);
+      toast.error("🗑️ Item removed from your cart!", {
+        style: {
+          background: "linear-gradient(135deg, #FF4C4C, #D32F2F)",
+          color: "#fff",
+          fontSize: "16px",
+          fontWeight: "bold",
+          fontStyle: "italic",
+          borderRadius: "12px",
+          padding: "16px 24px",
+          boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+          border: "2px solid #FF4C4C",
+          transform: "scale(1)",
+          transition: "transform 0.2s ease",
+        },
+        iconTheme: {
+          primary: "#FF0000",
+          secondary: "#D32F2F",
+        },
+        duration: 3000,
+      });
     } catch (error: any) {
       console.error("Error removing from cart:", error.message);
       toast.error(
@@ -182,7 +228,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const checkFavoriteStatus = async () => {
     try {
-      const response = await favouriteApi.getFavourites({storeId});
+      const response = await favouriteApi.getFavourites({ storeId });
       if (response.status && response.statusCode === 200) {
         const favoriteProducts = response.data.products;
         const isFavorite = favoriteProducts.some(
@@ -212,7 +258,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           toast.success("Removed from wishlist");
         }
 
-        const updatedResponse = await favouriteApi.getFavourites({storeId});
+        const updatedResponse = await favouriteApi.getFavourites({ storeId });
         if (updatedResponse.status && updatedResponse.data) {
           const productCount = updatedResponse.data.products.length;
           dispatch(setCount(productCount));
@@ -238,20 +284,29 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
+  const formattedDiscount = (discount: any) => {
+    return discount ? Number.isInteger(discount)
+      ? discount.toFixed(0) // No decimal places
+      : discount.toFixed(2) // Round to 2 decimal places 
+      : '0';
+  }
+
   return (
     <div
       key={_id}
       className={`${width} md:w-48 lg:w-52 xl:w-60  rounded-3xl shadow-xl hover:shadow-lg transition-shadow relative`}
     >
       {/* Offer badge */}
-      {discountPercentage &&
-      <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
-        <div className="flex items-center">
-          <p className="text-lg font-medium">{discountPercentage?.toFixed(2)}%</p>
-          <p className="ml-2 text-md mt-1 text-gray-200">OFF</p>
+      {discountPercentage ? (
+        <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
+          <div className="flex items-center">
+            <p className="text-lg font-medium">
+              {formattedDiscount(discountPercentage)}%
+            </p>
+            <p className="ml-2 text-md mt-1 text-gray-200">OFF</p>
+          </div>
         </div>
-      </div>
-      }
+      ) : ''}
 
       {/* Love icon */}
       <div className="absolute top-3 right-3 bg-white text-white p-[.3rem] rounded-full">
@@ -260,9 +315,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onClick={handleAddToWishList}
         >
           <FaHeart
-            className={`${
-              isAddedWish ? "text-customRed3" : "text-customGrayLight2"
-            }`}
+            className={`${isAddedWish ? "text-customRed3" : "text-customGrayLight2"
+              }`}
           />
         </div>
       </div>
@@ -293,20 +347,34 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Title */}
-        <div className="h-16">
-          <h3 className="text-lg font-semibold mb-2 whitespace-normal overflow-visible md:text-sm lg:text-[1rem]">
+        <div className="h-14">
+          <h3 className="text-lg font-semibold mb-1 whitespace-normal overflow-visible md:text-sm lg:text-[1rem]">
             {title}
           </h3>
         </div>
 
+        <p className="text-sm text-customBlueLight font-semibold">
+            {quantity} {unit}
+          </p>
+
         {/* Price and Button */}
         <div className="flex items-center justify-between space-x-1 ">
-          <p className=" font-bold text-gray-800">₹{price}</p>
-          {(originalPrice > price) && (
-            <p className=" line-through text-customRed font-medium">
-              ₹{originalPrice}
-            </p>
-          )}
+          {
+            !subscriptionProduct ? (
+
+              <div className="flex items-center justify-between space-x-1">
+
+                <p className=" font-bold text-gray-800">₹{price}</p>
+                {originalPrice > price && (
+                  <p className=" line-through text-customRed font-medium">
+                    ₹{originalPrice}
+                  </p>
+                )}
+
+              </div>
+
+            ) : ''
+          }
 
           {/* Button */}
           {isProductInCart ? (

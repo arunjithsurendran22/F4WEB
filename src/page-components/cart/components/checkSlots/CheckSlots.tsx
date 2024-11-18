@@ -32,6 +32,8 @@ function CheckSlots() {
   const cartId = searchParams?.get("cartId") ?? undefined;
   const [slotsData, setSlotsData] = useState<SlotGroup[]>([]);
   const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const storeId = useSelector((state: RootState) => state.location.storeId);
 
   useEffect(() => {
@@ -58,15 +60,18 @@ function CheckSlots() {
       );
 
       setSlotsData(formattedSlotsData);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching time slots:", error);
+    } finally {
+      setLoading(false)
     }
   };
 
   const handleSlotSelection = (date: string, slot: Slot) => {
     router.push(
       `/cart/blockDeliverySlot?slot=${encodeURIComponent(
-        `${slot.fromTime} - ${slot.toTime}`
+        `${date} , ${slot.fromTime} - ${slot.toTime}`
       )}&slotId=${slot._id}&addressId=${addressId}&cartId=${cartId}`
     );
   };
@@ -95,8 +100,8 @@ function CheckSlots() {
       </div>
 
       {/* Grid layout for dates and slots */}
-      <div className="grid grid-cols-2 gap-6 w-6/12">
-        {slotsData.length === 0 ? ( // Check if there are no slots
+      {/* <div className="grid grid-cols-2 gap-6 w-6/12">
+        {(!loading && slotsData.length === 0) ? ( // Check if there are no slots
           <div className="col-span-2 text-center text-gray-500">
             <Sorry />
             <h3 className="text-lg font-semibold italic">No Slots Available</h3>
@@ -116,6 +121,38 @@ function CheckSlots() {
                   <div
                     key={slotIndex}
                     className="p-2 border rounded-full bg-customBlueLight2 cursor-pointer text-customBlueLight font-medium text-lg mb-5"
+                    onClick={() => handleSlotSelection(slotInfo.date, slot)}
+                  >
+                    {`${slot.fromTime} - ${slot.toTime}`}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        )}
+      </div> */}
+      {/* Grid layout for dates and slots */}
+      <div className="grid grid-cols-2 gap-x-6 gap-y-8 w-6/12">
+        {(!loading && slotsData.length === 0) ? ( // Check if there are no slots
+          <div className="col-span-2 text-center text-gray-500">
+            <Sorry />
+            <h3 className="text-lg font-semibold italic">No Slots Available</h3>
+            <p
+              className="italic underline text-customBlueLight cursor-pointer"
+              onClick={openSidebar}
+            >
+              Search Near by store
+            </p>
+          </div>
+        ) : (
+          slotsData.map((slotInfo, index) => (
+            <div key={index} className="flex flex-col space-y-3">
+              <h2 className="font-semibold text-lg">{slotInfo.date}</h2>
+              <div className="grid gap-2">
+                {slotInfo.slots.map((slot, slotIndex) => (
+                  <div
+                    key={slotIndex}
+                    className="p-2 border rounded-full bg-customBlueLight2 cursor-pointer text-customBlueLight font-medium text-lg"
                     onClick={() => handleSlotSelection(slotInfo.date, slot)}
                   >
                     {`${slot.fromTime} - ${slot.toTime}`}

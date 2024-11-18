@@ -6,7 +6,6 @@ import Button from "../ui/Buttons/Button";
 import { ordersApi } from "@/services/ordersService";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
-import { fetchCartItems, setCartUpdated } from "@/store/cartSlice";
 import { toast } from "react-hot-toast";
 
 interface ReviewCardProps {
@@ -35,7 +34,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ orderId, closeModal }) => {
     try {
       if (orderId) {
         const response = await ordersApi.addRating(orderId, rating, review);
-        toast.error(response.message);
+        if(!response.status) toast.error(response.message);
         if (response.data) {
           toast.success(
             "🎉 Thank you for your review! Your feedback helps us improve!",

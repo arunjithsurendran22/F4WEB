@@ -1,3 +1,4 @@
+// src/page-components/cart/components/my-cart/ProductListCart.tsx
 "use client";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +13,7 @@ import DeliveryAddress from "./DeliveryAddress";
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import { RootState } from "@/store";
 import CartEmpty from "@/components/ui/CartEmpty/CartEmpty";
+import { toast } from "react-hot-toast";
 
 const ProductListCart: React.FC = () => {
   const dispatch = useDispatch();
@@ -34,27 +36,37 @@ const ProductListCart: React.FC = () => {
     };
     fetchItems();
   }, [dispatch]);
-
+  
   const handleUpdateQuantity = (
     productId: string,
     subProductId: string | null,
     isSubProduct: boolean,
+    mainProductId: string | null,
     newQuantity: number
   ) => {
     const updatedProducts = products.map((productItem) => {
-      if (productItem.product && productItem.product._id === productId) {
-        return { ...productItem, cartQuantity: newQuantity };
+      // Check if the item is a subproduct or a main product
+      if (isSubProduct && productItem.subProduct && productItem.subProduct._id === subProductId) {
+        return {
+          ...productItem,
+          cartQuantity: newQuantity, // Update the quantity for the subproduct
+        };
+      } else if (!isSubProduct && productItem.product && productItem.product._id === productId) {
+        return {
+          ...productItem,
+          cartQuantity: newQuantity, // Update the quantity for the main product (corrected from ';' to ',')
+        };
       }
-      return productItem;
+      return productItem; // Return unchanged product
     });
 
-    setProducts(updatedProducts);
+    setProducts(updatedProducts); // Update local state
 
     const item = {
-      productId,
+      productId: isSubProduct ? mainProductId! : productId,
       storeId,
       isSubProduct,
-      subProductId: isSubProduct ? subProductId : "",
+      subProductId: isSubProduct ? subProductId : undefined,
       cartQuantity: newQuantity,
       subscribedProduct: subscribedProducts,
       expressProduct: expressProducts,
@@ -67,18 +79,43 @@ const ProductListCart: React.FC = () => {
 
   const handleRemoveFromCart = (
     productId: string,
-    subProductId: string,
-    isSubProduct: boolean
+    subProductId: string | null,
+    isSubProduct: boolean,
+    mainProductId: string | null
   ) => {
     const updatedProducts = products.filter((productItem) => {
-      // Check if productItem.product exists before checking _id
-      return productItem.product && productItem.product._id !== productId;
+      return productItem.isSubProduct ? (productItem.subProduct && productItem.subProduct._id != productId) : (productItem.product && productItem.product._id != productId);
     });
 
     setProducts(updatedProducts);
 
+    toast.error("🗑️ Item removed from your cart!", {
+      style: {
+        background: "linear-gradient(135deg, #FF4C4C, #D32F2F)",
+        color: "#fff",
+        fontSize: "16px",
+        fontWeight: "bold",
+        fontStyle: "italic",
+        borderRadius: "12px",
+        padding: "16px 24px",
+        boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+        border: "2px solid #FF4C4C",
+        transform: "scale(1)",
+        transition: "transform 0.2s ease",
+      },
+      iconTheme: {
+        primary: "#FF0000",
+        secondary: "#D32F2F",
+      },
+      duration: 3000,
+    });
+
     dispatch(
-      removeFromCart({ productId, isSubProduct, subProductId }) as any
+      removeFromCart({
+        productId: isSubProduct ? mainProductId! : productId,
+        isSubProduct,
+        subProductId: isSubProduct ? subProductId : undefined,
+      }) as any
     ).then(() => {
       dispatch(setCartUpdated(true));
     });
@@ -97,36 +134,42 @@ const ProductListCart: React.FC = () => {
         ) : (
           products.map((cartItem: any) => {
             const product = cartItem.product;
+            const subProduct = cartItem.subProduct;
             if (!product || !product._id) {
-              return null; 
+              return null;
             }
+
+            const displayProduct = subProduct ? subProduct : product;
             return (
               <ProductCardCart
                 key={cartItem._id}
-                _id={product._id}
-                imageSrc={product.thumbnail}
-                title={product.name}
-                buttonText={
-                  cartItem.cartQuantity > 0 ? "In Cart" : "Out of Stock"
-                }
-                rating={product.discountPercentage}
-                price={product.sellingPrice}
-                originalPrice={product.mrp}
-                ratingCount={cartItem.cartQuantity}
-                offer={product.discountPercentage}
+                _id={displayProduct._id}
+                imageSrc={displayProduct.thumbnail}
+                title={displayProduct.name}
+                rating={0}
+                price={displayProduct.sellingPrice}
+                originalPrice={displayProduct.mrp}
+                ratingCount={0}
+                offer={displayProduct.discountPercentage}
                 quantity={cartItem.cartQuantity}
+                baseQuantity = {displayProduct.quantity}
+                unit = {displayProduct.unit}
+                subscribedProduct = {subscribedProducts || false}
+
                 onRemove={() =>
                   handleRemoveFromCart(
-                    product._id,
-                    cartItem.subProduct?._id || null,
-                    cartItem.isSubProduct
+                    displayProduct._id,
+                    subProduct ? subProduct._id : null,
+                    !!subProduct,
+                    subProduct ? subProduct.mainProduct : null
                   )
                 }
                 handleUpdateQuantity={(newQuantity) =>
                   handleUpdateQuantity(
-                    product._id,
-                    cartItem.subProduct?._id || null,
-                    cartItem.isSubProduct,
+                    displayProduct._id,
+                    subProduct ? subProduct._id : null,
+                    !!subProduct,
+                    subProduct ? subProduct.mainProduct : null,
                     newQuantity
                   )
                 }
