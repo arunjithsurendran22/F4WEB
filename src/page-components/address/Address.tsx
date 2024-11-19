@@ -16,14 +16,14 @@ const Address: React.FC<AddressProps> = ({
   onAddressSelect,
 }) => {
   return (
-    <div className="">
+    <>
       <Header navigateUrl={navigationUrl} />
       <AddressList
         setDefaultAddressId={setDefaultAddressId}
         refetchAddress={refetchAddress}
         onAddressSelect={onAddressSelect}
       />
-    </div>
+    </>
   );
 };
 

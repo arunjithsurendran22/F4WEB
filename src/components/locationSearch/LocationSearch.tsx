@@ -131,7 +131,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ close }) => {
   };
 
   return (
-    <div ref={containerRef} className="w-80 relative items-center">
+    <div ref={containerRef} className=" relative items-center w-54 md:w-64">
       {!isLoaded && <SpinnerLoader />}
       <InputBoxCloseButton
         onChange={(e) => handleInputChange(e.target.value)}
@@ -144,7 +144,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ close }) => {
         clearInput={clearInput}
       />
       {isSuggestionsVisible && (
-        <ul className="absolute top-full left-0 mt-1 w-full max-h-60 overflow-auto bg-white">
+        <ul className="absolute top-full left-0 mt-1  max-h-60 overflow-auto bg-white" >
           {suggestions.length > 0 ? (
             suggestions.map((suggestion) => (
               <li

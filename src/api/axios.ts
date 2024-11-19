@@ -9,7 +9,7 @@ export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 //Define base url
 
 //Staging base url
-export const BASE_URL = 'http://13.201.220.245:3007';
+export const BASE_URL = 'http://13.200.173.112:3007';
 //Local Base Url
 //export const BASE_URL = 'http://localhost:3007';
 //Production Base Url

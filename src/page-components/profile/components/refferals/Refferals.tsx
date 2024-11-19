@@ -60,9 +60,9 @@ function Refferals() {
   };
 
   return (
-    <div>
+    <div className="p-3">
       <Header />
-      <div className="w-96 mt-8">
+      <div className="md:w-96 mt-8">
         <InputBox
           label="My Referral ID"
           placeHolder="Enter referral ID"

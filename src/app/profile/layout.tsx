@@ -7,7 +7,7 @@ const ProfileLayout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   return (
     <div className="flex">
       <ProfileSideBar />
-      <div className="px-14 py-8 flex-grow ">
+      <div className="md:px-14  py-8 flex-grow ">
         {children}
       </div>
     </div>

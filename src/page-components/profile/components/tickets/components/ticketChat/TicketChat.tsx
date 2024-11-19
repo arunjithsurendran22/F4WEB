@@ -30,7 +30,7 @@ const TicketChat: React.FC<any> = () => {
   };
 
   return (
-    <div className="w-10/12 ">
+    <div className="p-3 md:w-10/12 ">
       <Header />
       <div className="flex items-center justify-between py-8 ">
         <h1 className="text-2xl font-semibold">#{ticketId}</h1>

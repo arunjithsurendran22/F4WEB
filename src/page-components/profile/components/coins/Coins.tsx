@@ -28,7 +28,7 @@ function Coins() {
     fetchProfile();
   }, []);
   return (
-    <div>
+    <div className="p-3">
       <Header />
       <div className="mt-8 flex  gap-3 items-center">
         <Image src="/icons/star-coin.svg" alt="" width={60} height={60} />

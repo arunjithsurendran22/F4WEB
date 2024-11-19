@@ -29,9 +29,9 @@ const OrderCardDetails: React.FC<OrderCardDetailsProps> = ({
           className="object-contain"
         />
       </div>
-      <div className="flex flex-col w-44">
-        <h1 className="text-md font-semibold text-gray-800">{orderId}</h1>
-        <h6 className="text-sm font-[480] text-customGrayLight5 mt-1">
+      <div className="flex flex-col md:w-44">
+        <h1 className="text-xs md:text-md font-semibold text-gray-800">{orderId}</h1>
+        <h6 className="text-xs md:text-sm font-[480] text-customGrayLight5 mt-1">
           {productName}
         </h6>
         {

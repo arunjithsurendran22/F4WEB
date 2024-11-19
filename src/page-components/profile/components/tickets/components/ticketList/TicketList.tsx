@@ -64,9 +64,9 @@ function TicketList() {
   };
 
   return (
-    <div>
+    <div className="p-3">
       <Header />
-      <div className="mt-8 w-96">
+      <div className="mt-8 md:w-96">
         <InputBoxTickets
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

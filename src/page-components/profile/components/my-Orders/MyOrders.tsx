@@ -17,7 +17,7 @@ function MyOrders() {
       try {
         const response = await ordersApi.getMyOrders();
         if (response?.data?.orders) {
-          setOrders(response.data.orders); // Update state with API response
+          setOrders(response.data.orders); 
         }
       } catch (error: any) {
         console.log(error.message);
@@ -37,10 +37,10 @@ function MyOrders() {
           key={order._id}
           id={order._id}
           orderId={order.orderId}
-          productName={order.items[0].isSubProduct ? order.items[0].subProduct.name : order.items[0].product.name} // Use the first item's product name
+          productName={order.items[0].isSubProduct ? order.items[0].subProduct.name : order.items[0].product.name} 
           status={titleCase(order.orderStatus)}
           price={order.grandTotal}
-          imageSrc={order.items[0].isSubProduct ? order.items[0].subProduct.thumbnail : order.items[0].product.thumbnail} // Use the first item's product image
+          imageSrc={order.items[0].isSubProduct ? order.items[0].subProduct.thumbnail : order.items[0].product.thumbnail}
           onClick={() => handleDetailsClick(order.orderId)}
         />
       ))}

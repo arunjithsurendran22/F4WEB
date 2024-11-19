@@ -16,7 +16,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   onClose,
   title = "", // Default title value
   children,
-  width = "w-96",
+  width = "",
 }) => {
   return (
     <motion.div

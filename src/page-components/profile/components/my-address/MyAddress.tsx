@@ -16,11 +16,10 @@ function MyAddress() {
 
         if (response.status) {
           toast.success("Success! Default address changed!");
-          setRefetchAddress(true)
-        }else {
-          toast.error(response.message)
+          setRefetchAddress(true);
+        } else {
+          toast.error(response.message);
         }
-        
       } catch (error) {
         console.error("Error setting default address:", error);
       }
@@ -28,7 +27,7 @@ function MyAddress() {
   };
 
   return (
-    <div>
+    <div className="p-3">
       <Address
         navigationUrl="/profile/my-address/new-address"
         setDefaultAddressId={setDefaultAddressId}
@@ -36,7 +35,7 @@ function MyAddress() {
       />
       <div className="mt-10">
         <Button
-          width="w-96"
+          width="w-full md:w-96"
           height="h-14"
           backgroundColor="bg-customBlueLight"
           textColor="text-white"

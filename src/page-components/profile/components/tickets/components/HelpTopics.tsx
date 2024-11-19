@@ -74,12 +74,12 @@ function HelpTopics() {
       ) : help.length === 0 ? (
         <p className="mt-8">No help topics available.</p>
       ) : (
-        <div className="mt-8 grid grid-cols-2 gap-3 w-6/12">
+        <div className="mt-8 grid grid-cols-2 gap-3 md:w-6/12">
           {help.map((topic) => (
             <div
               key={topic._id}
               onClick={() => handleCreateComplaint(topic._id)}
-              className="relative group font-medium py-2 px-4 bg-customBlueLight2 inline-flex rounded-full items-center justify-center text-customBlueLight cursor-pointer"
+              className="text-xs md:text-sm relative group font-medium py-2 px-4 bg-customBlueLight2 inline-flex rounded-full items-center justify-center text-customBlueLight cursor-pointer"
             >
               {topic.categoryName}
 

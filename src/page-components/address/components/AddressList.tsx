@@ -10,9 +10,6 @@ import { Address } from "@/types/address";
 import EditAddressModal from "./EditAddressModal";
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import Sorry from "@/components/ui/Sorry/Sorry";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "@/hooks/useAppSelector";
-import { RootState } from "@/store";
 
 interface AddressListProps {
   setDefaultAddressId?: ((id: string | null) => void) | undefined;
@@ -25,8 +22,6 @@ const AddressList: React.FC<AddressListProps> = ({
   refetchAddress,
   onAddressSelect,
 }) => {
-  const dispatch = useDispatch();
-
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -115,48 +110,50 @@ const AddressList: React.FC<AddressListProps> = ({
           <SpinnerLoader />
         </div>
       ) : (
-
         <>
           {addresses.length > 0 ? (
             <ul className="space-y-14">
-              {
-                addresses.map((address) => (
-                  <li key={address._id} className="lg:w-[45rem] items-center">
-                    <div className="flex justify-between">
-                      <div>
-                        <h3 className="font-semibold text-lg">
-                          {address.fullName}
-                        </h3>
-                        <p className="text-customGrayLight2">{address.phone}</p>
-                        <div className="flex gap-3">
-                          <p className="text-customGrayLight2">{address.address}</p>
-                          <p className="text-customGrayLight2">{`${address.city}, ${address.state} ${address.zipcode}`}</p>
-                        </div>
+              {addresses.map((address) => (
+                <li key={address._id} className="md:w-[35rem] items-center">
+                  <div className="flex justify-between">
+                    <div>
+                      <h3 className="font-semibold md:text-lg">
+                        {address.fullName}
+                      </h3>
+                      <p className="text-customGrayLight2 text-xs md:text-sm">
+                        {address.phone}
+                      </p>
+                      <div className="flex gap-3">
+                        <p className="text-customGrayLight2 text-xs md:text-sm">
+                          {address.address}
+                        </p>
+                        <p className="text-customGrayLight2 text-xs md:text-sm">{`${address.city}, ${address.state} ${address.zipcode}`}</p>
                       </div>
-                      <RadioButton
-                        checked={address._id === selectedAddress}
-                        onChange={() => handleRadioChange(address._id)}
-                        name="address"
-                      />
                     </div>
-                    <div className="mt-2 flex justify-between">
-                      <Button
-                        width="32"
-                        height="10"
-                        borderRadius="rounded-2xl"
-                        padding="px-4 py-1"
-                        onClick={() => handleEditClick(address)}
-                      >
-                        Edit Address
-                      </Button>
-                      <DeleteButton
-                        onClick={() => handleDeleteClick(address._id)}
-                        hoverColor="text-customBlueLight"
-                      />
-                    </div>
-                  </li>
-                ))
-              }
+                    <RadioButton
+                      checked={address._id === selectedAddress}
+                      onChange={() => handleRadioChange(address._id)}
+                      name="address"
+                    />
+                  </div>
+                  <div className="mt-2 flex justify-between">
+                    <Button
+                      width="24"
+                      height="8"
+                      fontSize="text-xs md:text-sm"
+                      borderRadius="rounded-xl"
+                      padding="px-4 py-1"
+                      onClick={() => handleEditClick(address)}
+                    >
+                      Edit Address
+                    </Button>
+                    <DeleteButton
+                      onClick={() => handleDeleteClick(address._id)}
+                      hoverColor="text-customBlueLight"
+                    />
+                  </div>
+                </li>
+              ))}
             </ul>
           ) : (
             <div className="flex items-center justify-center h-full">
@@ -169,7 +166,6 @@ const AddressList: React.FC<AddressListProps> = ({
             </div>
           )}
         </>
-
       )}
       <Modal
         isOpen={isModalOpen}

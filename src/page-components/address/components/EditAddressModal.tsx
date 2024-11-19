@@ -9,7 +9,7 @@ import SelectionBox from "@/components/ui/selectionBox/SelectionBox";
 
 interface EditAddressModalProps {
   addressData: Address | null;
-  onAddressUpdated: () => void; 
+  onAddressUpdated: () => void;
 }
 
 const EditAddressModal: React.FC<EditAddressModalProps> = ({
@@ -17,25 +17,29 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
   onAddressUpdated,
 }) => {
   const [formData, setFormData] = useState<Address | null>(addressData);
-  const [countryOptions, setCountryOptions] = useState<{ label: string; value: string }[]>([
+  const [countryOptions, setCountryOptions] = useState<
+    { label: string; value: string }[]
+  >([
     {
-      label: 'India',
-      value: 'India'
-    }
+      label: "India",
+      value: "India",
+    },
   ]);
-  const [stateOptions, setStateOptions] = useState<{ label: string; value: string }[]>([
+  const [stateOptions, setStateOptions] = useState<
+    { label: string; value: string }[]
+  >([
     {
-      label: 'Kerala',
-      value: 'Kerala'
+      label: "Kerala",
+      value: "Kerala",
     },
     {
-      label: 'Karnataka',
-      value: 'Karnataka'
+      label: "Karnataka",
+      value: "Karnataka",
     },
     {
-      label: 'Tamilnadu',
-      value: 'Tamilnadu'
-    }
+      label: "Tamilnadu",
+      value: "Tamilnadu",
+    },
   ]);
   // State for validation errors
   const [errors, setErrors] = useState({
@@ -49,10 +53,8 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
     state: "",
   });
 
-  
-
   useEffect(() => {
-    setFormData(addressData); 
+    setFormData(addressData);
   }, [addressData]);
 
   const handleChange = (field: keyof Address, value: string) => {
@@ -61,62 +63,65 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
     }
   };
 
-    // Dynamic validation for each input
-    const validateField = (name: string, value: string) => {
-      let error = "";
-  
-      switch (name) {
-        case "fullName":
-          if (!value.trim()) error = "Full Name is required";
-          break;
-        case "email":
-          if (!value.includes("@")) error = "Invalid email";
-          break;
-        case "phone":
-          if (!value.match(/^\d{10}$/)) error = "Invalid phone number";
-          break;
-        case "zipcode":
-          if (!value.match(/^\d{6}$/)) error = "Invalid Zip Code";
-          break;
-        case "country":
-          if (!value) error = "Country is required";
-          break;
-        case "state":
-          if (!value) error = "State is required";
-          break;
-        case "city":
-          if (!value.trim()) error = "City is required";
-          break;
-        case "address":
-          if (!value.trim()) error = "Address is required";
-          break;
-        default:
-          break;
-      }
-  
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: error,
-      }));
-    };
-  
-    // Validation function on form submission
-    const validateForm = () => {
-      const newErrors: any = {};
-  
-      if (!formData?.fullName.trim()) newErrors.fullName = "Full Name is required";
-      if (!formData?.email.includes("@")) newErrors.email = "Invalid email";
-      if (!formData?.phone.match(/^\d{10}$/)) newErrors.phone = "Invalid phone number";
-      if (!formData?.zipcode.match(/^\d{5,6}$/)) newErrors.zipcode = "Invalid Zip Code";
-      //if (!formData?.country) newErrors.country = "Country is required";
-      if (!formData?.state) newErrors.state = "State is required";
-      if (!formData?.city.trim()) newErrors.city = "City is required";
-      if (!formData?.address.trim()) newErrors.address = "Address is required";
-  
-      setErrors(newErrors);
-  
-      return Object.keys(newErrors).length === 0; // If no errors, return true
-    };
+  // Dynamic validation for each input
+  const validateField = (name: string, value: string) => {
+    let error = "";
+
+    switch (name) {
+      case "fullName":
+        if (!value.trim()) error = "Full Name is required";
+        break;
+      case "email":
+        if (!value.includes("@")) error = "Invalid email";
+        break;
+      case "phone":
+        if (!value.match(/^\d{10}$/)) error = "Invalid phone number";
+        break;
+      case "zipcode":
+        if (!value.match(/^\d{6}$/)) error = "Invalid Zip Code";
+        break;
+      case "country":
+        if (!value) error = "Country is required";
+        break;
+      case "state":
+        if (!value) error = "State is required";
+        break;
+      case "city":
+        if (!value.trim()) error = "City is required";
+        break;
+      case "address":
+        if (!value.trim()) error = "Address is required";
+        break;
+      default:
+        break;
+    }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+  };
+
+  // Validation function on form submission
+  const validateForm = () => {
+    const newErrors: any = {};
+
+    if (!formData?.fullName.trim())
+      newErrors.fullName = "Full Name is required";
+    if (!formData?.email.includes("@")) newErrors.email = "Invalid email";
+    if (!formData?.phone.match(/^\d{10}$/))
+      newErrors.phone = "Invalid phone number";
+    if (!formData?.zipcode.match(/^\d{5,6}$/))
+      newErrors.zipcode = "Invalid Zip Code";
+    //if (!formData?.country) newErrors.country = "Country is required";
+    if (!formData?.state) newErrors.state = "State is required";
+    if (!formData?.city.trim()) newErrors.city = "City is required";
+    if (!formData?.address.trim()) newErrors.address = "Address is required";
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0; // If no errors, return true
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,13 +130,12 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
     if (formData) {
       try {
         const response = await addressApi.updateAddress(formData._id, formData);
-        if(!response.status){
-            toast.error(response.message)
-        }else {
-          toast.success("Address details updated")
+        if (!response.status) {
+          toast.error(response.message);
+        } else {
+          toast.success("Address details updated");
 
-          onAddressUpdated(); 
-
+          onAddressUpdated();
         }
       } catch (error) {
         console.error("Error updating address:", error);
@@ -140,35 +144,33 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-1">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+    <form onSubmit={handleSubmit} className=" h-[30rem] overflow-y-auto ">
+      <div className="  grid grid-cols-1 md:grid-cols-2 gap-1">
         <div>
-          
           <InputBox
-              label="Full Name"
-              value={formData?.fullName || ""}
-              placeHolder="Enter Full Name"
-                           onChange={(e) => {
-                handleChange("fullName", e.target.value)
-                validateField("fullName", e.target.value);
-              }}
-              border="border-none"
-              error={errors.fullName}
-            />
+            label="Full Name"
+            value={formData?.fullName || ""}
+            placeHolder="Enter Full Name"
+            onChange={(e) => {
+              handleChange("fullName", e.target.value);
+              validateField("fullName", e.target.value);
+            }}
+            border="border-none"
+            error={errors.fullName}
+          />
         </div>
         <div>
-          
           <InputBox
-              label="Phone"
-              value={formData?.phone || ""}
-              placeHolder="Enter Phone Number"
-                            onChange={(e) => {
-                              handleChange("phone", e.target.value);
-                validateField("phone", e.target.value);
-              }}
-              border="border-none"
-              error={errors.phone}
-            />
+            label="Phone"
+            value={formData?.phone || ""}
+            placeHolder="Enter Phone Number"
+            onChange={(e) => {
+              handleChange("phone", e.target.value);
+              validateField("phone", e.target.value);
+            }}
+            border="border-none"
+            error={errors.phone}
+          />
         </div>
         <div className="col-span-2">
           <TextArea
@@ -176,11 +178,9 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
             value={formData?.address || ""}
             placeHolder="Enter Your Address"
             onChange={(e) => {
-              handleChange("address", e.target.value)
+              handleChange("address", e.target.value);
               validateField("address", e.target.value);
-
-            }
-            }
+            }}
             border="border-none"
             error={errors.address}
           />
@@ -191,69 +191,64 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
             value={formData?.email || ""}
             placeHolder="Enter Email Address"
             onChange={(e) => {
-              handleChange("email", e.target.value)
+              handleChange("email", e.target.value);
               validateField("email", e.target.value);
-
-            }
-          }
-          border="border-none"
-          error={errors.email}
+            }}
+            border="border-none"
+            error={errors.email}
           />
         </div>
         <div>
           <SelectionBox
-              label="Country"
-              options={countryOptions}
-              value={formData?.country || "India"}
-                            onChange={(value) => {
-                handleChange("country", value)
-                validateField("country", value);
-              }}
-              placeholder="Select Country"
-              error={errors.country}
-            />
+            label="Country"
+            options={countryOptions}
+            value={formData?.country || "India"}
+            onChange={(value) => {
+              handleChange("country", value);
+              validateField("country", value);
+            }}
+            placeholder="Select Country"
+            error={errors.country}
+          />
         </div>
         <div>
-          
           <InputBox
-              label="City"
-              value={formData?.city || ""}
-              placeHolder="Enter City"
-                            onChange={(e) => {
-                handleChange("city", e.target.value)
-                validateField("city", e.target.value);
-              }}
-              border="border-none"
-              error={errors.city}
-            />
+            label="City"
+            value={formData?.city || ""}
+            placeHolder="Enter City"
+            onChange={(e) => {
+              handleChange("city", e.target.value);
+              validateField("city", e.target.value);
+            }}
+            border="border-none"
+            error={errors.city}
+          />
         </div>
         <div>
-         
           <SelectionBox
-              label="State"
-              options={stateOptions}
-              value={formData?.state || ""}
-                onChange={(value) => {
-                handleChange("state", value)
-                validateField("state", value);
-              }}
-              placeholder="Select State"
-              error={errors.state}
-            />
+            label="State"
+            options={stateOptions}
+            value={formData?.state || ""}
+            onChange={(value) => {
+              handleChange("state", value);
+              validateField("state", value);
+            }}
+            placeholder="Select State"
+            error={errors.state}
+          />
         </div>
         <div>
-          
           <InputBox
-              label="Zip Code"
-              value={formData?.zipcode || ""}
-              placeHolder="Enter Zip Code"
-                          onChange={(e) => {
-                            handleChange("zipcode", e.target.value);
+            label="Zip Code"
+            value={formData?.zipcode || ""}
+            placeHolder="Enter Zip Code"
+            onChange={(e) => {
+              handleChange("zipcode", e.target.value);
               validateField("zipcode", e.target.value);
             }}
-              border="border-none"
-              error={errors.zipcode}
-            />
+            border="border-none"
+            error={errors.zipcode}
+          />
         </div>
       </div>
 
@@ -262,18 +257,11 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
           width="w-full"
           height="h-[3.5rem]"
           backgroundColor={
-            formData
-              ? "bg-customBlueLight"
-              : "bg-customGrayLight4"
+            formData ? "bg-customBlueLight" : "bg-customGrayLight4"
           }
           //backgroundColor="bg-customGrayLight4"
           //textColor="text-customGrayLight2"
-          textColor={
-            formData
-              ? "text-white"
-              : "text-customGrayLight2"
-          }
-         
+          textColor={formData ? "text-white" : "text-customGrayLight2"}
           border="border-none"
           padding=""
           fontWeight="font-[600]"

@@ -209,7 +209,6 @@ function AddAddressForm() {
           router.push('/cart');
         }else {
           router.push("/profile/my-address");
-
         }
       }
     } catch (err: any) {
@@ -219,7 +218,7 @@ function AddAddressForm() {
   };
 
     return (
-    <div className="mt-10 xl:w-6/12">
+    <div className="mt-10 xl:w-6/12 p-3">
       {/* <p className="mb-2 text-customGrayLight2">Search your place...</p> */}
        <div className="mb-10">
         <AddressLocationSearch
@@ -230,7 +229,7 @@ function AddAddressForm() {
       </div> 
 
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-2 gap-14">
+        <div className="md:grid md:grid-cols-2 gap-14">
           <div className="">
             {/* Full Name */}
             <InputBox

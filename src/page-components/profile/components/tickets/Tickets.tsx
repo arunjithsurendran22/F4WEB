@@ -19,7 +19,7 @@ function Tickets() {
   };
 
   return (
-    <div>
+    <div className="p-3">
       <Header />
       <div className="mt-8">
         {/* Pass the setSearchTerm and handleSearch to InputBoxTickets */}
@@ -30,7 +30,7 @@ function Tickets() {
         /> */}
         <div className="mt-10">
           <Button
-            width="w-6/12"
+            width="w-full md:w-6/12"
             height="h-14"
             backgroundColor="bg-customBlueLight"
             textColor="text-white"

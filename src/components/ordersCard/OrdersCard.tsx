@@ -22,7 +22,7 @@ const OrdersCard: React.FC<OrdersCardProps> = ({
   onClick,
 }) => {
   return (
-    <div className="w-full max-w-sm p-4 bg-white shadow-lg rounded-lg flex flex-col  m-5">
+    <div className=" w-54 md:w-96 p-4 bg-white shadow-lg rounded-lg flex flex-col  m-5">
       {/* Top section with image and order details */}
       <OrderCardDetails
         imageSrc={imageSrc}
@@ -37,18 +37,18 @@ const OrdersCard: React.FC<OrdersCardProps> = ({
       <div className="flex justify-between items-center">
         {/* Status */}
         <div className="mt-2">
-          <p className="text-sm text-customGrayLight2">Status</p>
-          <p className="font-semibold text-md mt-1">{status}</p>
+          <p className=" text-xs md:text-sm text-customGrayLight2">Status</p>
+          <p className="font-semibold text-xs md:text-md mt-1">{status}</p>
         </div>
 
         {/* Price */}
         <div>
-          <p className="text-sm text-customGrayLight2">Total Price</p>
-          <p className="text-xl font-medium">₹{price}</p>
+          <p className="text-xs md:text-sm text-customGrayLight2">Total Price</p>
+          <p className="text-xs md:text-xl font-medium">₹{price}</p>
         </div>
 
         {/* Button */}
-        <Button width="w-28" height="h-12" onClick={() => onClick(id)}>
+        <Button width="w-24" height="h-10" onClick={() => onClick(id)}>
           Details
         </Button>
       </div>

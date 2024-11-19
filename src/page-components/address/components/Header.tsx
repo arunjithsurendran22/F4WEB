@@ -9,7 +9,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ navigateUrl }) => {
   return (
     <div className="flex justify-between items-center mb-5">
-      <h1 className="text-xl font-semibold">My Address</h1>
+      <h1 className="md:text-xl font-semibold">My Address</h1>
       {navigateUrl && (
         <Link href={navigateUrl}>
           <AddButton />
