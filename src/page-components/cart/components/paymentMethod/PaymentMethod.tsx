@@ -19,11 +19,11 @@ function PaymentMethod() {
   };
 
   return (
-    <div className="px-14 py-8 flex gap-28 min-h-96">
+    <div className="p-3 md:flex md:px-14 md:py-8  md:gap-28 min-h-96">
       <div>
         <Map />
       </div>
-      <div className="mt-10 w-80">
+      <div className="mt-10 md:w-80">
         <h1 className="font-semibold text-lg">Payment Method</h1>
         <div className="mt-10">
           <PaymentDetails onTotalChange={handleTotalChange} />

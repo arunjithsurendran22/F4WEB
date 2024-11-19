@@ -111,15 +111,39 @@ export const fetchNearbyStores = createAsyncThunk(
         dispatch(setStoreId(response.data.store._id));
         return storeData;
       } else {
-        toast.error(response.message);
+        toast.error(response.message, {
+          style: {
+            background: "linear-gradient(135deg, #D32F2F, #FFCDD2)",
+            color: "#fff",
+            fontSize: "16px",
+            fontWeight: "500",
+            fontFamily: "'Roboto', sans-serif",
+            borderRadius: "8px",
+            padding: "16px 20px",
+            boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+            border: "none",
+            textAlign: "left",
+            lineHeight: "1.5",
+            transform: "translateY(0)",
+            transition: "transform 0.2s ease-in-out, opacity 0.3s ease-in-out",
+          },
+          icon: "❗", 
+          duration: 4000,
+        });
+
         throw new Error("No stores available near this location!");
       }
     } catch (error) {
       const previousStoreData = loadPreviousStoreData();
 
       if (previousStoreData.currentAddress) {
-        if(previousStoreData.latitude && previousStoreData.longitude){
-          dispatch(setLatLong({ lat: previousStoreData.latitude, lng: previousStoreData.longitude }));
+        if (previousStoreData.latitude && previousStoreData.longitude) {
+          dispatch(
+            setLatLong({
+              lat: previousStoreData.latitude,
+              lng: previousStoreData.longitude,
+            })
+          );
         }
         return {
           ...previousStoreData,

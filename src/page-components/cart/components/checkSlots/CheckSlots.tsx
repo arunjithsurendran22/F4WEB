@@ -47,7 +47,6 @@ function CheckSlots() {
       const slotType = "NORMAL";
       const response = await timeSlotApi.getAllSlots(storeId, slotType);
 
-      // Transforming the API data to fit the format of the component's state
       const formattedSlotsData = response.data.timeSlots.map(
         (timeSlotGroup: any) => ({
           date: timeSlotGroup.date,
@@ -64,7 +63,7 @@ function CheckSlots() {
     } catch (error) {
       console.error("Error fetching time slots:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -85,74 +84,50 @@ function CheckSlots() {
   };
 
   return (
-    <div className="px-14 py-8 min-h-96 overflow-y-auto custom-scrollbar">
-      <div className="flex justify-between mb-6">
-        <h1 className="font-semibold text-lg">Select Booking Slot</h1>
-        <div className="flex gap-3 items-center">
+    <div className="px-4 sm:px-6 md:px-8 lg:px-14 py-4 sm:py-6 md:py-8 min-h-96 overflow-y-auto custom-scrollbar">
+      <div className="flex flex-col sm:flex-row justify-between mb-4 sm:mb-6">
+        <h1 className="font-semibold text-sm sm:text-base md:text-lg">
+          Select Booking Slot
+        </h1>
+        <div className="flex gap-2 sm:gap-3 items-center">
           <Image
             src="/icons/star-coin 2.png"
             alt="Coin Icon"
             width={30}
             height={30}
           />
-          <p className="font-medium">{coinBalance} Coins</p>
+          <p className="font-medium text-sm sm:text-base md:text-lg">
+            {coinBalance} Coins
+          </p>
         </div>
       </div>
 
       {/* Grid layout for dates and slots */}
-      {/* <div className="grid grid-cols-2 gap-6 w-6/12">
-        {(!loading && slotsData.length === 0) ? ( // Check if there are no slots
-          <div className="col-span-2 text-center text-gray-500">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 sm:gap-6 md:gap-8 md:w-6/12 h-96 overflow-y-auto ">
+        {!loading && slotsData.length === 0 ? (
+          <div className="col-span-full text-center text-gray-500">
             <Sorry />
-            <h3 className="text-lg font-semibold italic">No Slots Available</h3>
+            <h3 className="text-base sm:text-lg font-semibold italic">
+              No Slots Available
+            </h3>
             <p
               className="italic underline text-customBlueLight cursor-pointer"
               onClick={openSidebar}
             >
-              Search Near by store
+              Search Nearby Store
             </p>
           </div>
         ) : (
           slotsData.map((slotInfo, index) => (
-            <div key={index}>
-              <h2 className="font-semibold text-lg mb-4">{slotInfo.date}</h2>
-              <div className="space-y-2">
-                {slotInfo.slots.map((slot, slotIndex) => (
-                  <div
-                    key={slotIndex}
-                    className="p-2 border rounded-full bg-customBlueLight2 cursor-pointer text-customBlueLight font-medium text-lg mb-5"
-                    onClick={() => handleSlotSelection(slotInfo.date, slot)}
-                  >
-                    {`${slot.fromTime} - ${slot.toTime}`}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))
-        )}
-      </div> */}
-      {/* Grid layout for dates and slots */}
-      <div className="grid grid-cols-2 gap-x-6 gap-y-8 w-6/12">
-        {(!loading && slotsData.length === 0) ? ( // Check if there are no slots
-          <div className="col-span-2 text-center text-gray-500">
-            <Sorry />
-            <h3 className="text-lg font-semibold italic">No Slots Available</h3>
-            <p
-              className="italic underline text-customBlueLight cursor-pointer"
-              onClick={openSidebar}
-            >
-              Search Near by store
-            </p>
-          </div>
-        ) : (
-          slotsData.map((slotInfo, index) => (
-            <div key={index} className="flex flex-col space-y-3">
-              <h2 className="font-semibold text-lg">{slotInfo.date}</h2>
+            <div key={index} className="flex flex-col space-y-2 sm:space-y-3">
+              <h2 className="font-semibold text-sm sm:text-base md:text-lg">
+                {slotInfo.date}
+              </h2>
               <div className="grid gap-2">
                 {slotInfo.slots.map((slot, slotIndex) => (
                   <div
                     key={slotIndex}
-                    className="p-2 border rounded-full bg-customBlueLight2 cursor-pointer text-customBlueLight font-medium text-lg"
+                    className="p-2 border rounded-full bg-customBlueLight2 cursor-pointer text-customBlueLight font-medium text-sm sm:text-base"
                     onClick={() => handleSlotSelection(slotInfo.date, slot)}
                   >
                     {`${slot.fromTime} - ${slot.toTime}`}
@@ -163,6 +138,7 @@ function CheckSlots() {
           ))
         )}
       </div>
+
       <RightSidebar
         isVisible={isSidebarVisible}
         onClose={closeSidebar}

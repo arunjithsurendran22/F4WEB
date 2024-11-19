@@ -22,19 +22,19 @@ function HomePage() {
 
   return (
     <div className="">
-      <div className="px-14 py-5 mt-5">
+      <div className="md:px-14 md:py-5 mt-5 p-3">
         {" "}
         <Banner />
       </div>
-      <div className="px-14 py-5">
+      <div className="md:px-14 md:py-5 p-3">
         {" "}
         <Categories />
       </div>
-      <div className="px-14 py-5">
+      <div className="md:px-14 md:py-5 p-3">
         <FlashSale />
       </div>
       {isLoggedIn && <Subscribed />}
-      <div className="px-14 py-5">
+      <div className="md:px-14 md:py-5 p-3">
         <Express/>
         <Recomended />
         <TrendingNow />

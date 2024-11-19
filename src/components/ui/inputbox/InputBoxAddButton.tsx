@@ -21,9 +21,9 @@ const InputBoxAddButton: FC<InputBoxProps> = ({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="flex flex-col w-96">
+    <div className="flex flex-col md:w-96">
       {label && (
-        <label className="mb-4 font-semibold ">{label}</label>
+        <label className="text-sm md:text-lg mb-4 font-semibold ">{label}</label>
       )}
       <div
         className={`flex items-center border rounded-xl overflow-hidden h-14 ${

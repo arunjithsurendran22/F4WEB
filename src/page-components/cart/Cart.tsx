@@ -7,7 +7,7 @@
 
   function Cart() {
     return (
-      <div className="p-14">
+      <div className="p-3 md:p-14">
         <Heading />
         <div className="lg:flex ">
           <ProductListCart />

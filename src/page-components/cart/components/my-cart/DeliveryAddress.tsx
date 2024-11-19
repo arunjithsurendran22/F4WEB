@@ -28,9 +28,9 @@ function DeliveryAddress() {
 
   return (
     <div className="flex gap-3 mt-3 items-center">
-      <h1 className="font-semibold text-xl">Delivery Address</h1>
+      <h1 className="font-semibold md:text-xl text-xs">Delivery Address</h1>
       {primaryAddress ? (
-        <h1 className="font-medium ml-5">{primaryAddress}</h1>
+        <h1 className="font-medium ml-5 text-xs md:text-lg">{primaryAddress}</h1>
       ) : (
         <h1 className="font-medium ml-5">please add address</h1>
       )}

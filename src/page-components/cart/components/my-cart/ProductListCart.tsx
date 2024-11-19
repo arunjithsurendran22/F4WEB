@@ -36,7 +36,7 @@ const ProductListCart: React.FC = () => {
     };
     fetchItems();
   }, [dispatch]);
-  
+
   const handleUpdateQuantity = (
     productId: string,
     subProductId: string | null,
@@ -46,12 +46,20 @@ const ProductListCart: React.FC = () => {
   ) => {
     const updatedProducts = products.map((productItem) => {
       // Check if the item is a subproduct or a main product
-      if (isSubProduct && productItem.subProduct && productItem.subProduct._id === subProductId) {
+      if (
+        isSubProduct &&
+        productItem.subProduct &&
+        productItem.subProduct._id === subProductId
+      ) {
         return {
           ...productItem,
           cartQuantity: newQuantity, // Update the quantity for the subproduct
         };
-      } else if (!isSubProduct && productItem.product && productItem.product._id === productId) {
+      } else if (
+        !isSubProduct &&
+        productItem.product &&
+        productItem.product._id === productId
+      ) {
         return {
           ...productItem,
           cartQuantity: newQuantity, // Update the quantity for the main product (corrected from ';' to ',')
@@ -84,7 +92,9 @@ const ProductListCart: React.FC = () => {
     mainProductId: string | null
   ) => {
     const updatedProducts = products.filter((productItem) => {
-      return productItem.isSubProduct ? (productItem.subProduct && productItem.subProduct._id != productId) : (productItem.product && productItem.product._id != productId);
+      return productItem.isSubProduct
+        ? productItem.subProduct && productItem.subProduct._id != productId
+        : productItem.product && productItem.product._id != productId;
     });
 
     setProducts(updatedProducts);
@@ -146,16 +156,15 @@ const ProductListCart: React.FC = () => {
                 _id={displayProduct._id}
                 imageSrc={displayProduct.thumbnail}
                 title={displayProduct.name}
-                rating={0}
+                rating={displayProduct.rating}
                 price={displayProduct.sellingPrice}
                 originalPrice={displayProduct.mrp}
-                ratingCount={0}
+                ratingCount={displayProduct.ratingCount}
                 offer={displayProduct.discountPercentage}
                 quantity={cartItem.cartQuantity}
-                baseQuantity = {displayProduct.quantity}
-                unit = {displayProduct.unit}
-                subscribedProduct = {subscribedProducts || false}
-
+                baseQuantity={displayProduct.quantity}
+                unit={displayProduct.unit}
+                subscribedProduct={subscribedProducts || false}
                 onRemove={() =>
                   handleRemoveFromCart(
                     displayProduct._id,

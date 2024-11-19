@@ -32,11 +32,11 @@ export default function RootLayout({
   const pathname = usePathname();
   const screenWidth = useScreenSize();
 
-  useEffect(() => {
-    if (screenWidth && screenWidth < 768 && pathname !== '/download') {
-      router.replace('/download');
-    }
-  }, [screenWidth, router]);
+  // useEffect(() => {
+  //   if (screenWidth && screenWidth < 768 && pathname !== '/download') {
+  //     router.replace('/download');
+  //   }
+  // }, [screenWidth, router]);
 
   const isDownloadPage = pathname === '/download';
 

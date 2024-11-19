@@ -10,7 +10,7 @@ const EditButton: React.FC<ViewAllProps> = ({ onClick }) => {
     <div>
       <button
         onClick={onClick} // Use the onClick prop
-        className='text-customBlueLight font-normal text-md'
+        className='text-customBlueLight font-normal text-xs md:text-md'
       >
         Edit
       </button>

@@ -37,11 +37,11 @@ const BlockDeliverySlot: React.FC<BlockDeliverySlotsProps> = ({
   }
 
   return (
-    <div className="px-14 py-8 lg:flex justify-between lg:w-[52rem] min-h-96">
+    <div className="p-3 md:px-14 md:py-8 lg:flex justify-between lg:w-[52rem] min-h-96">
       <div>
         <Map />
       </div>
-      <div className="mt-10 w-80">
+      <div className="mt-10 md:w-80">
         <PaymentDetails />
         <div>
           <h1 className="font-semibold text-lg">Select Booking Slot</h1>

@@ -66,7 +66,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ orderId, closeModal }) => {
   };
 
   return (
-    <div className="bg-white space-y-4 w-96 mx-auto p-4 rounded ">
+    <div className="bg-white space-y-4 md:w-96 mx-auto p-4 rounded ">
       <h1 className="text-xl font-semibold mb-4 text-center">Give a Review</h1>
 
       <div className="flex justify-center mb-4">

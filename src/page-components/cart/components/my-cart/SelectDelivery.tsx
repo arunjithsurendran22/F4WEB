@@ -158,7 +158,7 @@ function SelectDelivery() {
   };
 
   return (
-    <div className="w-96">
+    <div className="md:w-96">
       <div className="mt-4">
         <InputBoxAddButton
           label="Have a promo code?"

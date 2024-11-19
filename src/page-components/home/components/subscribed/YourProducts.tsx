@@ -58,23 +58,18 @@ function YourProducts() {
       </div>
 
       {/* Overlay Content */}
-      <div className="absolute inset-0 p-14">
+      <div className="absolute inset-0 md:p-14 p-3">
         <div className="flex justify-between">
-          <div className="text-customBlueLight">
-            <h1 className="font-bold mb-4 text-2xl">Subscription Products</h1>
-            <p className="text-lg font-semibold">
+          <div className="text-customBlueLight mt-5 md:mt-0">
+            <h1 className="font-bold mb-4 md:text-2xl">
+              Subscription Products
+            </h1>
+            <p className="md:text-lg font-semibold">
               Unlock savings with every product
             </p>
           </div>
           {/* Adjusted price tag position */}
-          <div
-            style={{
-              position: "relative",
-              top: "-65px",
-              right: "10px",
-            }}
-            className="w-[140px] h-[140px] flex justify-center items-center"
-          >
+          <div className="w-[140px] h-[140px] flex justify-center items-center relative top-[-30px] md:top-[-65px] right-[10px]">
             <Image
               src="/images/price_tag.png"
               alt="Price Tag"
@@ -83,7 +78,7 @@ function YourProducts() {
               className="object-fill"
             />
             {/* Overlay text for discount percentage */}
-            <div className="absolute inset-0 ml-10 mt-6 flex flex-col justify-center items-center text-white font-semibold text-md">
+            <div className="absolute inset-0 ml-10 mt-6 flex flex-col justify-center items-center text-white font-semibold txt-xs md:text-md">
               <p>{plan?.discountPercentage}%</p>
               <p>OFF</p>
             </div>
@@ -93,12 +88,14 @@ function YourProducts() {
         {/* Loading Indicator */}
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <SpinnerLoader/>
+            <SpinnerLoader />
           </div>
         ) : products.length === 0 ? (
           // No Data Message
           <div className="flex justify-center items-center h-64">
-            <p className="text-lg font-semibold text-white">No Products Available</p>
+            <p className="text-lg font-semibold text-white">
+              No Products Available
+            </p>
           </div>
         ) : (
           <div className="w-full">
@@ -114,8 +111,8 @@ function YourProducts() {
                   originalPrice={product.mrp}
                   ratingCount={product.ratingCount}
                   subscriptionProduct={product.subscriptionProduct}
-                  width="w-full" 
-                  imgHeight="h-auto" 
+                  width="w-full"
+                  imgHeight="h-auto"
                 />
               ))}
             </Carousel>

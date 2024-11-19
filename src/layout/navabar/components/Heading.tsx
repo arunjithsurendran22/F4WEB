@@ -5,7 +5,7 @@ function Heading() {
   return (
     <div>
       <Link href="/">
-        <h1 className="text-customBlueLight text-4xl font-semibold ">F4Fish</h1>
+        <h1 className="text-customBlueLight md:text-4xl font-semibold ">F4Fish</h1>
       </Link>
     </div>
   );

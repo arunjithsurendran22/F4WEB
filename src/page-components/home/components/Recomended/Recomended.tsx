@@ -55,7 +55,7 @@ function Recommended() {
     <div  className="mb-10">
       <div className="flex justify-between items-center mb-5">
         <div>
-          <h1 className="text-2xl font-semibold">
+          <h1 className="md:text-2xl font-semibold">
             Recommended for {profile ? profile.name : "You"}
           </h1>
         </div>
@@ -63,7 +63,7 @@ function Recommended() {
           { products.length>0 && <ViewAll />}
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-3 lg:w-10/12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-3 lg:w-9/12">
         {loading ? (
           <>
             {[...Array(5)].map((_, index) => (

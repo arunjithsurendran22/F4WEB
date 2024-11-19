@@ -49,7 +49,7 @@ const Subscribe: React.FC = () => {
   };
 
   return (
-    <div className="bg-subscribe flex justify-between items-center p-14 ">
+    <div className="bg-subscribe md:flex justify-between items-center p-5 md:p-14 ">
       {/* Left section */}
       <div>
         <h1 className="xl:text-3xl font-semibold mb-2">
@@ -62,7 +62,7 @@ const Subscribe: React.FC = () => {
       </div>
 
       {/* Right section with InputBoxWithButton */}
-      <div className="xl:w-6/12 w-full flex justify-end ">
+      <div className="xl:w-6/12 w-full flex justify-end mt-5 md:mt-0 ">
         <InputBoxWithButton
           placeholder="Enter your email..."
           value={inputValue}

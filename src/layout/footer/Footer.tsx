@@ -43,30 +43,32 @@ function Footer() {
   };
 
   return (
-    <footer id="footer" >
-      <div className="bg-customBlack text-white pt-10 px-16">
+    <footer id="footer">
+      <div className="bg-customBlack text-white p-4 md:pt-10 md:px-16">
         {/* Main container for the footer */}
-        <div className=" mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 ">
+        <div className="mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 lg:gap-16">
           {/* Left section */}
-          <div className="w-4/12 lg:w-6/12 ">
+          <div className="w-full sm:w-8/12 lg:w-6/12">
             <div className="mb-4">
               <h1 className="text-4xl font-bold">F4Fish</h1>
             </div>
             <div className="mb-4">
-              <p className="text-customGrayLight2">
+              <p className="text-customGrayLight2 text-sm md:text-base">
                 Morbi cursus porttitor enim lobortis molestie. Duis gravida
                 turpis dui, eget bibendum magna congue nec.
               </p>
             </div>
-            <div className="lg:flex md:gap-10 xl:gap-10  w-72 md:w-96">
+            <div className="flex flex-wrap gap-4 sm:gap-10">
               <div>
-                <span className="underline decoration-customGreenLite decoration-2 underline-offset-4 text-xs md:text-sm">
+                <span className="underline decoration-customGreenLite decoration-2 underline-offset-4 text-xs sm:text-sm">
                   (+91) 9999999999
                 </span>
-                <span className="ml-8 text-customGrayLight2">or</span>
+                <span className="ml-4 text-customGrayLight2 hidden sm:inline">
+                  or
+                </span>
               </div>
               <div>
-                <span className="underline decoration-customGreenLite decoration-2 underline-offset-4 text-xs md:text-sm">
+                <span className="underline decoration-customGreenLite decoration-2 underline-offset-4 text-xs sm:text-sm">
                   f4fish@gmail.com
                 </span>
               </div>
@@ -74,45 +76,41 @@ function Footer() {
           </div>
 
           {/* Right section */}
-          <div className="  grid grid-cols-4 gap-4  ">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 sm:gap-4">
             {/* My Account */}
             <div>
               <p className="text-lg font-semibold mb-5">My Account</p>
               <ul className="space-y-2">
                 <li className="text-customGrayLight2">
-                  {" "}
                   <Link
                     href={isLoggedIn ? "/profile" : ""}
                     onClick={checkAccessible}
                   >
-                    My Account{" "}
+                    My Account
                   </Link>
                 </li>
                 <li className="text-customGrayLight2">
-                  {" "}
                   <Link
                     href={isLoggedIn ? "/profile/my-orders" : ""}
                     onClick={checkAccessible}
                   >
-                    Order History{" "}
+                    Order History
                   </Link>
                 </li>
                 <li className="text-customGrayLight2">
-                  {" "}
                   <Link
                     href={isLoggedIn ? "/cart" : ""}
                     onClick={checkAccessible}
                   >
-                    Shopping Cart{" "}
+                    Shopping Cart
                   </Link>
                 </li>
                 <li className="text-customGrayLight2">
-                  {" "}
                   <Link
                     href={isLoggedIn ? "/wishlist" : ""}
                     onClick={checkAccessible}
                   >
-                    Wishlist{" "}
+                    Wishlist
                   </Link>
                 </li>
               </ul>
@@ -144,10 +142,6 @@ function Footer() {
             <div>
               <p className="text-lg font-semibold mb-5">Categories</p>
               <ul className="space-y-2">
-                {/* <li className="text-customGrayLight2">Fruit & Vegetables</li>
-              <li className="text-customGrayLight2">Meat & Fish</li>
-              <li className="text-customGrayLight2">Bread & Bakery</li> */}
-
                 {categories.map(
                   (category, index) =>
                     index < 4 && (
@@ -162,14 +156,14 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="border-t-[.5px] border-customGrayLight3 flex justify-between items-center py-4 mt-10">
+        <div className="border-t-[.5px] border-customGrayLight3 flex flex-wrap justify-between items-center py-4 mt-10 gap-4">
           {/* Left-aligned text */}
-          <p className="text-left text-sm text-customGrayLight2">
+          <p className="text-sm text-customGrayLight2">
             F4Fish © 2024. All Rights Reserved
           </p>
 
-          {/* Right-aligned icons in larger, centered boxes */}
-          <div className="flex gap-4">
+          {/* Right-aligned icons */}
+          <div className="flex flex-wrap gap-4">
             <div className="px-3 py-[.2rem] border border-customGrayLight3 rounded-lg flex justify-center items-center">
               <Image
                 src="/icons/ApplePay (1).png"
@@ -203,7 +197,7 @@ function Footer() {
               />
             </div>
             <div className="px-3 py-[.2rem] border border-customGrayLight3 rounded-lg flex justify-center items-center">
-              <div className="">
+              <div>
                 <div className="flex">
                   <Image
                     src="/icons/Group.png"
@@ -213,7 +207,6 @@ function Footer() {
                   />
                   <span className="text-xs ml-2">Secure</span>
                 </div>
-
                 <p>Payment</p>
               </div>
             </div>

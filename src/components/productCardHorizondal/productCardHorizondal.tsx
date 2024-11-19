@@ -33,10 +33,9 @@ interface ProductCardProps {
   subscriptionProduct?: boolean | undefined;
   express?: boolean | undefined;
   storeId?: string;
-  unit?: string
-  quantity?: number
+  unit?: string;
+  quantity?: number;
 }
-
 const ProductCardHorizondal: React.FC<ProductCardProps> = ({
   _id,
   imageSrc,
@@ -51,7 +50,7 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
   express,
   storeId,
   unit,
-  quantity
+  quantity,
 }) => {
   const loggedIn = useAppSelector((state: RootState) => state.profile.loggedIn);
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
@@ -67,18 +66,15 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
     setSidebarVisible(true);
     setShouldFetchSubProducts(true);
   };
-
   const closeSidebar = () => {
     setSidebarVisible(false);
     setShouldFetchSubProducts(false);
   };
-
   const handleAddToCart = async () => {
     if (!loggedIn) {
       showLoginToast(loggedIn);
       return;
     }
-
     if (hasSubProducts) {
       toggleSidebar();
     } else {
@@ -127,7 +123,6 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
       }
     }
   };
-
   const handleNavigate = (id: string) => {
     router.push(`/productDetails/${id}`);
   };
@@ -137,8 +132,10 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
       try {
         const responseCart = await dispatch(fetchCartItems() as any).unwrap();
 
-        const productInCart = responseCart.items.find(
-          (item: any) =>  item.isSubProduct ? (item.subProduct._id === _id) : (item.product._id === _id)
+        const productInCart = responseCart.items.find((item: any) =>
+          item.isSubProduct
+            ? item.subProduct._id === _id
+            : item.product._id === _id
         );
         setIsProductInCart(!!productInCart);
         if (productInCart) {
@@ -146,12 +143,10 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
         } else {
           setItemQuantity(1);
         }
-        
       } catch (error) {
         console.error("Failed to fetch cart items:", error);
       }
     };
-
     fetchCartData();
   }, [dispatch, _id]);
 
@@ -160,10 +155,7 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
       showLoginToast(loggedIn);
       return;
     }
-  
-    // Set loader to true when starting the update
     setQuantityLoader(true);
-  
     const item = {
       productId: _id,
       storeId,
@@ -173,26 +165,22 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
       subscribedProduct: subscriptionProduct,
       expressProduct: express,
     };
-  
+
     try {
-      // Dispatch the action to add the item to the cart (updating the quantity)
       const response = await dispatch(addToCart(item) as any).unwrap();
       dispatch(setCartUpdated(true));
-  
-      setItemQuantity(newQuantity);  // Update the item quantity
-  
+      setItemQuantity(newQuantity);
       if (response.cartData) {
-        // Successfully updated, stop the loader
         setQuantityLoader(false);
       }
     } catch (error: any) {
-      // Handle any error during the update
       console.error("Error updating quantity:", error.message);
-      setQuantityLoader(false); // Stop the loader even if there is an error
-      toast.error(error.message || "An error occurred while updating quantity.");
+      setQuantityLoader(false);
+      toast.error(
+        error.message || "An error occurred while updating quantity."
+      );
     }
   };
-  
 
   const handleUpdateRemove = async () => {
     try {
@@ -235,26 +223,15 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
   };
 
   const formattedDiscount = (discount: any) => {
-    return discount ? Number.isInteger(discount)
-    ? discount.toFixed(0) // No decimal places
-    : discount.toFixed(2) // Round to 2 decimal places 
-    : '0';
-  } 
+    return discount
+      ? Number.isInteger(discount)
+        ? discount.toFixed(0)
+        : discount.toFixed(2)
+      : "0";
+  };
 
   return (
-    <div key={_id} className="lg:w-[21rem] flex">
-      {/* Image section */}
-      {/* <div className="w-full h-auto bg-customGrayLight rounded-2xl overflow-hidden flex items-center justify-center">
-        <Image
-          src={imageSrc}
-          alt={title}
-          width={176}
-          height={176}
-          className="object-cover cursor-pointer"
-          onClick={() => handleNavigate(_id)}
-        />
-      </div> */}
-
+    <div key={_id} className=" lg:w-[21rem] flex ">
       <div className="min-w-[7rem] w-[7rem] h-[8rem] bg-customGrayLight rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer">
         <Image
           src={imageSrc}
@@ -263,66 +240,60 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
           height={128}
           className="object-cover w-[7rem] h-[8rem]"
           onClick={() => handleNavigate(_id)}
-
         />
       </div>
 
       {/* Product details */}
       <div className="p-3 pt-0">
         <div className="flex gap-5">
-          <div className="flex items-center mb-1">
+          <div className="flex items-center mb-1 text-xs">
             <FaStar className="text-customYellow h-4 w-4" />
             <p className="text-customYellow ml-1 text-sm font-semibold">
               {rating?.toFixed(2)}
             </p>
-            <span className="text-gray-400 ml-1">({ratingCount})</span>
+            <span className="text-gray-400 ml-1 ">({ratingCount})</span>
           </div>
           {/* Offer badge */}
-          <div className="bg-customYellowLight py-[1px] text-customBlueLight px-2 rounded-lg">
+          <div className="bg-customYellowLight py-[1px] text-customBlueLight px-2 rounded-lg text-xs md:text-sm">
             <div className="flex items-center">
-              <p className="text-md font-medium text-customBlueLight">
-              {formattedDiscount(offer)}%
+              <p className=" font-medium text-customBlueLight">
+                {formattedDiscount(offer)}%
               </p>
-              <p className="ml-2 text-sm mt-1 text-customBlueLight">OFF</p>
+              <p className="ml-2   text-customBlueLight">OFF</p>
             </div>
           </div>
         </div>
 
         {/* Title */}
-        <div className="h-12 w-48">
+        <div className="h-12 w-48 text-xs">
           <h3 className="text-md font-semibold mb-1">{title}</h3>
         </div>
 
+        <p className="text-xs md:text-sm text-customBlueLight font-semibold">
+          {quantity} {unit}
+        </p>
 
-        <p className="text-sm text-customBlueLight font-semibold">
-            {quantity} {unit}
-          </p>
-
-        <div className="flex items-center justify-between space-x-2">
-          <p className="text-lg font-bold text-gray-800">₹{price}</p>
+        <div className="flex items-center justify-between space-x-2 text-xs">
+          <p className=" font-bold text-gray-800">₹{price}</p>
           {originalPrice && (
-            <p className="text-sm line-through text-customRed font-medium">
+            <p className=" line-through text-customRed font-medium">
               ₹{originalPrice}
             </p>
           )}
           {/* Button */}
           {isProductInCart ? (
             <QuantityButton
-              buttonSize="lg:w-6 h-9"
+              buttonSize=" w-3 h-8"
               initialQuantity={itemQuantity}
               onRemove={handleUpdateRemove}
               onUpdateQuantity={handleUpdateQuantity}
               quantityLoader={quantityLoader}
             />
           ) : (
-            <Button
-              width="w-20 md:w-20 lg:w-28"
-              height="h-8 md:h-10 lg:h-10"
-              onClick={handleAddToCart}
-            >
+            <Button width="w-20" height="h-9" onClick={handleAddToCart}>
               <div className="flex justify-center items-center">
-                <p>Add</p>
-                {hasSubProducts && <MdArrowForwardIos className="ml-1" />}
+                <p className="text-xs md:text-sm">Add</p>
+                {hasSubProducts && <MdArrowForwardIos className="ml-1 text-xs" />}
               </div>
             </Button>
           )}
