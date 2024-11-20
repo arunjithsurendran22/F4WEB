@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { categoryApi } from "@/services/categoryService";
 import SkeletonLoader from "@/components/ui/SkeletonLoader/SkeletonLoader";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 interface Category {
   _id: string;
@@ -45,16 +45,20 @@ const Categories: React.FC = () => {
   }, []);
 
   const handleClickProducts = (id: string, name: string) => {
-    router.push(`/products-by-category?id=${encodeURIComponent(id)}&name=${encodeURIComponent(name)}`);
+    router.push(
+      `/products-by-category?id=${encodeURIComponent(
+        id
+      )}&name=${encodeURIComponent(name)}`
+    );
   };
 
   return (
-    <div className="p-14">
+    <div className="p-2 md:p-14">
       <div className="mb-5">
         <h5 className="font-semibold text-xl">Categories</h5>
       </div>
       {/* Grid View for Larger Screens */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-10 xl:gap-20">
+      <div className="gap-3  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 md:gap-10 xl:gap-20">
         {loading
           ? [...Array(10)].map((_, index) => (
               <div key={index} className="flex-shrink-0">
@@ -65,7 +69,9 @@ const Categories: React.FC = () => {
               <div
                 key={category._id}
                 className="flex-shrink-0"
-                onClick={() => handleClickProducts(category._id, category.categoryName)}
+                onClick={() =>
+                  handleClickProducts(category._id, category.categoryName)
+                }
               >
                 <CategoriesCard
                   imageSrc={category.categoryImage}

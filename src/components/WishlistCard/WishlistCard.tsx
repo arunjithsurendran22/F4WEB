@@ -178,18 +178,20 @@ const WishlistCard: React.FC<WishlistCardProps> = ({
   return (
     <div
       key={_id}
-      className="w-60 rounded-3xl shadow-xl hover:shadow-lg transition-shadow relative cursor-pointer"
+      className="md:w-52 rounded-3xl shadow-xl hover:shadow-lg transition-shadow relative cursor-pointer"
     >
       {/* Offer badge */}
       <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
         <div className="flex items-center">
-          <p className="text-lg font-medium">{discountPercentage?.toFixed(2)}% </p>
-          <p className="ml-2 text-md mt-1 text-gray-200">OFF</p>
+          <p className="text-xs md:text-lg font-medium">
+            {discountPercentage?.toFixed(2)}%{" "}
+          </p>
+          <p className="ml-2 text-xs md:text-md mt-1 text-gray-200">OFF</p>
         </div>
       </div>
 
       {/* Image section */}
-      <div className="flex justify-center items-center w-full h-44 bg-customGrayLight rounded-t-2xl overflow-hidden">
+      <div className="flex justify-center items-center w-full md:h-44 bg-customGrayLight rounded-t-2xl overflow-hidden">
         <Image
           src={imageSrc}
           alt={title}
@@ -200,7 +202,7 @@ const WishlistCard: React.FC<WishlistCardProps> = ({
         />
       </div>
 
-      <div className="absolute top-0 right-0 ">
+      <div className="absolute top-0 right-0  ">
         <CloseButton onClick={onRemove} />
       </div>
 
@@ -208,43 +210,53 @@ const WishlistCard: React.FC<WishlistCardProps> = ({
       <div className="py-4 px-4">
         {/* Star rating section */}
         <div className="flex items-center mb-1">
-          <FaStar className="text-customYellow h-4 w-4" />
-          <p className="text-customYellow ml-1 text-sm font-semibold">
+          <FaStar className="text-customYellow h-3 w-3 md:h-4 md:w-4" />
+          <p className="text-customYellow ml-1 text-xs md:text-sm font-semibold">
             {rating.toFixed(2)}
           </p>
-          <span className="text-gray-400 ml-1">({ratingCount})</span>
+          <span className="text-gray-400 ml-1 text-xs md:text-sm">
+            ({ratingCount})
+          </span>
         </div>
 
         {/* Title */}
-        <div className="h-14">
-          <h3 className="text-lg font-semibold mb-2">{title}</h3>
+        <div className=" h-10 md:h-14">
+          <h3 className="text-xs md:text-lg font-semibold mb-2">{title}</h3>
         </div>
 
         <div className="flex items-center gap-5 space-x-2">
-          <p className="text-lg font-bold text-gray-800">₹{price}</p>
+          <p className="text-xs md:text-lg font-bold text-gray-800">₹{price}</p>
           {originalPrice > 0 && (
-            <p className="text-sm line-through text-customRed font-medium">
+            <p className="text-xs  md:text-sm line-through text-customRed font-medium">
               ₹{originalPrice}
             </p>
           )}
         </div>
 
         {/* Button */}
-        {isProductInCart ? (
-          <QuantityButton
-            buttonSize="w-full"
-            initialQuantity={itemQuantity}
-            onRemove={handleUpdateRemove}
-            onUpdateQuantity={handleUpdateQuantity}
-          />
-        ) : (
-          <Button width="w-full " height="h-9" onClick={handleAddToCart}>
-            <div className="flex justify-center items-center">
-              <p>Add</p>
-              {hasSubProducts && <MdArrowForwardIos className="ml-1" />}
-            </div>
-          </Button>
-        )}
+        <div className="mt-2">
+          {isProductInCart ? (
+            <QuantityButton
+              buttonSize="w-full h-7 md:h-9"
+              textSize="text-sm  md:text-lg"
+              btnSize="text-sm md:text-lg"
+              initialQuantity={itemQuantity}
+              onRemove={handleUpdateRemove}
+              onUpdateQuantity={handleUpdateQuantity}
+            />
+          ) : (
+            <Button
+              width="w-full "
+              height="h-7 md:h-9"
+              onClick={handleAddToCart}
+            >
+              <div className="flex justify-center items-center">
+                <p className="text-sm md:text-lg">Add</p>
+                {hasSubProducts && <MdArrowForwardIos className="ml-1" />}
+              </div>
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Right Sidebar for Customization */}

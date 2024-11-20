@@ -6,7 +6,7 @@ interface SpinnerProps {
 }
 
 const sizeClasses = {
-  small: "w-7 h-7",
+  small: "w-5 h-5",
   medium: "w-10 h-10",
   large: "w-16 h-16",
 };

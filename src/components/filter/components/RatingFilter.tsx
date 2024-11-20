@@ -37,7 +37,7 @@ const RatingFilter: React.FC<RatingFilterProps> = ({
         </span>
       </div>
       {expanded && (
-        <div className="text-sm font-normal mt-5 mb-5 w-80">
+        <div className="text-sm font-normal mt-5 mb-5 md:w-80">
           <div className="grid grid-cols-3 gap-2 mb-2">
             {starOptions.map((rating) => (
               <div

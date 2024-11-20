@@ -7,7 +7,7 @@ interface CarouselProps {
   gap?: number; // Make gap optional
 }
 
-const Carousel: React.FC<CarouselProps> = ({ children, gap = 30 }) => { // Set default gap to 20
+const Carousel: React.FC<CarouselProps> = ({ children, gap = 30 }) => { 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const mouseDownPosition = useRef<number | null>(null);
 
@@ -51,12 +51,11 @@ const Carousel: React.FC<CarouselProps> = ({ children, gap = 30 }) => { // Set d
     <div
       {...handlers}
       ref={scrollContainerRef}
-      className="flex overflow-x-auto scroll-smooth whitespace-nowrap hide-scrollbar cursor-grab"
-      style={{ gap: `${gap}px` }} // Use gap from props or default
+      className="flex overflow-x-auto scroll-smooth whitespace-nowrap hide-scrollbar cursor-grab gap-3 sm:gap-6 md:gap-2 lg:gap-5"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp} // Ensure mouse release is handled properly
+      onMouseLeave={handleMouseUp} 
     >
       {children}
     </div>

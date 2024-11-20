@@ -349,7 +349,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <p className="text-customYellow ml-1 text-xs md:text-sm font-semibold">
             {rating.toFixed(2)}
           </p>
-          <span className="text-gray-400 ml-1 text-xs md:text-sm ">({ratingCount})</span>
+          <span className="text-gray-400 ml-1 text-xs md:text-sm ">
+            ({ratingCount})
+          </span>
         </div>
 
         {/* Title */}
@@ -381,7 +383,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {/* Button */}
           {isProductInCart ? (
             <QuantityButton
-              buttonSize="lg:w-6 h-9"
+              buttonSize="lg:w-9"
+              btnSize="text-xs md:text-lg"
+              textSize="text-xs md:text-lg"
+              containerPadding="p-1"
               initialQuantity={itemQuantity}
               onRemove={handleUpdateRemove}
               onUpdateQuantity={handleUpdateQuantity}
@@ -389,13 +394,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
             />
           ) : (
             <Button
-              width="w-20 md:w-20 lg:w-28"
-              height="h-8 md:h-10 lg:h-10"
+              width="w-14 sm:w-14 md:w-20 lg:w-28"
+              height="h-7  md:h-10 lg:h-10"
               onClick={handleAddToCart}
             >
               <div className="flex justify-center items-center">
-                <p className="text-xs md:text-sm xl:text-lg">Add</p>
-                {hasSubProducts && <MdArrowForwardIos className="ml-1" />}
+                <p className="text-[10px]  md:text-lg xl:text-lg">Add</p>
+                {hasSubProducts && (
+                  <MdArrowForwardIos className="ml-1 text-[10px]" />
+                )}
               </div>
             </Button>
           )}

@@ -43,7 +43,7 @@ const Offer: React.FC<OfferProps> = ({ id }) => {
   };
 
   return (
-    <div className="p-14 min-h-screen ">
+    <div className="p-2 md:p-14 min-h-screen ">
       <div className="w-full max-w-md p-6 bg-white shadow-md rounded-xl">
         {promocode ? (
           <div className="mt-4 text-center">

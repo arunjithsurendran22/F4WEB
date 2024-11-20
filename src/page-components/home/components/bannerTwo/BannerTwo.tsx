@@ -29,11 +29,12 @@ const BannerTwo: React.FC = () => {
   };
 
   return (
-    <div >
+    <div>
       {promocodes.length === 0 ? (
         <div>
-         
-          <p className="text-gray-500 text-center italic  ">No Promocodes Available</p>
+          <p className="text-gray-500 text-center italic  ">
+            No Promocodes Available
+          </p>
         </div>
       ) : (
         <Carousel>

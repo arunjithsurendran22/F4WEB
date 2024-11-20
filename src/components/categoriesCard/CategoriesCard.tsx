@@ -8,7 +8,7 @@ interface CategoriesCardProps {
 
 const CategoriesCard: React.FC<CategoriesCardProps> = ({ imageSrc, title }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-52 w-52 rounded-xl overflow-hidden  bg-customGrayLight  hover:shadow-xl hover:cursor-pointer">
+    <div className="w-32 h-32 md:w-44 md:h-44 flex flex-col items-center justify-center  rounded-xl overflow-hidden  bg-customGrayLight  hover:shadow-xl hover:cursor-pointer">
       <div className="flex flex-col items-center justify-center h-full w-full ">
         <Image
           src={imageSrc}
@@ -18,7 +18,7 @@ const CategoriesCard: React.FC<CategoriesCardProps> = ({ imageSrc, title }) => {
           className="rounded-full object-contain" // You can apply the same styling as before
         />
         <div className="text-center pt-2">
-          <h3 className="text-md font-semibold">{title}</h3>
+          <h3 className="text-xs md:text-lg font-semibold">{title}</h3>
         </div>
       </div>
     </div>

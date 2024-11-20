@@ -33,7 +33,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="flex py-6 items-center px-4 md:px-14">
+      <div className="flex py-6 items-center px-4 md:px-14 gap-5">
         {/* Regular Navbar */}
         <div className="md:flex w-full justify-between gap-5">
           <div className="md:flex xl:w-6/12  gap-6 ">
@@ -58,7 +58,7 @@ function Navbar() {
         </div>
         {/* Hamburger Button - Visible below xl devices */}
         <button
-          className="xl:hidden mr-4 p-3"
+          className="xl:hidden  md:p-3"
           aria-label="Menu"
           onClick={toggleSidebar}
         >
@@ -74,7 +74,7 @@ function Navbar() {
       >
         {/* Sidebar Content */}
         <div className="flex flex-col items-center gap-8">
-          <VerticalIcons closeSidebarVertical={closeSidebar}/>
+          <VerticalIcons closeSidebarVertical={closeSidebar} />
         </div>
       </RightSidebar>
     </>

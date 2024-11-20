@@ -22,7 +22,7 @@ function HomePage() {
 
   return (
     <div className="">
-      <div className="md:px-14 md:py-5 mt-5 p-3">
+      <div className="md:px-14 md:py-5 mt-5 ">
         {" "}
         <Banner />
       </div>

@@ -149,16 +149,16 @@ const Products: React.FC = () => {
   return (
     <div className="">
       <div className="flex">
-        <div className="block lg:hidden p-1 ">
+        <div className="absolute block lg:hidden p-1 bg-white z-50 rounded-xl  left-2  mt-2">
           <button onClick={handleVisible}>
-            <FilterLottie width={30} height={30}  />
+            <FilterLottie width={30} height={30} />
           </button>
         </div>
         <div className="p-14 w-96 hidden lg:block">
           <Filter />
         </div>
 
-        <div className="lg:w-9/12 py-14 overflow-y-auto h-[800px] hide-scrollbar">
+        <div className="lg:w-9/12 py-14 overflow-y-auto h-[800px] hide-scrollbar p-1">
           <div className="flex justify-between mb-8">
             <h2 className="text-2xl font-semibold">Result</h2>
           </div>
@@ -177,7 +177,7 @@ const Products: React.FC = () => {
               </h3>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-14 lg:gap-0 w-full md:p-3">
+            <div className="gap-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 xl:gap-14 md:gap-12  w-full p-2 xl:p-0">
               {products.map((product) => (
                 <div key={product._id} className="mb-10">
                   <ProductCard

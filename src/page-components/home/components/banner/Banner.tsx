@@ -2,18 +2,14 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "@/components/ui/Carousel/Carousel";
 import ImageCard from "@/components/ui/ImageCard/ImageCard";
-import toast from "react-hot-toast";
 import type { ApiResponse, Banner } from "@/types/banner";
 import { bannerApi } from "@/services/bannersService";
 import { useRouter } from "next/navigation";
 import BannerSkeletons from "@/components/Skeletons/BannerSkeletons";
-import Sorry from "@/components/ui/Sorry/Sorry";
 
 const Banner: React.FC = () => {
   const [banners, setBanners] = useState<Banner[]>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
   useEffect(() => {
     const fetchBanners = async () => {
       try {
@@ -34,18 +30,15 @@ const Banner: React.FC = () => {
   }, []);
 
   return (
-    <div >
+    <div>
       <Carousel>
         {loading ? (
           <BannerSkeletons />
         ) : banners.length === 0 ? (
           <div className="text-center text-gray-500 ">
-            <div>
-             
-              <h3 className="text-lg font-semibold italic">
-                No Banners Available
-              </h3>
-            </div>
+            <h3 className="text-lg font-semibold italic">
+              No Banners Available
+            </h3>
           </div>
         ) : (
           banners.map((banner) => (
