@@ -67,7 +67,7 @@ const Filter: React.FC = () => {
   };
 
   return (
-    <div className="">
+    <div className="w-[17rem] md:w-80" >
       <div className="flex justify-between">
         <h1 className="font-semibold text-2xl">Filter</h1>
         {isFilterChanged && (

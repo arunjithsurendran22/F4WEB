@@ -54,7 +54,7 @@ const FlashSale: React.FC = () => {
         {products.length>0 && <ViewAll onClick={handleClick} /> }
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-14 md:gap-12  w-full">
+      <div className="gap-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-14 md:gap-12  w-full">
         {loading ? (
           <>
             {[...Array(5)].map((_, index) => (

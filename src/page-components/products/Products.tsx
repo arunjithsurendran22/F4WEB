@@ -14,6 +14,7 @@ import RightSidebar from "@/components/ui/RightSidebar/RightSidebar";
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import { resetFilters } from "@/store/filterSlice";
 import FilterLottie from "@/components/ui/Filter/FilterLottie";
+import LeftSidebar from "@/components/ui/LeftSidebar/LeftSidebar";
 
 const Products: React.FC = () => {
   const dispatch = useDispatch();
@@ -148,12 +149,11 @@ const Products: React.FC = () => {
   return (
     <div className="">
       <div className="flex">
-        <div className="block lg:hidden p-5">
+        <div className="block lg:hidden p-1 ">
           <button onClick={handleVisible}>
-            <FilterLottie width={30} height={30} />
+            <FilterLottie width={30} height={30}  />
           </button>
         </div>
-
         <div className="p-14 w-96 hidden lg:block">
           <Filter />
         </div>
@@ -177,7 +177,7 @@ const Products: React.FC = () => {
               </h3>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-14 lg:gap-0 w-full p-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-14 lg:gap-0 w-full md:p-3">
               {products.map((product) => (
                 <div key={product._id} className="mb-10">
                   <ProductCard
@@ -195,7 +195,7 @@ const Products: React.FC = () => {
                     storeId={storeId}
                     unit={product.unit}
                     quantity={product.quantity}
-                    width="w-full" 
+                    width="w-full"
                     imgHeight="h-auto"
                   />
                 </div>
@@ -209,13 +209,13 @@ const Products: React.FC = () => {
           )}
           <div ref={observerRef} className="h-10"></div>
         </div>
-        <RightSidebar
+        <LeftSidebar
           isVisible={isSidebarVisible}
           onClose={closeSidebar}
           title=""
         >
           <Filter />
-        </RightSidebar>
+        </LeftSidebar>
       </div>
     </div>
   );

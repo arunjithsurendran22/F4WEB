@@ -37,7 +37,7 @@ interface ProductCardProps {
   width?: string;
   imgHeight?: string;
   unit?: string;
-  quantity?: number
+  quantity?: number;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -56,7 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   width = "w-72",
   imgHeight = "h-52",
   unit,
-  quantity
+  quantity,
 }) => {
   const loggedIn = useSelector((state: RootState) => state.profile.loggedIn);
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
@@ -138,8 +138,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
       try {
         const responseCart = await dispatch(fetchCartItems() as any).unwrap();
 
-        const productInCart = responseCart.items.find(
-          (item: any) => item.isSubProduct ? (item.subProduct._id === _id) : (item.product._id === _id)
+        const productInCart = responseCart.items.find((item: any) =>
+          item.isSubProduct
+            ? item.subProduct._id === _id
+            : item.product._id === _id
         );
         setIsProductInCart(!!productInCart);
         if (productInCart) {
@@ -285,28 +287,31 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const formattedDiscount = (discount: any) => {
-    return discount ? Number.isInteger(discount)
-      ? discount.toFixed(0) // No decimal places
-      : discount.toFixed(2) // Round to 2 decimal places 
-      : '0';
-  }
+    return discount
+      ? Number.isInteger(discount)
+        ? discount.toFixed(0) // No decimal places
+        : discount.toFixed(2) // Round to 2 decimal places
+      : "0";
+  };
 
   return (
     <div
       key={_id}
-      className={`${width} md:w-48 lg:w-52 xl:w-60  rounded-3xl shadow-xl hover:shadow-lg transition-shadow relative`}
+      className={`${width} rounded-3xl shadow-xl hover:shadow-lg transition-shadow relative`}
     >
       {/* Offer badge */}
       {discountPercentage ? (
         <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
           <div className="flex items-center">
-            <p className="text-lg font-medium">
+            <p className="text-xs md:text-lg font-medium">
               {formattedDiscount(discountPercentage)}%
             </p>
-            <p className="ml-2 text-md mt-1 text-gray-200">OFF</p>
+            <p className="ml-2 text-xs md:text-md mt-1 text-gray-200">OFF</p>
           </div>
         </div>
-      ) : ''}
+      ) : (
+        ""
+      )}
 
       {/* Love icon */}
       <div className="absolute top-3 right-3 bg-white text-white p-[.3rem] rounded-full">
@@ -315,8 +320,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onClick={handleAddToWishList}
         >
           <FaHeart
-            className={`${isAddedWish ? "text-customRed3" : "text-customGrayLight2"
-              }`}
+            className={`${
+              isAddedWish ? "text-customRed3" : "text-customGrayLight2"
+            }`}
           />
         </div>
       </div>
@@ -336,45 +342,41 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
 
       {/* Product details */}
-      <div className="p-3 bg-white rounded-b-3xl">
+      <div className="p-3 bg-white rounded-b-3xl ">
         {/* Star rating section */}
         <div className="flex items-center mb-1">
           <FaStar className="text-customYellow h-4 w-4" />
-          <p className="text-customYellow ml-1 text-sm font-semibold">
+          <p className="text-customYellow ml-1 text-xs md:text-sm font-semibold">
             {rating.toFixed(2)}
           </p>
-          <span className="text-gray-400 ml-1">({ratingCount})</span>
+          <span className="text-gray-400 ml-1 text-xs md:text-sm ">({ratingCount})</span>
         </div>
 
         {/* Title */}
         <div className="h-14">
-          <h3 className="text-lg font-semibold mb-1 whitespace-normal overflow-visible md:text-sm lg:text-[1rem]">
+          <h3 className=" text-xs md:text-lg font-semibold mb-1 whitespace-normal overflow-visible lg:text-[1rem]">
             {title}
           </h3>
         </div>
 
         <p className="text-sm text-customBlueLight font-semibold">
-            {quantity} {unit}
-          </p>
+          {quantity} {unit}
+        </p>
 
         {/* Price and Button */}
         <div className="flex items-center justify-between space-x-1 ">
-          {
-            !subscriptionProduct ? (
-
-              <div className="flex items-center justify-between space-x-1">
-
-                <p className=" font-bold text-gray-800">₹{price}</p>
-                {originalPrice > price && (
-                  <p className=" line-through text-customRed font-medium">
-                    ₹{originalPrice}
-                  </p>
-                )}
-
-              </div>
-
-            ) : ''
-          }
+          {!subscriptionProduct ? (
+            <div className="flex items-center justify-between space-x-1 text-xs md:text-sm">
+              <p className=" font-bold text-gray-800">₹{price}</p>
+              {originalPrice > price && (
+                <p className=" line-through text-customRed font-medium">
+                  ₹{originalPrice}
+                </p>
+              )}
+            </div>
+          ) : (
+            ""
+          )}
 
           {/* Button */}
           {isProductInCart ? (
@@ -392,7 +394,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               onClick={handleAddToCart}
             >
               <div className="flex justify-center items-center">
-                <p>Add</p>
+                <p className="text-xs md:text-sm xl:text-lg">Add</p>
                 {hasSubProducts && <MdArrowForwardIos className="ml-1" />}
               </div>
             </Button>
