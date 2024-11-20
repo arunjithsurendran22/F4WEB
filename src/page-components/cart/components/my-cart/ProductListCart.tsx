@@ -14,6 +14,7 @@ import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import { RootState } from "@/store";
 import CartEmpty from "@/components/ui/CartEmpty/CartEmpty";
 import { toast } from "react-hot-toast";
+import { useAppSelector } from "@/hooks/useAppSelector";
 
 const ProductListCart: React.FC = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,8 @@ const ProductListCart: React.FC = () => {
   const storeId = useSelector(
     (state: RootState) => state.location.storeId || undefined
   );
+  
+
   const [products, setProducts] = useState<any[]>([]);
   const [expressProducts, setExpressProducts] = useState(false);
   const [subscribedProducts, setSubscribedProducts] = useState(false);
@@ -140,7 +143,9 @@ const ProductListCart: React.FC = () => {
             <SpinnerLoader />
           </div>
         ) : products.length === 0 ? (
-          <CartEmpty />
+          <div className="flex justify-center w-72">
+            <CartEmpty />
+          </div>
         ) : (
           products.map((cartItem: any) => {
             const product = cartItem.product;

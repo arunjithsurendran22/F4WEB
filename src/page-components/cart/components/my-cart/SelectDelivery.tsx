@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import AppliedCoupon from "./AppliedCoupon";
 import InputBoxAddButton from "@/components/ui/inputbox/InputBoxAddButton";
 import PaymentDetails from "../../../../components/PaymentDetails/PaymentDetails";
@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { addressApi } from "@/services/addressService";
 import { useRouter } from "next/navigation";
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
+import { useAppSelector } from "@/hooks/useAppSelector";
 
 function SelectDelivery() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function SelectDelivery() {
   const { couponDiscount, coinsAmount } = useSelector(
     (state: RootState) => state.cart
   );
+  const itemCount = useAppSelector((state: RootState) => state.cart.itemCount);
   const cartId = useSelector((state: RootState) => state.cart.cartId);
   const storeId = useSelector(
     (state: RootState) => state.location.storeId || undefined
@@ -29,6 +31,7 @@ function SelectDelivery() {
   const [inputValueCoins, setInputValueCoins] = useState<string>("");
   const [isCouponApplied, setIsCouponApplied] = useState<boolean>(false);
   const [isCoinsApplied, setIsCoinsApplied] = useState<boolean>(false);
+  const [isEnable, setEnable] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
   const [loader, setLoader] = useState(false);
 
@@ -40,6 +43,12 @@ function SelectDelivery() {
     setInputValueCoins(e.target.value);
   };
 
+  useEffect(() => {
+    if (itemCount < 0) {
+      setEnable(true);
+    }
+  }, []);
+
   const handleCouponButtonClick = async () => {
     try {
       if (cartId && inputValueCoupon) {
@@ -48,9 +57,9 @@ function SelectDelivery() {
           storeId,
           couponCode: inputValueCoupon,
         });
-        if(!response.status){
+        if (!response.status) {
           toast.error(response.message);
-        }else{
+        } else {
           if (response.data) {
             toast.success("Coupon applied successfully!");
             dispatch(setCartUpdated(true));
@@ -58,7 +67,6 @@ function SelectDelivery() {
             setIsCouponApplied(true);
           }
         }
-        
       }
     } catch (error: any) {
       console.error("Failed to apply coupon:", error);
@@ -94,9 +102,9 @@ function SelectDelivery() {
           storeId,
           coins: inputValueCoins,
         });
-        if(!response.status) {
+        if (!response.status) {
           toast.error(response.message);
-        }else{
+        } else {
           if (response.data) {
             toast.success("Coins applied successfully!");
             dispatch(setCartUpdated(true));
@@ -104,7 +112,6 @@ function SelectDelivery() {
             setIsCoinsApplied(true);
           }
         }
-        
       }
     } catch (error: any) {
       console.error("Failed to apply coins:", error);
@@ -203,6 +210,7 @@ function SelectDelivery() {
           textColor="text-white"
           fontSize="font-normal"
           onClick={fetchAddresses}
+          disabled={isEnable}
         >
           {loader ? <SpinnerLoader /> : "Select delivery Slot"}
         </Button>

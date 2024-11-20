@@ -4,16 +4,8 @@ import LottieAnimation from "../LottieAnimation/LottieAnimation";
 
 function CartEmpty() {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        textAlign: "center",
-      }}
-    >
-      <LottieAnimation animationData={cartAnimation} width={300} height={300} />
+    <div>
+      <LottieAnimation animationData={cartAnimation} width={200} height={300} />
     </div>
   );
 }
