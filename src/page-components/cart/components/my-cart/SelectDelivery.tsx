@@ -43,11 +43,6 @@ function SelectDelivery() {
     setInputValueCoins(e.target.value);
   };
 
-  useEffect(() => {
-    if (itemCount < 0) {
-      setEnable(true);
-    }
-  }, []);
 
   const handleCouponButtonClick = async () => {
     try {
@@ -210,7 +205,7 @@ function SelectDelivery() {
           textColor="text-white"
           fontSize="font-normal"
           onClick={fetchAddresses}
-          disabled={isEnable}
+          disabled={itemCount <= 0}
         >
           {loader ? <SpinnerLoader /> : "Select delivery Slot"}
         </Button>

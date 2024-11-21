@@ -16,14 +16,16 @@ function ProfileName() {
   }, [dispatch]);
 
   return (
-    <div className="flex items-center justify-between w-3/12">
+    <div className="flex items-center justify-between md:w-3/12">
       <div>
         {loading ? (
           <SpinnerLoader />
         ) : (
           <>
-            <h1 className="font-medium">{profile.name || "Unknown"}</h1>
-            <p className="text-customGrayLight2">
+            <h1 className="font-medium text-xs md:text-lg">
+              {profile.name || "Unknown"}
+            </h1>
+            <p className="text-customGrayLight2 text-xs md:text-sm">
               +{profile.countryCode} {profile.mobileNumber || "N/A"}
             </p>
           </>
