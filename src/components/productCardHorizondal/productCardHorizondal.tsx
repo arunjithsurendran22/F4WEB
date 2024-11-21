@@ -231,7 +231,7 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div key={_id} className=" lg:w-[21rem] flex ">
+    <div key={_id} className=" lg:w-[21rem] flex">
       <div className="min-w-[7rem] w-[7rem] h-[8rem] bg-customGrayLight rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer">
         <Image
           src={imageSrc}
@@ -273,7 +273,7 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
           {quantity} {unit}
         </p>
 
-        <div className="flex items-center justify-between space-x-2 text-xs">
+        <div className="flex items-center justify-between space-x-2 text-xs  w-44 md:w-52">
           <p className=" font-bold text-gray-800">₹{price}</p>
           {originalPrice && (
             <p className=" line-through text-customRed font-medium">
@@ -293,7 +293,9 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
             <Button width="w-20" height="h-9" onClick={handleAddToCart}>
               <div className="flex justify-center items-center">
                 <p className="text-xs md:text-sm">Add</p>
-                {hasSubProducts && <MdArrowForwardIos className="ml-1 text-xs" />}
+                {hasSubProducts && (
+                  <MdArrowForwardIos className="ml-1 text-xs" />
+                )}
               </div>
             </Button>
           )}

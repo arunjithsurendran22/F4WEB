@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import "./style.css";
+
 
 interface SubscriptionCardProps {
   plan: {

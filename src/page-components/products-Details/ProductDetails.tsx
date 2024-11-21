@@ -37,7 +37,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ id }) => {
   }, [id]);
 
   return (
-    <div className="p-14">
+    <div className="p-3 md:p-14">
       {loading ? (
         <ProductDetailsCardSkeleton />
       ) : product ? (

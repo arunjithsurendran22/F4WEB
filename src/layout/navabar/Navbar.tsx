@@ -36,16 +36,19 @@ function Navbar() {
       <div className="flex py-6 items-center px-4 md:px-14 gap-5">
         {/* Regular Navbar */}
         <div className="md:flex w-full justify-between gap-5">
-          <div className="md:flex xl:w-6/12  gap-6 ">
-            <div className="xl:w-2/12 ">
+          <div className="md:flex xl:w-6/12  gap-6">
+            <div className="flex items-center  gap-5 justify-between  xl:w-2/12 ">
               <Heading />
+              <div className="lg:hidden">
+                <Location />
+              </div>
             </div>
             <div className="md:w-96  xl:w-10/12  mt-3 md:mt-0">
               <SearchBox />
             </div>
           </div>
           <div className="xl:w-6/12 flex justify-between items-center">
-            <div className="xl:w-6/12">
+            <div className="hidden lg:block xl:w-6/12">
               <Location />
             </div>
             <div className="xl:w-6/12 justify-end">

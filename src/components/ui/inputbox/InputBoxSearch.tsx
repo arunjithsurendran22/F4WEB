@@ -21,7 +21,7 @@ const InputBoxSearch: React.FC<SearchBoxProps> = ({
   disable = false,
 }) => {
   return (
-    <div className={`relative flex items-center border rounded-full h-12 ${className}`}>
+    <div className={`relative flex items-center border rounded-full md:h-12 ${className}`}>
       {/* Search Icon */}
       <div className="absolute left-3">
         <Image src="/icons/search.svg" alt="Search Icon" width={20} height={20} />

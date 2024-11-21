@@ -49,9 +49,9 @@ function OrderDetailsMap() {
   if (!isLoaded) return <div>Loading maps...</div>;
 
   return (
-    <div className="">
+    <div className="p-3">
       <h1 className="font-semibold text-lg mb-4">Delivery Address</h1>
-      <div className="border border-gray-300 rounded-xl w-80 h-56 p-4 flex flex-col">
+      <div className="border border-gray-300 rounded-xl md:w-80 h-56 p-4 flex flex-col">
         {/* Map Container */}
         <div className="flex justify-center h-full w-full mb-2">
           {primaryCoordinates ? (

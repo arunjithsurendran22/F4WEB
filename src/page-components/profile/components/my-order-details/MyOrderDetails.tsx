@@ -35,8 +35,8 @@ const MyOrderDetails: React.FC<MyOrderDetailsProps> = ({ id }) => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <>
+      <div className="p-2">
       {ordersDetails?.items.map((item :any) => (
           <OrderCardDetails
           key={ item.isSubProduct ? item.subProduct._id : item.product._id}
@@ -55,7 +55,7 @@ const MyOrderDetails: React.FC<MyOrderDetailsProps> = ({ id }) => {
         {" "}
         <OrderDetailsMap />
       </div>
-      <div className="mt-5 w-80">
+      <div className="p-3 mt-5 md:w-80">
        <OrderPaymentDetails
        subTotal = {ordersDetails?.subTotal}
        deliveryCharge= {ordersDetails?.deliveryCharge}
@@ -69,7 +69,7 @@ const MyOrderDetails: React.FC<MyOrderDetailsProps> = ({ id }) => {
        timeSlotDetails = {ordersDetails?.timeSlotDetails}
        />
       </div>
-    </div>
+    </>
   );
 };
 

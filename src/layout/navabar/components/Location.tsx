@@ -57,7 +57,7 @@ function Location() {
       </div>
       <div className="flex gap-3">
         <p
-          className="text-gray-600 font-semibold text-xs md:text-[12px] cursor-pointer"
+          className="text-gray-600 font-semibold text-[10px] md:text-[12px] cursor-pointer"
           onClick={openSidebar}
         >
           {loading ? (

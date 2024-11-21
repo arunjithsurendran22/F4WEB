@@ -19,8 +19,6 @@ import { useAppSelector } from "@/hooks/useAppSelector";
 import { RootState } from "@/store";
 import { showLoginToast } from "@/utils/toastUtils";
 
-
-
 interface ProductDetailsCardProps {
   _id: string;
   imageSrc: string;
@@ -55,12 +53,13 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   subscribedProduct,
   storeId,
   unit,
-  quantity
+  quantity,
 }) => {
   const loggedIn = useAppSelector((state: RootState) => state.profile.loggedIn);
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const [shouldFetchSubProducts, setShouldFetchSubProducts] = useState(hasSubProducts);
+  const [shouldFetchSubProducts, setShouldFetchSubProducts] =
+    useState(hasSubProducts);
   const [isProductInCart, setIsProductInCart] = useState(false);
   const [itemQuantity, setItemQuantity] = useState(1);
   const dispatch = useDispatch();
@@ -124,7 +123,6 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
         } else {
           setItemQuantity(1);
         }
-
       } catch (error) {
         console.error("Failed to fetch cart items:", error);
       }
@@ -171,16 +169,17 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   };
 
   const formattedDiscount = (discount: any) => {
-    return discount ? Number.isInteger(discount)
-      ? discount.toFixed(0) // No decimal places
-      : discount.toFixed(2) // Round to 2 decimal places 
-      : '0';
-  }
+    return discount
+      ? Number.isInteger(discount)
+        ? discount.toFixed(0) // No decimal places
+        : discount.toFixed(2) // Round to 2 decimal places
+      : "0";
+  };
 
   return (
     <div className="flex flex-col">
-      <div className="lg:flex space-x-6 mb-5">
-        <div className="w-[35rem] h-[25rem] bg-gradient-to-b from-gray-200 to-gray-400 flex justify-center items-center rounded-lg shadow-lg">
+      <div className="lg:flex md:space-x-6 mb-5">
+        <div className="md:w-[35rem] md:h-[25rem] bg-gradient-to-b from-gray-200 to-gray-400 flex justify-center items-center rounded-lg shadow-lg">
           <div className="relative w-full h-full">
             <Slider {...sliderSettings}>
               {images.map((img, index) => (
@@ -188,7 +187,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
                   <img
                     src={img}
                     alt={title}
-                    className="rounded-lg object-cover w-[35rem] h-[25rem]"
+                    className="rounded-lg object-cover md:w-[35rem] md:h-[25rem]"
                   />
                 </div>
               ))}
@@ -212,12 +211,13 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
             </div>
           </div>
 
-          <h1 className="text-3xl font-semibold mb-2">{title}</h1>
+          <h1 className="md:text-3xl font-semibold mb-2">{title}</h1>
 
-          <div className="relative w-full max-w-[38rem]">
+          <div className="relative w-full md:max-w-[40rem]">
             <p
-              className={`text-customGrayLight2 transition-all duration-300 ${isExpanded ? "h-auto" : "line-clamp-2"
-                }`}
+              className={`text-customGrayLight2 transition-all duration-300  text-xs md:text-lg ${
+                isExpanded ? "h-auto" : "line-clamp-2"
+              }`}
             >
               {isExpanded
                 ? description
@@ -225,54 +225,52 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
             </p>
             <button
               onClick={toggleDescription}
-              className="text-customBlueLight font-semibold absolute bottom-0 right-0 bg-transparent border-none cursor-pointer mt-2"
+              className="text-customBlueLight font-semibold absolute bottom-0 right-0 bg-transparent border-none cursor-pointer mt-2 text-xs md:text-sm"
             >
               {isExpanded ? "Read Less" : "Read More"}
             </button>
           </div>
-          <p className="text-xl text-customBlueLight font-semibold">
+          <p className="md:text-xl text-customBlueLight font-semibold">
             {quantity} {unit}
           </p>
-          {
-            !shouldFetchSubProducts && (
+          {!shouldFetchSubProducts && (
+            <div className="flex items-center gap-10 mt-10 ">
+              {!subscribedProduct ? (
+                <div className="flex items-center gap-10">
+                  <p className=" font-bold text-sm md:text-xl">₹ {price}</p>
+                  {originalPrice && (
+                    <p className=" text-md md:text-xl line-through text-customRed font-semibold">
+                      ₹ {originalPrice}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                ""
+              )}
 
-              <div className="flex items-center gap-10 mt-10">
-                {
-                  !subscribedProduct ? (
-                    <div className="flex items-center gap-10">
-                      <p className="text-xl font-bold">₹ {price}</p>
-                      {originalPrice && (
-                        <p className="text-xl line-through text-customRed font-semibold">
-                          ₹ {originalPrice}
-                        </p>
-                      )}
-                    </div>
-
-                  ) : ''
-                }
-
-                {isProductInCart ? (
-                  <QuantityButton
-                    buttonSize="w-6 h-9"
-                    initialQuantity={itemQuantity}
-                    onRemove={handleUpdateRemove}
-                    onUpdateQuantity={handleUpdateQuantity}
-                  />
-                ) : (
-                  <Button
-                    width="w-20 md:w-20 lg:w-28"
-                    height="h-8 md:h-10 lg:h-10"
-                    onClick={handleAddToCart}
-                  >
-                    <div className="flex justify-center items-center">
-                      <p>Add</p>
-                      {hasSubProducts && <MdArrowForwardIos className="ml-1" />}
-                    </div>
-                  </Button>
-                )}
-              </div>
-            )
-          }
+              {isProductInCart ? (
+                <QuantityButton
+                  buttonSize="w-5 h-7 md:h-9 md:w-7"
+                  btnSize="text-md md:text-lg"
+                  textSize="text-md md:text-lg"
+                  initialQuantity={itemQuantity}
+                  onRemove={handleUpdateRemove}
+                  onUpdateQuantity={handleUpdateQuantity}
+                />
+              ) : (
+                <Button
+                  width="w-24 md:w-24 lg:w-28"
+                  height="h-8 md:h-8 lg:h-10"
+                  onClick={handleAddToCart}
+                >
+                  <div className="flex justify-center items-center">
+                    <p>Add</p>
+                    {hasSubProducts && <MdArrowForwardIos className="ml-1" />}
+                  </div>
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       </div>
       {shouldFetchSubProducts && (
