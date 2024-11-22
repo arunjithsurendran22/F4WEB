@@ -255,9 +255,48 @@ const ProductCard: React.FC<ProductCardProps> = ({
         const isFavourite = response.data.favouriteStatus.isFavourite;
         setIsAddedWish(isFavourite);
         if (isFavourite) {
-          toast.success("Added to wishlist");
+          toast.success("💖 Item added to your wishlist!", {
+            style: {
+              background: "linear-gradient(135deg, #4CAF50, #2E7D32)", 
+              color: "#fff",
+              fontSize: "16px",
+              fontWeight: "bold",
+              fontStyle: "italic",
+              borderRadius: "12px",
+              padding: "16px 24px",
+              boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+              border: "2px solid #4CAF50",
+              transform: "scale(1)",
+              transition: "transform 0.2s ease",
+            },
+            iconTheme: {
+              primary: "#4CAF50", 
+              secondary: "#2E7D32", 
+            },
+            duration: 3000, 
+          });
         } else {
-          toast.success("Removed from wishlist");
+          toast.success("💔 Item removed from your wishlist!", {
+            style: {
+              background: "linear-gradient(135deg, #FF5253, #D32F2F)", 
+              color: "#fff",
+              fontSize: "16px",
+              fontWeight: "bold",
+              fontStyle: "italic",
+              borderRadius: "12px",
+              padding: "16px 24px",
+              boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+              border: "2px solid #FF5252",
+              transform: "scale(1)",
+              transition: "transform 0.2s ease",
+            },
+            iconTheme: {
+              primary: "#FF5252", 
+              secondary: "#D32F2F", 
+            },
+            duration: 3000, 
+          });
+          
         }
 
         const updatedResponse = await favouriteApi.getFavourites({ storeId });

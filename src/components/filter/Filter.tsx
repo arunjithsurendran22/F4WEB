@@ -12,7 +12,11 @@ import {
 import PopularCategoryFilter from "./components/PopularCategoryFilter";
 import RatingFilter from "./components/RatingFilter";
 
-const Filter: React.FC = () => {
+interface FilterProps {
+  closeSidebar?: () => void;
+}
+
+const Filter: React.FC<FilterProps> = ({ closeSidebar }) => {
   const dispatch = useAppDispatch();
 
   const [selectedRating, setSelectedRating] = useState<number>(0);
@@ -53,6 +57,7 @@ const Filter: React.FC = () => {
       }, 1000);
 
       setIsApplied(false);
+      if (closeSidebar) closeSidebar();
     } else {
       // Apply filters
       if (isFilterChanged) {
@@ -62,12 +67,13 @@ const Filter: React.FC = () => {
         dispatch(setRatingFilter(selectedRating));
         setIsApplied(true);
         setReset(false);
+        if (closeSidebar) closeSidebar();
       }
     }
   };
 
   return (
-    <div className="w-[17rem] md:w-80" >
+    <div className="w-[17rem] md:w-80">
       <div className="flex justify-between">
         <h1 className="font-semibold text-2xl">Filter</h1>
         {isFilterChanged && (

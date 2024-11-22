@@ -214,7 +214,7 @@ const Products: React.FC = () => {
           onClose={closeSidebar}
           title=""
         >
-          <Filter />
+          <Filter closeSidebar={closeSidebar} />
         </LeftSidebar>
       </div>
     </div>
