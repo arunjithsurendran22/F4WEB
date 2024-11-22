@@ -85,11 +85,11 @@ function ReferralCode({
   }
 
   return (
-    <div className="w-[35rem] mx-auto bg-white p-6">
-      <h1 className="text-2xl font-semibold mb-2 text-center">
+    <div className="w-[90%] sm:w-[31rem] md:w-[35rem] mx-auto bg-white p-4 sm:p-6">
+      <h1 className="text-xl sm:text-2xl font-semibold mb-2 text-center">
         Enter the referral code
       </h1>
-      <p className="text-customGrayLight2 text-sm mb-6 text-center">
+      <p className="text-sm sm:text-base text-customGrayLight2 mb-4 sm:mb-6 text-center">
         Please enter your referral code
       </p>
       <InputBox
@@ -99,12 +99,12 @@ function ReferralCode({
         backgroundColor="bg-none"
         placeHolder="F4FISH43567"
       />
-      <div className="mt-8 mb-8">
+      <div className="mt-6 sm:mt-8 mb-6 sm:mb-8">
         <Button
           backgroundColor="bg-customBlueLight"
           borderRadius="rounded-3xl"
           textColor="text-white"
-          fontSize="font-medium"
+          fontSize="text-sm sm:text-base font-medium"
           width="w-full"
           onClick={handleSubmit}
           disabled={loading}
@@ -112,8 +112,8 @@ function ReferralCode({
           {loading ? "Processing..." : "Continue"}
         </Button>
       </div>
-      <div className="mt-5">
-        <p className="text-customGrayLight2">
+      <div className="mt-4 sm:mt-5">
+        <p className="text-sm sm:text-base text-customGrayLight2 text-center">
           Didn&apos;t receive the code?{" "}
           <span className="text-customBlueLight font-medium cursor-pointer">
             Resend Code
@@ -122,6 +122,7 @@ function ReferralCode({
       </div>
     </div>
   );
+  
 }
 
 export default ReferralCode;

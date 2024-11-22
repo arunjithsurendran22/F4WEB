@@ -376,7 +376,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alt={title}
           width={250}
           height={250}
-          className="object-cover"
+          className="object-cover max-h-[160px]"
         />
       </div>
 

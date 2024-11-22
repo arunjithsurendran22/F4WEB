@@ -30,11 +30,11 @@ function Register({ phoneNumber, closeModal }: RegisterProps) {
       {isActiveReferral ? (
         <ReferralCode phoneNumber={phoneNumber} fullName={fullName} closeModal={closeModal} />
       ) : (
-        <div className="w-[35rem] mx-auto bg-white p-6">
-          <h1 className="text-2xl font-semibold mb-2 text-center">
+        <div className="w-[90%] sm:w-[31rem] md:w-[35rem] mx-auto bg-white p-4 sm:p-6">
+          <h1 className="text-xl sm:text-2xl font-semibold mb-2 text-center">
             Register with us
           </h1>
-          <p className="text-customGrayLight2 text-sm mb-6 text-center">
+          <p className="text-sm sm:text-base text-customGrayLight2 mb-4 sm:mb-6 text-center">
             Please enter your name
           </p>
           <InputBox
@@ -44,16 +44,14 @@ function Register({ phoneNumber, closeModal }: RegisterProps) {
             backgroundColor="bg-none"
             placeHolder="Enter your full name"
           />
-          <div className="mt-8 mb-8">
+          <div className="mt-6 sm:mt-8 mb-6 sm:mb-8">
             <Button
               backgroundColor={
-                isButtonActive
-                  ? "bg-customBlueLight"
-                  : "bg-gray-300 border-none"
+                isButtonActive ? "bg-customBlueLight" : "bg-gray-300 border-none"
               }
               borderRadius="rounded-3xl"
               textColor="text-white"
-              fontSize="font-medium"
+              fontSize="text-sm sm:text-base font-medium"
               width="w-full"
               onClick={handleSubmit}
               disabled={!isButtonActive}
@@ -65,6 +63,7 @@ function Register({ phoneNumber, closeModal }: RegisterProps) {
       )}
     </>
   );
+  
 }
 
 export default Register;

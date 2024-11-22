@@ -69,20 +69,30 @@ function YourProducts() {
             </p>
           </div>
           {/* Adjusted price tag position */}
+
           <div className="w-[140px] h-[140px] flex justify-center items-center relative top-[-30px] md:top-[-65px] right-[10px]">
-            <Image
-              src="/images/price_tag.png"
-              alt="Price Tag"
-              width={140}
-              height={140}
-              className="object-fill"
-            />
-            {/* Overlay text for discount percentage */}
-            <div className="absolute inset-0 ml-10 mt-6 flex flex-col justify-center items-center text-white font-semibold txt-xs md:text-md">
-              <p>{plan?.discountPercentage}%</p>
-              <p>OFF</p>
-            </div>
+            {
+              (plan?.discountPercentage) ?
+                (
+                  <>
+                    <Image
+                      src="/images/price_tag.png"
+                      alt="Price Tag"
+                      width={140}
+                      height={140}
+                      className="object-fill"
+                    />
+                    {/* Overlay text for discount percentage */}
+                    <div className="absolute inset-0 ml-10 mt-6 flex flex-col justify-center items-center text-white font-semibold txt-xs md:text-md">
+                      <p>{plan?.discountPercentage}%</p>
+                      <p>OFF</p>
+                    </div>
+                  </>
+
+                ) : ''}
           </div>
+
+
         </div>
 
         {/* Loading Indicator */}
@@ -98,7 +108,7 @@ function YourProducts() {
             </p>
           </div>
         ) : (
-          <div className="w-full">
+          <div className="gap-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-14 md:gap-12  w-full">
             <Carousel gap={40}>
               {products.map((product) => (
                 <ProductCard
@@ -111,7 +121,7 @@ function YourProducts() {
                   originalPrice={product.mrp}
                   ratingCount={product.ratingCount}
                   subscriptionProduct={product.subscriptionProduct}
-                  width="w-full"
+                  // width="w-full"
                   imgHeight="h-auto"
                 />
               ))}

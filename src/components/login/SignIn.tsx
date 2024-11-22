@@ -90,11 +90,11 @@ function SignIn({ closeModal }: SignInProps) {
           closeModal={closeModal}
         />
       ) : (
-        <div className="w-[35rem] mx-auto bg-white p-6">
-          <h1 className="text-2xl font-semibold text-gray-800 mb-2 text-center">
+        <div className="w-[90%] sm:w-[30rem] md:w-[35rem] mx-auto bg-white p-4 sm:p-6 md:p-8">
+          <h1 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-2 text-center">
             Sign In
           </h1>
-          <p className="text-customGrayLight2 text-sm mb-6 text-center">
+          <p className="text-sm sm:text-base text-customGrayLight2 mb-4 sm:mb-6 text-center">
             Please enter your phone number
           </p>
           <InputBox
@@ -104,7 +104,7 @@ function SignIn({ closeModal }: SignInProps) {
             backgroundColor="bg-none"
             placeHolder="99999 99999"
           />
-          <div className="mt-8">
+          <div className="mt-6 sm:mt-8">
             <Button
               backgroundColor={
                 isButtonActive
@@ -113,7 +113,7 @@ function SignIn({ closeModal }: SignInProps) {
               }
               borderRadius="rounded-3xl"
               textColor="text-white"
-              fontSize="font-medium"
+              fontSize="text-sm sm:text-base font-medium"
               width="w-full"
               onClick={handleSubmit}
               disabled={!isButtonActive || loading}
@@ -123,26 +123,27 @@ function SignIn({ closeModal }: SignInProps) {
             <div id="recaptcha-container"></div>
           </div>
           <div className="mt-6">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <Checkbox
                 checked={isChecked}
                 onChange={() => setIsChecked(!isChecked)}
                 borderRadius="rounded-md"
               />
-              <p className="ml-2 text-md text-customGrayLight2">
+              <p className="text-xs sm:text-sm text-customGrayLight2">
                 By ticking, you accept our{" "}
                 <span className="text-customBlueLight font-medium">terms</span>{" "}
-                and
+                and{" "}
+                <span className="text-customBlueLight font-medium">
+                  conditions
+                </span>
               </p>
             </div>
-            <p className="ml-12 text-md text-customBlueLight font-medium">
-              conditions
-            </p>
           </div>
         </div>
       )}
     </>
   );
+  
 }
 
 export default SignIn;
