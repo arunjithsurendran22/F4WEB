@@ -135,7 +135,7 @@ const ProductListCart: React.FC = () => {
   };
 
   return (
-    <>
+    <div>
       <DeliveryAddress />
       <div className="overflow-y-auto h-96 md:w-[28rem] hide-scrollbar mt-5">
         {loading ? (
@@ -192,7 +192,7 @@ const ProductListCart: React.FC = () => {
           })
         )}
       </div>
-    </>
+    </div>
   );
 };
 

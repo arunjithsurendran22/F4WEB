@@ -73,13 +73,13 @@ function TicketList() {
           onSearchClick={handleSearchClick}
         />
       </div>
-      <div className="flex gap-2 mt-8 mb-5">
+      <div className="flex justify-between xxs:justify-normal gap-2 mt-8 mb-5 ">
         <Button
           backgroundColor={
             filterStatus === "active" ? "bg-customBlueLight" : ""
           }
           textColor={filterStatus === "active" ? "text-white" : "text-black"}
-          width="w-28"
+          width="w-full xxs:w-28"
           height="h-10"
           fontWeight="text-sm"
           borderRadius="rounded-2xl"
@@ -92,7 +92,7 @@ function TicketList() {
             filterStatus === "closed" ? "bg-customBlueLight" : ""
           }
           textColor={filterStatus === "closed" ? "text-white" : "text-black"}
-          width="w-28"
+          width="w-full xxs:w-28"
           height="h-10"
           fontWeight="text-sm"
           borderRadius="rounded-2xl"

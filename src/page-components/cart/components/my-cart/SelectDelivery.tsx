@@ -171,6 +171,7 @@ function SelectDelivery() {
             isCouponApplied ? handleRemoveCoupon : handleCouponButtonClick
           }
           placeholder="Enter Your Promo Code"
+          disabled={itemCount <= 0}
         />
       </div>
 
@@ -184,6 +185,7 @@ function SelectDelivery() {
             isCoinsApplied ? handleRemoveCoins : handleCoinsButtonClick
           }
           placeholder="Enter Coins Amount"
+          disabled={itemCount <= 0}
         />
       </div>
 

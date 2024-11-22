@@ -20,7 +20,7 @@ function TicketListCard({
   return (
     <div className="border-b py-4 cursor-pointer" onClick={() => onClick?.(_id)}>
       <div className="flex justify-between items-center mb-2">
-        <h1 className="font-bold text-lg">{ticketId}</h1>
+        <h1 className="font-bold md:text-lg">{ticketId}</h1>
         <p className="text-customGrayLight2 text-sm">{time}</p>
       </div>
       <div className="flex justify-between items-center">

@@ -2,21 +2,23 @@
 import React, { useState, ChangeEvent, FC } from "react";
 
 interface InputBoxProps {
-  label?: string; // New prop for label
+  label?: string;
   placeholder?: string;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   buttonLabel?: string;
   onButtonClick?: () => void;
+  disabled?: boolean;
 }
 
 const InputBoxAddButton: FC<InputBoxProps> = ({
-  label, // Destructure label prop
+  label, 
   placeholder = "Search for your place",
   value,
   onChange,
   buttonLabel = "Add",
   onButtonClick,
+  disabled = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -38,6 +40,7 @@ const InputBoxAddButton: FC<InputBoxProps> = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           className="px-5 py-3 w-full h-12 outline-none"
+          disabled={disabled}
         />
         <button
           onClick={onButtonClick}

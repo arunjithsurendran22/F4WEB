@@ -51,7 +51,27 @@ function HelpTopics() {
     try {
       const result = await ticketApi.createTicket(selectedCategoryId);
       if (result) {
-        toast.success(result.message);
+        toast.success("📩 Complaint ticket created successfully!", {
+          style: {
+            background: "linear-gradient(135deg, #4CAF50, #2E7D32)", 
+            color: "#fff",
+            fontSize: "16px",
+            fontWeight: "bold",
+            fontStyle: "italic",
+            borderRadius: "12px",
+            padding: "16px 24px",
+            boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+            border: "2px solid #4CAF50",
+            transform: "scale(1)",
+            transition: "transform 0.2s ease",
+          },
+          iconTheme: {
+            primary: "#4CAF50", 
+            secondary: "#2E7D32", 
+          },
+          duration: 3000, 
+        });
+
         router.push("/profile/tickets/ticket-List");
       }
     } catch (error: any) {

@@ -53,11 +53,11 @@ const InputBoxChatBtn: FC<InputBoxProps> = ({
           }}
           onKeyDown={handleKeyPress} // Listen for Enter key
           placeholder={placeholder}
-          className="px-5 py-3 w-full h-full outline-none bg-customBlueLight2 text-sm rounded-full"
+          className="px-5 md:py-3 w-full h-full outline-none bg-customBlueLight2 text-sm rounded-full"
         />
         <button
           onClick={handleButtonClick}
-          className="flex items-center justify-center w-12 h-12 bg-customGrayLight6 text-black rounded-full p-2 ml-2"
+          className="flex items-center justify-center w-9 h-9 md:w-12 md:h-12 bg-customGrayLight text-black rounded-full p-2 ml-2"
         >
           <Image src="/icons/Send.png" alt="Send" width={24} height={24} />
         </button>

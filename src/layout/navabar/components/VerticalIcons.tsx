@@ -188,10 +188,10 @@ const VerticalIcons: React.FC<VerticalIconsProps> = ({
 
         <Link href={isLoggedIn ? `/profile` : ""} onClick={checkAccessible}>
           <Image
-            src="/icons/king.svg"
+            src="/icons/king.gif"
             alt="King Icon"
-            width={32}
-            height={32}
+            width={40}
+            height={40}
             className="hover:opacity-80 transition-opacity duration-200 cursor-pointer"
           />
         </Link>
