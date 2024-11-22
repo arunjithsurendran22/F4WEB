@@ -422,7 +422,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {/* Button */}
           {isProductInCart ? (
             <QuantityButton
-              buttonSize="lg:w-9"
+              buttonSize="lg:w-4 "
               btnSize="text-xs md:text-lg"
               textSize="text-xs md:text-lg"
               containerPadding="p-1"
