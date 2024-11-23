@@ -86,7 +86,7 @@ const Customize: React.FC<CustomizeProps> = ({
   }, [productId]);
 
   return (
-    <div className={`${column ? "grid grid-cols-4" : "gap-2"}`}>
+    <div className={`${column ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" : "gap-2"}`}>
       {loading ? (
         [...Array(4)].map((_, index) => (
           <ProductCustomizeSkeleton key={index} />

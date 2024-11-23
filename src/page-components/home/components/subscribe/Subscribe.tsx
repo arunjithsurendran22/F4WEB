@@ -52,10 +52,10 @@ const Subscribe: React.FC = () => {
     <div className="bg-subscribe md:flex justify-between items-center p-5 md:p-14 ">
       {/* Left section */}
       <div>
-        <h1 className="xl:text-3xl font-semibold mb-2">
+        <h1 className="text-sm xl:text-3xl font-semibold mb-2">
           Subscribe to our Newsletter
         </h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-xs  md:text-sm text-gray-500">
           Pellentesque eu nibh eget mauris congue mattis mattis nec tellus.
           Phasellus imperdiet elit eu magna.
         </p>

@@ -90,7 +90,7 @@ function SignIn({ closeModal }: SignInProps) {
           closeModal={closeModal}
         />
       ) : (
-        <div className="w-[90%] sm:w-[30rem] md:w-[35rem] mx-auto bg-white p-4 sm:p-6 md:p-8">
+        <div className="w-[18rem]  sm:w-[30rem] md:w-[35rem] mx-auto bg-white  p-4 sm:p-6 md:p-8">
           <h1 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-2 text-center">
             Sign In
           </h1>

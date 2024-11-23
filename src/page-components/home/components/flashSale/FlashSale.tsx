@@ -49,8 +49,8 @@ const FlashSale: React.FC = () => {
 
   return (
     <div >
-      <div className="flex justify-between mb-8">
-        <h2 className="text-2xl font-semibold">Flash Sale ⏰️</h2>
+      <div className="flex justify-between mb-8 items-center">
+        <h2 className=" text-sm md:text-2xl font-semibold">Flash Sale ⏰️</h2>
         {products.length>0 && <ViewAll onClick={handleClick} /> }
       </div>
 

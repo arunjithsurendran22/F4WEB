@@ -55,7 +55,7 @@ function Recommended() {
     <div  className="mb-10">
       <div className="flex justify-between items-center mb-5">
         <div>
-          <h1 className="md:text-2xl font-semibold">
+          <h1 className="text-sm md:text-2xl font-semibold">
             Recommended for {profile ? profile.name : "You"}
           </h1>
         </div>
@@ -76,7 +76,7 @@ function Recommended() {
         ) : products.length === 0 ? (
           <div className="w-full text-center items-center justify-cener text-gray-500">
           
-            <h3 className="text-lg font-semibold italic items-end mb-8">
+            <h3 className="text-xs md:text-lg font-semibold italic items-end mb-8">
               No Recommended Products Found!
             </h3>
           </div>

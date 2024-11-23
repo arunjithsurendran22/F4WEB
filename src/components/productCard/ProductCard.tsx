@@ -257,7 +257,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         if (isFavourite) {
           toast.success("💖 Item added to your wishlist!", {
             style: {
-              background: "linear-gradient(135deg, #4CAF50, #2E7D32)", 
+              background: "linear-gradient(135deg, #4CAF50, #2E7D32)",
               color: "#fff",
               fontSize: "16px",
               fontWeight: "bold",
@@ -270,15 +270,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
               transition: "transform 0.2s ease",
             },
             iconTheme: {
-              primary: "#4CAF50", 
-              secondary: "#2E7D32", 
+              primary: "#4CAF50",
+              secondary: "#2E7D32",
             },
-            duration: 3000, 
+            duration: 3000,
           });
         } else {
           toast.success("💔 Item removed from your wishlist!", {
             style: {
-              background: "linear-gradient(135deg, #FF5253, #D32F2F)", 
+              background: "linear-gradient(135deg, #FF5253, #D32F2F)",
               color: "#fff",
               fontSize: "16px",
               fontWeight: "bold",
@@ -291,12 +291,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
               transition: "transform 0.2s ease",
             },
             iconTheme: {
-              primary: "#FF5252", 
-              secondary: "#D32F2F", 
+              primary: "#FF5252",
+              secondary: "#D32F2F",
             },
-            duration: 3000, 
+            duration: 3000,
           });
-          
         }
 
         const updatedResponse = await favouriteApi.getFavourites({ storeId });
@@ -368,7 +367,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Image section */}
       <div
-        className={`flex justify-center items-center w-full ${imgHeight} bg-customGrayLight rounded-t-2xl overflow-hidden cursor-pointer`}
+        className={`flex justify-center items-center w-full ${imgHeight}  bg-customGrayLight rounded-t-2xl overflow-hidden cursor-pointer`}
         onClick={() => handleNavigate(_id)}
       >
         <Image
@@ -376,7 +375,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alt={title}
           width={250}
           height={250}
-          className="object-cover max-h-[160px]"
+          className="object-contain max-h-[160px]"
         />
       </div>
 

@@ -238,7 +238,7 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
           alt={title}
           width={112}
           height={128}
-          className="object-cover w-[7rem] h-[8rem]"
+          className="object-contain w-[7rem] h-[8rem]"
           onClick={() => handleNavigate(_id)}
         />
       </div>

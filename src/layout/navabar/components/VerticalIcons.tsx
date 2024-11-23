@@ -136,16 +136,17 @@ const VerticalIcons: React.FC<VerticalIconsProps> = ({
             </span>
           )}
         </Link>
-
-        <IoNotificationsOutline
-          onClick={isLoggedIn ? toggleSidebar : checkAccessible}
-          className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-3xl"
-        />
-        {notificationCount > 0 && (
-          <span className="absolute top-0 right-0 bg-customBlue text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
-            {notificationCount}
-          </span>
-        )}
+        <div className="relative">
+          <IoNotificationsOutline
+            onClick={isLoggedIn ? toggleSidebar : checkAccessible}
+            className="text-customGrayLight2 hover:text-customGrayLight5 transition-opacity duration-200 cursor-pointer text-3xl"
+          />
+          {notificationCount > 0 && (
+            <span className="absolute top-0 right-0 bg-customBlue text-white rounded-full text-[9px] font-semibold w-3 h-3 flex items-center justify-center p-2">
+              {notificationCount}
+            </span>
+          )}
+        </div>
 
         <div className="relative">
           <CiUser

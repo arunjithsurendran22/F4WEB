@@ -36,16 +36,16 @@ function Success({ userData, closeModal }: SuccessProps) {
   };
 
   return (
-    <div className="w-[31rem] mx-auto bg-white p-6 flex flex-col items-center">
+    <div className="w-[18rem] mx-auto bg-white p-6 flex flex-col items-center">
       <div>
-        <div className="w-60 flex flex-col justify-center items-center">
+        <div className=" md:w-60 flex flex-col justify-center items-center">
           <Image
             src="/icons/Icon - Success.png"
             alt="Success Icon"
             width={120}
             height={120}
           />
-          <h1 className="text-2xl font-semibold mb-2 text-center">
+          <h1 className="md:text-2xl font-semibold mb-2 text-center">
             Welcome back, {userData.user.name}!
           </h1>
           <p className="text-customGrayLight2 text-sm mb-6 text-center">

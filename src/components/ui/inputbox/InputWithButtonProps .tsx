@@ -19,7 +19,7 @@ const InputBoxWithButton: React.FC<InputBoxWithButtonProps> = ({
   className = "" 
 }) => {
   return (
-    <div className={`relative flex items-center border rounded-full h-14 bg-white ${className}`}>
+    <div className={`relative flex items-center border rounded-full md:h-14 bg-white ${className}`}>
       {/* Search Icon */}
       <div className="absolute left-3">
         <Image

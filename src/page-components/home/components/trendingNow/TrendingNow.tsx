@@ -51,7 +51,7 @@ const TrendingNow: React.FC = () => {
   return (
     <div >
       <div className="flex justify-between mb-8">
-        <h2 className="text-2xl font-semibold">Trending Now</h2>
+        <h2 className="text-sm md:text-2xl font-semibold">Trending Now</h2>
         { products.length>0 && <ViewAll onClick={handleClick} /> }
       </div>
 

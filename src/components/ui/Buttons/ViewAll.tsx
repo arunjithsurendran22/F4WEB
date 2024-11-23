@@ -11,7 +11,7 @@ const ViewAll: React.FC<ViewAllProps> = ({ onClick, buttonText = "View All" }) =
     <div>
       <button
         onClick={onClick}
-        className='text-customBlueLight font-medium md:text-lg'
+        className='text-customBlueLight font-medium  text-sm md:text-lg'
       >
         {buttonText} {/* Use the buttonText prop, or default to "View All" */}
       </button>

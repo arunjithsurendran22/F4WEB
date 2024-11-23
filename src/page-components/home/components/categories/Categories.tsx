@@ -34,7 +34,11 @@ const Categories: React.FC = () => {
   };
 
   const handleClickProducts = (id: string, name: string) => {
-    router.push(`/products-by-category?id=${encodeURIComponent(id)}&name=${encodeURIComponent(name)}`);
+    router.push(
+      `/products-by-category?id=${encodeURIComponent(
+        id
+      )}&name=${encodeURIComponent(name)}`
+    );
   };
 
   const renderCategoryItem = (category: Category) => (
@@ -60,8 +64,8 @@ const Categories: React.FC = () => {
 
   return (
     <div>
-      <div className="flex justify-between mb-8">
-        <h4 className="text-customBlueLight font-semibold text-lg">
+      <div className="flex justify-between mb-8 ">
+        <h4 className="text-customBlueLight font-semibold text-sm md:text-lg items-center ">
           Categories
         </h4>
         <ViewAll onClick={handleClick} />
@@ -72,7 +76,6 @@ const Categories: React.FC = () => {
           renderSkeletons()
         ) : categories.length === 0 ? (
           <div className="col-span-6 text-center text-gray-500">
-            
             <h3 className="text-lg font-semibold italic">
               No Categories Found
             </h3>
