@@ -14,7 +14,13 @@ const config: Config = {
         'sm':'670px',
         'xs':'425px',
         'xxs':'375px',
-        'xxxs':'320px'
+        'xxxs':'320px',
+        '12pro':'390px',
+        'pixel7':'412px',
+        'galaxyS8':"360px",
+        'surfaceDuo':'540px ',
+        'fold5':'344px',
+        'A51':'412px'
       },
       colors: {
         background: "var(--background)",

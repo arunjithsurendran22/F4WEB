@@ -99,7 +99,7 @@ function Notifications({ onNotificationCountChange }: NotificationsProps) {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 w-72 md:w-96">
       <div className="flex justify-end">
         {notifications.length > 0 && (
           <button
