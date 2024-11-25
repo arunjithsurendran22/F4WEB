@@ -15,7 +15,7 @@ function RatingCard() {
     const fetchRatings = async () => {
       try {
         const response: RatingApiResponse = await ratingApi.getTestimonials();
-        if(response.data) setRatings(response.data?.testimonials);
+        if (response.data) setRatings(response.data?.testimonials);
         setLoading(false);
       } catch (err) {
         //toast.error("Failed to fetch Testimonials. Please try again later.");
@@ -27,7 +27,7 @@ function RatingCard() {
   }, []);
 
   return (
-    <div className="md:p-10 p-3">
+    <div className="md:p-14 p-3">
       <Carousel gap={10}>
         {ratings.map((item) => (
           <RatingCardItem
