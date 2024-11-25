@@ -101,6 +101,9 @@ function Recommended() {
                 storeId={storeId}
                 unit={product.unit}
                 quantity={product.quantity}
+                stockId={product.stock?._id}
+                stock={product.stock?.stock}
+
               />
             ))
         )}

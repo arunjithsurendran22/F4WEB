@@ -38,6 +38,8 @@ interface ProductCardProps {
   imgHeight?: string;
   unit?: string;
   quantity?: number;
+  stockId?: string | null;
+  stock?: number | null
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -57,6 +59,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imgHeight = "h-52",
   unit,
   quantity,
+  stockId,
+  stock
 }) => {
   const loggedIn = useSelector((state: RootState) => state.profile.loggedIn);
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
@@ -100,6 +104,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         cartQuantity: 1,
         subscribedProduct: subscriptionProduct,
         expressProduct: express,
+        stockId: stockId
       };
       try {
         const response = await dispatch(addToCart(item) as any).unwrap();
@@ -173,6 +178,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       cartQuantity: newQuantity,
       subscribedProduct: subscriptionProduct,
       expressProduct: express,
+      stockId: stockId
     };
 
     try {

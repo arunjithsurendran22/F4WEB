@@ -31,6 +31,8 @@ interface CustomizeCardProps {
   expressProduct?: boolean;
   unit?: string
   quantity?: number
+  stockId?: string
+  stock?: number
 }
 
 const CustomizeCard: React.FC<CustomizeCardProps> = ({
@@ -47,7 +49,9 @@ const CustomizeCard: React.FC<CustomizeCardProps> = ({
   subscribedProduct,
   expressProduct,
   unit,
-  quantity
+  quantity,
+  stockId,
+  stock
 }) => {
   const loggedIn = useSelector((state: RootState) => state.profile.loggedIn);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -82,6 +86,7 @@ const CustomizeCard: React.FC<CustomizeCardProps> = ({
       cartQuantity: 1,
       subscribedProduct,
       expressProduct,
+      stockId
     };
     try {
       const response = await dispatch(addToCart(item) as any).unwrap();

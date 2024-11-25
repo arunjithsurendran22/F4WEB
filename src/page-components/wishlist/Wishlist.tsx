@@ -77,6 +77,8 @@ const Wishlist: React.FC = () => {
               subscriptionProduct={product.subscriptionProduct}
               storeId={storeId}
               onRemove={() => handleRemoveFromWishlist(product._id)}
+              stockId = {product.stock?._id}
+              stock = {product.stock?.stock}
             />
           ))}
         </div>

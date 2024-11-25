@@ -32,6 +32,8 @@ interface WishlistCardProps {
   subscriptionProduct?: boolean;
   storeId?: string;
   onRemove: () => void;
+  stockId?: string | null;
+  stock?: number | null
 }
 
 const WishlistCard: React.FC<WishlistCardProps> = ({
@@ -48,6 +50,7 @@ const WishlistCard: React.FC<WishlistCardProps> = ({
   express,
   storeId,
   onRemove,
+  stockId
 }) => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [isAddedWish, setIsAddedWish] = useState(false);
@@ -83,6 +86,7 @@ const WishlistCard: React.FC<WishlistCardProps> = ({
         cartQuantity: 1,
         subscribedProduct: subscriptionProduct,
         expressProduct: express,
+        stockId: stockId
       };
       try {
         const response = await dispatch(addToCart(item) as any).unwrap();

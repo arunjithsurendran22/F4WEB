@@ -10,6 +10,7 @@ interface CartItem {
   cartQuantity: number;
   subscribedProduct?: boolean | undefined;
   expressProduct?: boolean | undefined;
+  stockId?: string | null
 }
 
 interface CartState {

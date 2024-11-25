@@ -35,6 +35,8 @@ interface ProductCardProps {
   storeId?: string;
   unit?: string;
   quantity?: number;
+  stockId?: string | null
+  stock?: number | null
 }
 const ProductCardHorizondal: React.FC<ProductCardProps> = ({
   _id,
@@ -51,6 +53,8 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
   storeId,
   unit,
   quantity,
+  stockId,
+  stock
 }) => {
   const loggedIn = useAppSelector((state: RootState) => state.profile.loggedIn);
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
@@ -87,6 +91,8 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
           cartQuantity: 1,
           subscribedProduct: subscriptionProduct,
           expressProduct: express,
+          stockId:stockId
+
         };
 
         try {
@@ -164,6 +170,8 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
       cartQuantity: newQuantity,
       subscribedProduct: subscriptionProduct,
       expressProduct: express,
+      stockId:stockId
+
     };
 
     try {

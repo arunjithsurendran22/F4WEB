@@ -32,8 +32,12 @@ interface SubProduct {
   archived: boolean;
   createdAt: string;
   stock: {
+    _id: string;
     store: string;
     stock: number;
+    mrp: number;
+    sellingPrice: number;
+    discountPercentage: number;
   } | null;
 }
 
@@ -109,6 +113,9 @@ const Customize: React.FC<CustomizeProps> = ({
             expressProduct={expressProduct}
             unit={subProduct.unit}
             quantity={subProduct.quantity}
+            stockId={subProduct.stock?._id}
+            stock={subProduct.stock?.stock}
+
           />
         ))
       ) : (

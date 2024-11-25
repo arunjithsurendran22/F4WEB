@@ -91,6 +91,8 @@ const FlashSale: React.FC = () => {
                 imgHeight="h-auto"
                 unit={product.unit}
                 quantity={product.quantity}
+                stockId={product.stock?._id}
+                stock={product.stock?.stock}
               />
             </div>
           ))

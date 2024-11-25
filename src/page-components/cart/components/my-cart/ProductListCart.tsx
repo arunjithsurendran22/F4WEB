@@ -45,7 +45,9 @@ const ProductListCart: React.FC = () => {
     subProductId: string | null,
     isSubProduct: boolean,
     mainProductId: string | null,
-    newQuantity: number
+    newQuantity: number,
+    stockId: string | null,
+    subscribedProduct: boolean
   ) => {
     const updatedProducts = products.map((productItem) => {
       // Check if the item is a subproduct or a main product
@@ -79,8 +81,9 @@ const ProductListCart: React.FC = () => {
       isSubProduct,
       subProductId: isSubProduct ? subProductId : undefined,
       cartQuantity: newQuantity,
-      subscribedProduct: subscribedProducts,
+      subscribedProduct: subscribedProduct,
       expressProduct: expressProducts,
+      stockId: stockId
     };
 
     dispatch(addToCart(item) as any).then(() => {
@@ -150,6 +153,8 @@ const ProductListCart: React.FC = () => {
           products.map((cartItem: any) => {
             const product = cartItem.product;
             const subProduct = cartItem.subProduct;
+            const stock = cartItem.stock
+            const subscribedProduct = cartItem.subscribedProduct
             if (!product || !product._id) {
               return null;
             }
@@ -169,7 +174,7 @@ const ProductListCart: React.FC = () => {
                 quantity={cartItem.cartQuantity}
                 baseQuantity={displayProduct.quantity}
                 unit={displayProduct.unit}
-                subscribedProduct={subscribedProducts || false}
+                subscribedProduct={subscribedProduct || false}
                 onRemove={() =>
                   handleRemoveFromCart(
                     displayProduct._id,
@@ -184,7 +189,9 @@ const ProductListCart: React.FC = () => {
                     subProduct ? subProduct._id : null,
                     !!subProduct,
                     subProduct ? subProduct.mainProduct : null,
-                    newQuantity
+                    newQuantity,
+                    stock ? stock._id : null,
+                    subscribedProduct
                   )
                 }
               />

@@ -1,3 +1,11 @@
+export interface Stock {
+  _id: string;
+  store: string;
+  stock: number;
+  mrp: number;
+  sellingPrice: number;
+  discountPercentage: number;
+}
 export interface Product {
   _id: string;
   sku: string;
@@ -22,7 +30,7 @@ export interface Product {
   express: boolean;
   subscriptionProduct: boolean; // Added missing field
   isFavourite: boolean;
-  stock: number | null;
+  stock: Stock | null;
 }
 
 export interface Plan {

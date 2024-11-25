@@ -16,6 +16,7 @@ function YourProducts() {
   const [plan, setPlan] = useState<Plan>();
   const [loading, setLoading] = useState(true);
   const [savings, setSavings] = useState(0)
+  const [subscribed, setSubscribed] = useState(false)
 
   useEffect(() => {
     const fetchSubscriptionProducts = async () => {
@@ -27,7 +28,8 @@ function YourProducts() {
           //console.log(response.data.products);
           setProducts(response.data.products);
           setPlan(response.data.plan);
-          setSavings(response.data.savings)
+          setSavings(response.data.savings);
+          setSubscribed(response.data.subscribed)
         } else {
           throw new Error(
             response.message || "Failed to fetch subscription products"
@@ -47,7 +49,7 @@ function YourProducts() {
   }, [storeId]);
 
   return (
-    <div className="relative w-full ">
+    <div className="relative w-full">
       {/* Background Image */}
       <div className="relative w-full flex overflow-hidden h-[500px] xl:h-[620px] lg:h-[600px] md:h-[600px] sm:h-[500px]">
         <Image
@@ -102,7 +104,7 @@ function YourProducts() {
           <div className="flex justify-center items-center h-64">
             <SpinnerLoader />
           </div>
-        ) : products.length === 0 ? (
+        ) : (products.length === 0 || !subscribed) ? (
           // No Data Message
           <div className="flex justify-center items-center h-64">
             <p className="text-lg font-semibold text-white">
@@ -125,6 +127,8 @@ function YourProducts() {
                   subscriptionProduct={product.subscriptionProduct}
                   // width="w-full"
                   imgHeight="h-auto"
+                  stockId={product.stock?._id}
+                  stock={product.stock?.stock}
                 />
               ))}
             </Carousel>

@@ -197,6 +197,8 @@ const Products: React.FC = () => {
                     quantity={product.quantity}
                     width="w-full"
                     imgHeight="h-auto"
+                    stockId={product.stock?._id}
+                    stock={product.stock?.stock}
                   />
                 </div>
               ))}
