@@ -8,7 +8,7 @@ interface CategoriesCardProps {
 
 const CategoriesCard: React.FC<CategoriesCardProps> = ({ imageSrc, title }) => {
   return (
-    <div className="w-32 h-32 md:w-44 md:h-44 flex flex-col items-center justify-center  rounded-xl overflow-hidden  bg-customGrayLight  hover:shadow-xl hover:cursor-pointer">
+    <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-44 md:h-44 flex flex-col items-center justify-center  rounded-xl overflow-hidden  bg-customGrayLight  hover:shadow-xl hover:cursor-pointer">
       <div className="flex flex-col items-center justify-center h-full w-full ">
         <Image
           src={imageSrc}

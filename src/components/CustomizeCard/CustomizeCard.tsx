@@ -207,7 +207,7 @@ const CustomizeCard: React.FC<CustomizeCardProps> = ({
             alt={title}
             width={96}
             height={112}
-            className="object-cover cursor-pointer w-24 h-28"
+            className="object-contain cursor-pointer w-24 h-28"
             onClick={() => handleNavigate(mainProduct)}
           />
         </div>
