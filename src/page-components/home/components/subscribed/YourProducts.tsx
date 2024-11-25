@@ -15,6 +15,7 @@ function YourProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [plan, setPlan] = useState<Plan>();
   const [loading, setLoading] = useState(true);
+  const [savings, setSavings] = useState(0)
 
   useEffect(() => {
     const fetchSubscriptionProducts = async () => {
@@ -26,6 +27,7 @@ function YourProducts() {
           //console.log(response.data.products);
           setProducts(response.data.products);
           setPlan(response.data.plan);
+          setSavings(response.data.savings)
         } else {
           throw new Error(
             response.message || "Failed to fetch subscription products"
@@ -47,12 +49,12 @@ function YourProducts() {
   return (
     <div className="relative w-full ">
       {/* Background Image */}
-      <div className="relative w-full flex overflow-hidden h-[500px] xl:h-[550px]">
+      <div className="relative w-full flex overflow-hidden h-[500px] xl:h-[620px] lg:h-[600px] md:h-[600px] sm:h-[500px]">
         <Image
           src="/images/your.png"
           alt="Wave Image"
           width={500}
-          height={550}
+          height={620}
           className="object-fill w-full"
         />
       </div>
@@ -128,6 +130,23 @@ function YourProducts() {
             </Carousel>
           </div>
         )}
+
+        {/* Gradient Overlay at Bottom with Absolute Positioning */}
+        {savings > 0 ? (
+
+          <div
+            className="absolute bottom-10 left-0 w-full sm:h-8 md:h-12 lg:h-14 xl:h-14 flex items-center justify-center text-center"
+            style={{
+              background: "linear-gradient(to right, #BA973B, #F1DD80, #A57D24)",
+            }}
+          >
+            <h2 className="xl:text-xl lg:text-lg md:text-lg sm:text-lg">
+              <span className="font-semibold mr-2"> 🥳 You Saved ₹{savings}</span>
+              on this deal
+            </h2>
+          </div>
+        ) : ''
+        }
       </div>
     </div>
   );
