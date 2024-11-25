@@ -45,6 +45,8 @@ export interface ProductResponse {
     count: number;
     hasNext: boolean;
     plan: Plan;
-    subscribed: boolean
+    subscribed: boolean;
+    subscriptionId:string | null;
+    savings: number;
   };
 }
