@@ -341,10 +341,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div
       key={_id}
-      className={`${width} rounded-3xl shadow-xl hover:shadow-lg transition-shadow relative`}
+      className={`${width} h-[16rem] md:h-[20rem] rounded-3xl shadow-xl hover:shadow-lg transition-shadow relative bg-white`}
     >
       {/* Offer badge */}
-      {discountPercentage ? (
+      {discountPercentage && (
         <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
           <div className="flex items-center">
             <p className="text-xs md:text-lg font-medium">
@@ -353,8 +353,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <p className="ml-2 text-xs md:text-md mt-1 text-gray-200">OFF</p>
           </div>
         </div>
-      ) : (
-        ""
       )}
 
       {/* Love icon */}
@@ -373,20 +371,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Image section */}
       <div
-        className={`flex justify-center items-center w-full ${imgHeight}  bg-customGrayLight rounded-t-2xl overflow-hidden cursor-pointer`}
+        className="flex justify-center items-center w-full h-1/2 bg-customGrayLight rounded-t-3xl overflow-hidden cursor-pointer"
         onClick={() => handleNavigate(_id)}
       >
         <Image
           src={imageSrc}
           alt={title}
-          width={250}
-          height={250}
-          className="object-contain max-h-[160px]"
+          width={150}
+          height={150}
+          className="w-full h-full object-cover"
         />
       </div>
 
       {/* Product details */}
-      <div className="p-3 bg-white rounded-b-3xl ">
+      <div className="h-1/2 p-3 flex flex-col justify-between">
         {/* Star rating section */}
         <div className="flex items-center mb-1">
           <FaStar className="text-customYellow h-4 w-4" />
@@ -399,35 +397,31 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Title */}
-        <div className="h-14">
-          <h3 className=" text-xs md:text-lg font-semibold mb-1 whitespace-normal overflow-visible lg:text-[1rem]">
-            {title}
-          </h3>
-        </div>
+        <h3 className="h-14 text-xs md:text-lg font-semibold mb-1 whitespace-normal overflow-visible lg:text-[1rem]">
+          {title}
+        </h3>
 
         <p className="text-sm text-customBlueLight font-semibold">
           {quantity} {unit}
         </p>
 
         {/* Price and Button */}
-        <div className="flex items-center justify-between space-x-1 ">
-          {!subscriptionProduct ? (
+        <div className="flex items-center justify-between space-x-1">
+          {!subscriptionProduct && (
             <div className="flex items-center justify-between space-x-1 text-xs md:text-sm">
-              <p className=" font-bold text-gray-800">₹{price}</p>
+              <p className="font-bold text-gray-800">₹{price}</p>
               {originalPrice > price && (
-                <p className=" line-through text-customRed font-medium">
+                <p className="line-through text-customRed font-medium">
                   ₹{originalPrice}
                 </p>
               )}
             </div>
-          ) : (
-            ""
           )}
 
           {/* Button */}
           {isProductInCart ? (
             <QuantityButton
-              buttonSize="lg:w-4 "
+              buttonSize="lg:w-4"
               btnSize="text-xs md:text-lg"
               textSize="text-xs md:text-lg"
               containerPadding="p-1"
@@ -439,11 +433,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
           ) : (
             <Button
               width="w-14 sm:w-14 md:w-20 lg:w-28"
-              height="h-7  md:h-10 lg:h-10"
+              height="h-7 md:h-10 lg:h-10"
               onClick={handleAddToCart}
             >
               <div className="flex justify-center items-center">
-                <p className="text-[10px]  md:text-lg xl:text-lg">Add</p>
+                <p className="text-[10px] md:text-lg xl:text-lg">Add</p>
                 {hasSubProducts && (
                   <MdArrowForwardIos className="ml-1 text-[10px]" />
                 )}

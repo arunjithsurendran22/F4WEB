@@ -1,5 +1,5 @@
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
 
 interface CategoriesCardProps {
   imageSrc: string;
@@ -8,18 +8,20 @@ interface CategoriesCardProps {
 
 const CategoriesCard: React.FC<CategoriesCardProps> = ({ imageSrc, title }) => {
   return (
-    <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-44 md:h-44 flex flex-col items-center justify-center  rounded-xl overflow-hidden  bg-customGrayLight  hover:shadow-xl hover:cursor-pointer">
-      <div className="flex flex-col items-center justify-center h-full w-full ">
+    <div className="w-24 h-24 sm:w-40 sm:h-40 md:w-44 md:h-44 flex flex-col rounded-xl overflow-hidden bg-customGrayLight hover:shadow-xl hover:cursor-pointer">
+      <div className="h-[70%] flex items-center justify-center">
         <Image
           src={imageSrc}
           alt={title}
-          width={80} // Width in pixels
-          height={80} // Height in pixels
-          className="rounded-full object-contain" // You can apply the same styling as before
+           className="w-full h-full object-cover"
+          width={90}
+          height={90}
         />
-        <div className="text-center pt-2">
-          <h3 className="text-xs md:text-lg font-semibold">{title}</h3>
-        </div>
+      </div>
+      <div className="h-[20%] flex items-center justify-center mt-[-10px]">
+        <h3 className="text-xs sm:text-sm md:text-lg font-semibold text-center">
+          {title}
+        </h3>
       </div>
     </div>
   );
