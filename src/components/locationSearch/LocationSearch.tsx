@@ -22,7 +22,7 @@ const fetchSuggestions = (
 
     const request = {
       input,
-      types: ["(cities)"],
+      //types: ["(cities)"],
     };
 
     autocompleteService.getPlacePredictions(
