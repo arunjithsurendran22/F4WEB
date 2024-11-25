@@ -232,20 +232,20 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
 
   return (
     <div key={_id} className=" lg:w-[21rem] flex">
-      <div className="min-w-[7rem] w-[7rem] h-[8rem] bg-customGrayLight rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer">
+      <div className="w-5/12 bg-customGrayLight rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer">
         <Image
           src={imageSrc}
           alt={title}
-          width={112}
+          width={120}
           height={128}
-          className="object-cover w-[7rem] h-[8rem]"
+          className="w-full h-full object-cover"
           onClick={() => handleNavigate(_id)}
         />
       </div>
 
       {/* Product details */}
-      <div className="p-3 pt-0">
-        <div className="flex gap-5">
+      <div className="w-7/12 p-3 pt-0">
+        <div className="flex gap-1 md:gap-5">
           <div className="flex items-center mb-1 text-xs">
             <FaStar className="text-customYellow h-4 w-4" />
             <p className="text-customYellow ml-1 text-sm font-semibold">
@@ -273,7 +273,7 @@ const ProductCardHorizondal: React.FC<ProductCardProps> = ({
           {quantity} {unit}
         </p>
 
-        <div className="flex items-center justify-between space-x-2 text-xs  w-44 md:w-52">
+        <div className="flex items-center justify-between space-x-2 text-xs  w-40 md md:w-44">
           <p className=" font-bold text-gray-800">₹{price}</p>
           {originalPrice && (
             <p className=" line-through text-customRed font-medium">

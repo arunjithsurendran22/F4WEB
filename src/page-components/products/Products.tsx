@@ -177,7 +177,7 @@ const Products: React.FC = () => {
               </h3>
             </div>
           ) : (
-            <div className="gap-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 xl:gap-14 md:gap-12  w-full p-2 xl:p-0">
+            <div className="gap-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 xl:gap-14 md:gap-12  w-full p-2 xl:p-0">
               {products.map((product) => (
                 <div key={product._id} className="mb-10">
                   <ProductCard

@@ -44,7 +44,7 @@ const ProductByCategory: React.FC<ProductByCategoryProps> = ({ id, name }) => {
   }
 
   return (
-    <div className="px-14 py-8">
+    <div className="md:px-14 md:py-8 p-2">
       <Header name = {name}/>
       {products.length === 0 ? (
         <div className="text-center mt-10 text-gray-500">
