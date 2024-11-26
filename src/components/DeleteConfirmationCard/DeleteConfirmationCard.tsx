@@ -11,7 +11,7 @@ const DeleteConfirmationCard: React.FC<DeleteConfirmationCardProps> = ({
   onCancel,
 }) => {
   return (
-    <div className="bg-white  p-6 flex flex-col items-center w-[312px] h-[266px]">
+    <div className="bg-white  p-6 flex flex-col items-center md:w-[312px] md:h-[266px]">
       <div className="flex flex-col items-center justify-center h-full w-full">
         <div className="text-center mb-5">
           <p className="font-medium text-lg">Do you want to delete</p>

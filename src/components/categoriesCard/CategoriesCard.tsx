@@ -13,7 +13,7 @@ const CategoriesCard: React.FC<CategoriesCardProps> = ({ imageSrc, title }) => {
         <Image
           src={imageSrc}
           alt={title}
-           className="w-full h-full object-cover"
+          className="rounded-full object-contain"
           width={90}
           height={90}
         />

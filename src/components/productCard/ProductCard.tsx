@@ -356,7 +356,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       )}
 
       {/* Love icon */}
-      <div className="absolute top-3 right-3 bg-white text-white p-[.3rem] rounded-full">
+      <div className="absolute top-3 right-3 bg-white shadow-md  text-white p-[.3rem] rounded-full">
         <div
           className="flex items-center cursor-pointer"
           onClick={handleAddToWishList}
