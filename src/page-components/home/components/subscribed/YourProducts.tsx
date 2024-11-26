@@ -78,20 +78,21 @@ function YourProducts() {
             {
               (plan?.discountPercentage) ?
                 (
-                  <>
-                    <Image
-                      src="/images/price_tag.png"
-                      alt="Price Tag"
-                      width={140}
-                      height={140}
-                      className="object-fill"
-                    />
-                    {/* Overlay text for discount percentage */}
-                    <div className="absolute inset-0 ml-10 mt-6 flex flex-col justify-center items-center text-white font-semibold txt-xs md:text-md">
-                      <p>{plan?.discountPercentage}%</p>
-                      <p>OFF</p>
-                    </div>
-                  </>
+                  <></>
+                  // <>
+                  //   <Image
+                  //     src="/images/price_tag.png"
+                  //     alt="Price Tag"
+                  //     width={140}
+                  //     height={140}
+                  //     className="object-fill"
+                  //   />
+                  //   // Overlay text for discount percentage 
+                  //   <div className="absolute inset-0 ml-10 mt-6 flex flex-col justify-center items-center text-white font-semibold txt-xs md:text-md">
+                  //     <p>{plan?.discountPercentage}%</p>
+                  //     <p>OFF</p>
+                  //   </div>
+                  // </>
 
                 ) : ''}
           </div>

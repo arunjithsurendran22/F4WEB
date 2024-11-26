@@ -51,7 +51,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, gap = 30 }) => {
     <div
       {...handlers}
       ref={scrollContainerRef}
-      className="flex overflow-x-auto scroll-smooth whitespace-nowrap hide-scrollbar cursor-grab "
+      className="flex overflow-x-auto scroll-smooth whitespace-nowrap hide-scrollbar cursor-grab gap-3 sm:gap-6 md:gap-2 lg:gap-5"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}

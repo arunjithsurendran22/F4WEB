@@ -8,7 +8,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { addressApi } from "@/services/addressService";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import AddressLocationSearch from "@/components/adressLocationSearch/AddressLocationSearch";
 
@@ -18,6 +18,11 @@ function AddAddressForm() {
   const pathname = usePathname();
   let latitude = useSelector((state: RootState) => state.address.latitude);
   let longitude = useSelector((state: RootState) => state.address.longitude);
+  const searchParams = useSearchParams();
+
+  const cartId = searchParams?.get("cartId") ?? "";
+
+
   
   // Form fields state
   const [fullName, setFullName] = useState<string>("");
@@ -206,7 +211,7 @@ function AddAddressForm() {
         toast.success("Address saved successfully!");
         if (pathname == '/cart/cartAddAddress') {
           // If the current route is not '/target-route', redirect
-          router.push('/cart');
+          router.push(`/cart/cartAddress?cartId=${cartId}`);
         }else {
           router.push("/profile/my-address");
         }

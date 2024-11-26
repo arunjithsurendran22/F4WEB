@@ -86,9 +86,9 @@ export const addressApi = {
   },
 
   // Check address availability
-  checkAddressAvailability: async (id: string): Promise<any> => {
+  checkAddressAvailability: async (id: string, {storeId}:{storeId: string | undefined | null}): Promise<any> => {
     try {
-      const response = await api.get<any>(ENDPOINTS.ADDRESS.CHECK_AVAILABILITY(id));
+      const response = await api.post<any>(ENDPOINTS.ADDRESS.CHECK_AVAILABILITY(id), {storeId});
       return response.data;
     } catch (error: any) {
       console.error(

@@ -122,4 +122,16 @@ export const cartApi = {
       throw error;
     }
   },
+  getDeliveryCharge: async (filter: {storeId: string, latitude: number, longitude: number, cartAmount: number}) => {
+    try {
+      const response = await api.post(ENDPOINTS.STORE.GET_DELIVERY_CHARGE, filter);
+      return response.data;
+    } catch (error: any) {
+      console.error(
+        "Failed to get Delivery charge:",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
+    }
+  }
 };

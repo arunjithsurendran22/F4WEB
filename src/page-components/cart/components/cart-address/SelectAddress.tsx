@@ -5,6 +5,9 @@ import Button from "@/components/ui/Buttons/Button";
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import Address from "@/page-components/address/Address";
 import toast from "react-hot-toast";
+import { addressApi } from "@/services/addressService";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 function SelectAddress() {
   const router = useRouter();
@@ -15,13 +18,27 @@ function SelectAddress() {
     null
   );
   const [loading, setLoading] = useState<boolean>(false);
-  const handleNavigate = () => {
+  const storeId = useSelector(
+    (state: RootState) => state.location.storeId || undefined
+  );
+  
+  const handleNavigate = async () => {
     setLoading(true);
 
     if (selectedAddressId) {
-      router.push(
-        `/cart/blockDeliverySlot?addressId=${selectedAddressId}&&cartId=${cartId}`
-      );
+      const checkAvailability = await addressApi.checkAddressAvailability(selectedAddressId, {storeId} )
+      if(checkAvailability.data && checkAvailability.data.availability){
+        await addressApi.setDefaultPrimary(selectedAddressId);
+
+        router.push(
+          `/cart/blockDeliverySlot?addressId=${selectedAddressId}&&cartId=${cartId}`
+        );
+      }else{
+        toast.error("The selected address is not deliverable. Please choose another or add a new address to proceed.");
+        setLoading(false);
+
+      }
+      
     } else {
       toast.error("Select an address or add new address to proceed");
       setLoading(false);
@@ -31,10 +48,10 @@ function SelectAddress() {
   return (
     <div className="px-14 py-8">
       <Address
-        navigationUrl="/cart/cartAddAddress"
+        navigationUrl={`/cart/cartAddAddress?cartId=${cartId}`}
         onAddressSelect={setSelectedAddressId}
       />
-      <div className="flex justify-center w-full mb-5 mt-5">
+      <div className="flex justify-end w-full mb-5 mt-6 md:w-[35rem]">
         <Button
           borderRadius="rounded-xl"
           backgroundColor="bg-customBlueLight"

@@ -144,9 +144,15 @@ function SelectDelivery() {
         );
 
         if (primaryAddress) {
-          router.push(
-            `/cart/blockDeliverySlot?addressId=${primaryAddress._id}&&cartId=${cartId}`
-          );
+          const checkAvailability = await addressApi.checkAddressAvailability(primaryAddress._id, {storeId} )
+          if(checkAvailability.data && checkAvailability.data.availability){
+            router.push(
+              `/cart/blockDeliverySlot?addressId=${primaryAddress._id}&&cartId=${cartId}`
+            );
+          }else{
+            router.push(`/cart/cartAddress?cartId=${cartId}`);
+          }
+          
         } else {
           router.push(`/cart/cartAddress?cartId=${cartId}`);
         }

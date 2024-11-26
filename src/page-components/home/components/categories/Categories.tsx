@@ -71,7 +71,7 @@ const Categories: React.FC = () => {
         <ViewAll onClick={handleClick} />
       </div>
       {/* Grid View for Larger Screens */}
-      <div className="hidden xl:grid grid-cols-6 xl:gap-16">
+      <div className="hidden xl:grid grid-cols-6 gap-9">
         {loading ? (
           renderSkeletons()
         ) : categories.length === 0 ? (

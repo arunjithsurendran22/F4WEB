@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import EditButton from "../ui/Buttons/EditButton";
 import { addressApi } from "@/services/addressService";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 const containerStyle = {
   width: "100%",
@@ -20,6 +22,9 @@ function Map() {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string, // Your API key
   });
+
+  const cartId = useSelector((state: RootState) => state.cart.cartId);
+
 
   // Fetch user primary address
   const fetchPrimaryAddress = async () => {
@@ -76,7 +81,7 @@ function Map() {
           ) : (
             <h1 className="font-medium ml-5">Please add address</h1>
           )}
-          <Link href="/profile/my-address">
+          <Link href={`/cart/cartAddress?cartId=${cartId}`}>
             <EditButton />
           </Link>
         </div>

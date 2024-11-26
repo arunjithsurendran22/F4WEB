@@ -26,7 +26,10 @@ interface CartState {
   cartId: string | null;
   itemCount: number;
   itemAddedToCart: boolean;
-  expressProducts: boolean
+  expressProducts: boolean;
+  deliveryCharge: number;
+  deliveryChargeExpress: number;
+  distanceinKm: number
 }
 
 // Initial state for the cart
@@ -43,7 +46,10 @@ const initialState: CartState = {
   cartId: null,
   itemCount: 0,
   itemAddedToCart: false,
-  expressProducts: false
+  expressProducts: false,
+  deliveryCharge: 0,
+  deliveryChargeExpress: 0,
+  distanceinKm: 0
 };
 
 // Async thunk to fetch cart items
@@ -130,6 +136,23 @@ export const removeFromCart = createAsyncThunk(
   }
 );
 
+// Async thunk to fetch cart total
+export const fetchDeliveryCharge = createAsyncThunk(
+  "cart/fetchDeliveryCharge",
+  async (filter:{storeId: string, latitude: number, longitude: number, cartAmount: number}) => {
+    const response = await cartApi.getDeliveryCharge(filter);
+    if (response.status) {
+      return {
+        deliveryCharge: response.data.charge.deliveryCharge,
+        distanceinKm: response.data.charge.distanceinKm,
+        deliveryChargeExpress: response.data.charge.deliveryChargeExpress
+      };
+    } else {
+      throw new Error(response.message || "Failed to fetch cart total");
+    }
+  }
+);
+
 // Create the cart slice
 const cartSlice = createSlice({
   name: "cart",
@@ -196,7 +219,21 @@ const cartSlice = createSlice({
       .addCase(removeFromCart.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to remove item from cart";
-      });
+      })
+      .addCase(fetchDeliveryCharge.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchDeliveryCharge.fulfilled, (state, action) => {
+        state.loading = false;
+        state.deliveryCharge = action.payload.deliveryCharge;
+        state.distanceinKm = action.payload.distanceinKm;
+        state.deliveryChargeExpress = action.payload.deliveryChargeExpress;
+      })
+      .addCase(fetchDeliveryCharge.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to fetch cart items";
+      })
   },
 });
 

@@ -77,6 +77,7 @@ export const ENDPOINTS = {
       `/${API}/${API_VERSION}/${address}/check-address-availability/${id}`,
   },
   STORE: {
+    GET_DELIVERY_CHARGE: `/${API}/${API_VERSION}/${store}/find-delivery-charge`,
     GET_NEAR_BY_LOCATION: (lat: number, lng: number) =>
       `/${API}/${API_VERSION}/${store}/get-nearest-store?lat=${lat}&lng=${lng}`,
   },
