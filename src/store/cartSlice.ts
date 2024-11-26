@@ -27,6 +27,7 @@ interface CartState {
   itemCount: number;
   itemAddedToCart: boolean;
   expressProducts: boolean;
+  subscribedProducts: boolean;
   deliveryCharge: number;
   deliveryChargeExpress: number;
   distanceinKm: number
@@ -47,6 +48,7 @@ const initialState: CartState = {
   itemCount: 0,
   itemAddedToCart: false,
   expressProducts: false,
+  subscribedProducts: false,
   deliveryCharge: 0,
   deliveryChargeExpress: 0,
   distanceinKm: 0
@@ -174,6 +176,7 @@ const cartSlice = createSlice({
         state.cartId = action.payload.cartId;
         state.itemCount = action.payload.itemCount;
         state.expressProducts = action.payload.expressProducts;
+        state.subscribedProducts = action.payload.subscribedProducts;
       })
       .addCase(fetchCartItems.rejected, (state, action) => {
         state.loading = false;

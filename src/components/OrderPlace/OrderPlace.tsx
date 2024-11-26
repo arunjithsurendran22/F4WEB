@@ -37,6 +37,10 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
     subTotal = 0,
     couponDiscount = 0,
     coinsAmount = 0,
+    deliveryCharge = 0,
+    deliveryChargeExpress = 0,
+    expressProducts,
+    subscribedProducts
   } = useSelector((state: RootState) => state.cart);
   const storeId = useSelector((state: RootState) => state.location.storeId);
   if (!timeSlotId) timeSlotId = null;
@@ -54,8 +58,8 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
     subTotal,
     couponDiscount,
     coinsAmount,
-    deliveryCharge: 0,
-    grandTotal,
+    deliveryCharge: subscribedProducts ? 0 : expressProducts ? deliveryChargeExpress : deliveryCharge,
+    grandTotal: subscribedProducts ? grandTotal : expressProducts ? grandTotal + deliveryChargeExpress : grandTotal + deliveryCharge,
     source: "WEB",
   });
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("online");
@@ -66,6 +70,7 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
   }, [dispatch]);
 
   useEffect(() => {
+    console.log(paymentData)
     setPaymentData({
       cartId,
       addressId,
@@ -74,9 +79,9 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
       subTotal,
       couponDiscount,
       coinsAmount,
-      deliveryCharge: 0,
-      grandTotal,
-      source: "WEB",
+      deliveryCharge: subscribedProducts ? 0 : expressProducts ? deliveryChargeExpress : deliveryCharge,
+      grandTotal: subscribedProducts ? grandTotal : expressProducts ? grandTotal + deliveryChargeExpress : grandTotal + deliveryCharge,
+      source: "WEB"
     });
   }, [
     cartId,
@@ -86,6 +91,11 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
     subTotal,
     couponDiscount,
     coinsAmount,
+    grandTotal,
+    deliveryCharge,
+    deliveryChargeExpress,
+    subscribedProducts,
+    expressProducts
   ]);
 
   const toggleExpand = () => {
@@ -108,8 +118,8 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
         subTotal,
         couponDiscount,
         coinsAmount,
-        deliveryCharge: 0,
-        grandTotal,
+        deliveryCharge: subscribedProducts ? 0 : expressProducts ? deliveryChargeExpress : deliveryCharge,
+        grandTotal: subscribedProducts ? grandTotal : expressProducts ? grandTotal + deliveryChargeExpress : grandTotal + deliveryCharge,
       };
 
       try {
