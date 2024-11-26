@@ -205,7 +205,7 @@ const CustomizeCard: React.FC<CustomizeCardProps> = ({
 
   return (
     <div key={_id}>
-      <div className="w-[20rem] flex">
+      <div className="md:w-[20rem] flex">
         <div className="w-24 h-28 bg-customGrayLight rounded-xl overflow-hidden flex items-center justify-center">
           <Image
             src={imageSrc}

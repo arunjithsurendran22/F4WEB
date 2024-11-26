@@ -20,7 +20,7 @@ const RatingCardItem: React.FC<RatingCardItemProps> = ({
   const stars = Array.from({ length: 5 }, (_, index) => index < ratingCount);
 
   return (
-    <div className="bg-white rounded-3xl shadow-lg p-3 w-[400px] h-auto flex flex-col m-5 transition-transform transform hover:scale-105 duration-300">
+    <div className="bg-white rounded-3xl shadow-lg p-3 w-[400px]  h-auto flex flex-col m-5 transition-transform transform hover:scale-105 duration-300">
       {/* Image Section */}
       <div className="flex items-center mb-4">
         <Image

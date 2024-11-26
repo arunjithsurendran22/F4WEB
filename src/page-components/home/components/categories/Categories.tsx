@@ -87,7 +87,7 @@ const Categories: React.FC = () => {
 
       {/* Carousel for Smaller Screens */}
       <div className="xl:hidden">
-        <Carousel gap={30}>
+        <Carousel>
           {loading ? (
             renderSkeletons()
           ) : categories.length === 0 ? (

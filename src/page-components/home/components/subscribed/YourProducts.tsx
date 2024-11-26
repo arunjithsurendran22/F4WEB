@@ -128,7 +128,7 @@ function YourProducts() {
             </div>
           ) : (
             <div className="">
-              <Carousel gap={30}>
+              <Carousel>
                 {products.map((product) => (
                   <div className="" key={product._id} >
                     <ProductCard

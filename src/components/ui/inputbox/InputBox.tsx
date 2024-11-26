@@ -25,13 +25,13 @@ const InputBox: React.FC<InputBoxProps> = ({
 }) => {
   return (
     <div className={`mb-4 ${className}`}>
-      <label className="block text-customGrayLight2 text-sm mb-2">{label}</label>
+      <label className="block text-customGrayLight2 text-xs md:text-sm mb-2">{label}</label>
       <input
         type="text"
         value={value}
         onChange={onChange}
         placeholder={placeHolder}
-        className={`appearance-none rounded-full w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${backgroundColor} ${border} ${disabled ? "cursor-not-allowed opacity-50" : ""} ${
+        className={`appearance-none rounded-full w-full md:py-4 p-2 md:px-3 text-xs md:text-sm text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${backgroundColor} ${border} ${disabled ? "cursor-not-allowed opacity-50" : ""} ${
           error ? "border-red-500" : ""
         }`} // Adds a red border if there's an error
         disabled={disabled} // Disable the input if the prop is true

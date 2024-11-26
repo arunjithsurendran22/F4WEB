@@ -144,8 +144,8 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className=" h-[30rem] overflow-y-auto ">
-      <div className="  grid grid-cols-1 md:grid-cols-2 gap-1">
+    <form onSubmit={handleSubmit} className=" w-full md:w-96  h-[30rem] overflow-y-auto ">
+      <div className=" md:grid md:grid-cols-2 gap-4">
         <div>
           <InputBox
             label="Full Name"
@@ -255,7 +255,7 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
       <div className="mt-6">
         <Button
           width="w-full"
-          height="h-[3.5rem]"
+          height="h-10 md:h-[3.5rem]"
           backgroundColor={
             formData ? "bg-customBlueLight" : "bg-customGrayLight4"
           }
@@ -263,8 +263,9 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({
           //textColor="text-customGrayLight2"
           textColor={formData ? "text-white" : "text-customGrayLight2"}
           border="border-none"
-          padding=""
-          fontWeight="font-[600]"
+          padding="py-1 px-2"
+          fontWeight="md:font-[600]"
+          fontSize="text-xs md:text-sm"
         >
           Update Address
         </Button>
