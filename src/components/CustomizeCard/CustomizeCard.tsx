@@ -200,14 +200,14 @@ const CustomizeCard: React.FC<CustomizeCardProps> = ({
 
   return (
     <div key={_id}>
-      <div className="w-[20rem] flex">
+      <div className="md:w-[20rem] flex">
         <div className="w-24 h-28 bg-customGrayLight rounded-xl overflow-hidden flex items-center justify-center">
           <Image
             src={imageSrc}
             alt={title}
             width={96}
             height={112}
-            className="object-contain cursor-pointer w-24 h-28"
+            className="object-cover cursor-pointer w-24 h-28"
             onClick={() => handleNavigate(mainProduct)}
           />
         </div>
