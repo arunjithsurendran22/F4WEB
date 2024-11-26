@@ -10,7 +10,6 @@ import { productApi } from "@/services/productService";
 import { Product } from "@/types/product";
 import { parseJwt } from "@/utils/UserId";
 import Sorry from "@/components/ui/Sorry/Sorry";
-import RightSidebar from "@/components/ui/RightSidebar/RightSidebar";
 import SpinnerLoader from "@/components/ui/SpinnerLoader/SpinnerLoader";
 import { resetFilters } from "@/store/filterSlice";
 import FilterLottie from "@/components/ui/Filter/FilterLottie";
@@ -65,7 +64,7 @@ const Products: React.FC = () => {
           userId,
         });
         const productsList = response.data.products;
-        setHasNext(response.data.hasNext);
+        setHasNext(response.data.hasNext); 
         setProducts((prevProducts) =>
           page === 1 ? productsList : [...prevProducts, ...productsList]
         );

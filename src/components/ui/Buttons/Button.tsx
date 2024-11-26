@@ -2,17 +2,17 @@ import React from "react";
 
 interface ButtonProps {
   onClick?: () => void;
-  width?: string; // Handle responsive classes
-  height?: string; // Handle responsive classes
-  children?: React.ReactNode; // Allow children to be passed in
-  backgroundColor?: string; // Background color prop
-  border?: string; // Border style prop
-  borderRadius?: string; // Border-radius prop
+  width?: string; 
+  height?: string; 
+  children?: React.ReactNode; 
+  backgroundColor?: string; 
+  border?: string; 
+  borderRadius?: string; 
   textColor?: string;
   fontSize?: string;
   padding?: string;
   fontWeight?: string;
-  disabled?: boolean; // Add disabled prop
+  disabled?: boolean; 
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,22 +20,22 @@ const Button: React.FC<ButtonProps> = ({
   width = "w-32",
   height = "h-12",
   children,
-  backgroundColor = "bg-white", // Default to white background
-  border = "border-2 border-customBlueLight", // Default border style
-  borderRadius = "rounded-full", // Default to full rounded corners
+  backgroundColor = "bg-white", 
+  border = "border-2 border-customBlueLight", 
+  borderRadius = "rounded-full", 
   textColor = "text-customBlueLight",
   fontSize = "text-lg",
   padding = "px-3 py-1",
   fontWeight = "font-normal",
-  disabled = false, // Default to not disabled
+  disabled = false, 
 }) => {
   return (
     <button
       onClick={onClick}
-      disabled={disabled} // Set disabled attribute
+      disabled={disabled} 
       className={`transition-colors flex justify-center items-center  ${width} ${height} ${backgroundColor} ${border} ${borderRadius} ${textColor} ${fontSize} ${padding} ${fontWeight} ${
         disabled ? "opacity-50 cursor-not-allowed" : ""
-      }`} // Apply disabled styles if disabled
+      }`} 
     >
       {children}
     </button>

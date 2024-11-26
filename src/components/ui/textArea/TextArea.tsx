@@ -27,14 +27,14 @@ const TextArea: React.FC<TextAreaProps> = ({
 }) => {
   return (
     <div className={`mb-4 ${className}`}>
-      <label className="block text-customGrayLight2 text-sm mb-2">
+      <label className="block text-customGrayLight2 text-xs md:text-sm mb-2">
         {label}
       </label>
       <textarea
         value={value}
         onChange={onChange}
         placeholder={placeHolder}
-        className={`block w-full ${backgroundColor} ${height} ${border} text-gray-700 py-2 px-3 rounded-2xl leading-tight focus:outline-none ${
+        className={`block w-full ${backgroundColor} ${height} ${border} text-gray-700 md:py-2 md:px-3 p-2 text-xs md:text-sm rounded-2xl leading-tight focus:outline-none ${
           disabled ? "cursor-not-allowed" : ""
         } ${error ? "border-red-500" : ""}`} // Add red border if error
         rows={4}

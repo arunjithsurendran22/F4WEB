@@ -51,15 +51,15 @@ const SelectionBox: React.FC<SelectionBoxProps> = ({
     // </div>
 
     <div className={`mb-4 ${className}`}>
-      <label className="block text-customGrayLight2 mb-2">{label}</label>
+      <label className="block text-customGrayLight2 text-xs md:text-sm mb-2">{label}</label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`block w-full ${backgroundColor} text-customGrayLight2 py-4 px-3 rounded-full leading-tight focus:outline-none ${disabled ? "cursor-not-allowed opacity-50" : ""} ${error ? "border-red-500" : ""
+        className={`block w-full ${backgroundColor} text-customGrayLight2 md:py-4 md:px-3 p-2 text-xs md:text-sm rounded-full leading-tight focus:outline-none ${disabled ? "cursor-not-allowed opacity-50" : ""} ${error ? "border-red-500" : ""
           }`} // Adds a red border if there's an error
         disabled={disabled} // Disable the select element based on the prop
       >
-        <option value="" disabled className="text-customGrayLight2">
+        <option value="" disabled className="text-customGrayLight2 text-xs md:text-sm">
           {placeholder}
         </option>
         {options.map((option) => (
