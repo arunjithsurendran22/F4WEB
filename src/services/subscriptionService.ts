@@ -17,8 +17,8 @@ export const subscriptionApi = {
     }
   },
 
-   // Create payment for an subscription
-   createPayment: async (subscriptionData: any) => {
+  // Create payment for an subscription
+  createPayment: async (subscriptionData: any) => {
     try {
       const response = await api.post(
         ENDPOINTS.SUBSCRIPTION.CREATE_PAYMENT,
@@ -66,4 +66,19 @@ export const subscriptionApi = {
       throw error;
     }
   },
+
+  getAllSubscriptionPurchases: async (subscriptionId: string): Promise<any> => {
+    try {
+      const response = await api.get<any>(
+        ENDPOINTS.SUBSCRIPTION.GET_PURCHASED_PRODUCTS(subscriptionId)
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error(
+        "Failed to fetch subscription orders:",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
+    }
+  }
 };

@@ -38,6 +38,8 @@ export const ENDPOINTS = {
       `/${API}/${API_VERSION}/${product}/customer/get-similar-products/${id}`,
     GET_SUB_PRODUCTS: `/${API}/${API_VERSION}/${product}/customer/get-sub-products`,
     GET_SUBSCRIPTION_PRODUCTS: `/${API}/${API_VERSION}/${product}/customer/get-subscription-products`,
+    GET_ALL_SUBSCRIPTION_PRODUCTS: `/${API}/${API_VERSION}/${product}/customer/get-all-subscription-products`,
+
   },
   BANNER: {
     GET_BANNERS: `/${API}/${API_VERSION}/${banner}/get-banners`,
@@ -120,6 +122,8 @@ export const ENDPOINTS = {
     VERIFY_PAYMENT: (id: string) => `/${API}/${API_VERSION}/${subscription}/verify-subscription-payment2?id=${id}`,
     GET_ACTIVE_SUBSCRIPTIONS: (storeId: string | null) =>
       `/${API}/${API_VERSION}/${subscription}/get-active-subscriptions?storeId=${storeId}`,
+    GET_PURCHASED_PRODUCTS: (subsccriptionId: string) =>
+      `/${API}/${API_VERSION}/${subscription}/get-purchased-products/${subsccriptionId}`,
   },
   NOTIFICATION: {
     GET_ALL_NOTIFICATION: `/${API}/${API_VERSION}/${notification}/get-notifications-user`,
