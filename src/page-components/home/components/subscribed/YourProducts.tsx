@@ -113,24 +113,27 @@ function YourProducts() {
             </p>
           </div>
         ) : (
-          <div className="gap-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-14 md:gap-12  w-full">
-            <Carousel gap={40}>
+          <div className="">
+            <Carousel gap={30}>
               {products.map((product) => (
-                <ProductCard
-                  key={product._id}
-                  _id={product._id}
-                  imageSrc={product.thumbnail}
-                  title={product.name}
-                  rating={product.rating}
-                  price={product.sellingPrice}
-                  originalPrice={product.mrp}
-                  ratingCount={product.ratingCount}
-                  subscriptionProduct={product.subscriptionProduct}
-                  // width="w-full"
-                  imgHeight="h-auto"
-                  stockId={product.stock?._id}
-                  stock={product.stock?.stock}
-                />
+                <div className="" key={product._id} >
+                  <ProductCard
+                    key={product._id}
+                    _id={product._id}
+                    imageSrc={product.thumbnail}
+                    title={product.name}
+                    rating={product.rating}
+                    price={product.sellingPrice}
+                    originalPrice={product.mrp}
+                    ratingCount={product.ratingCount}
+                    subscriptionProduct={product.subscriptionProduct}
+                    width="w-45"
+                    imgHeight="h-auto"
+                    stockId={product.stock?._id}
+                    stock={product.stock?.stock}
+                  />
+                </div>
+
               ))}
             </Carousel>
           </div>
