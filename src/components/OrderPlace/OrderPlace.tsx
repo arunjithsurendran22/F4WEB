@@ -66,7 +66,6 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
 
 
   useEffect(() => {
-    if(grandTotal <= 0) setSelectedPaymentMethod('cash')
     dispatch(fetchCartTotal() as any);
   }, [dispatch]);
 
@@ -84,6 +83,7 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
       grandTotal: subscribedProducts ? grandTotal : expressProducts ? grandTotal + deliveryChargeExpress : grandTotal + deliveryCharge,
       source: "WEB"
     });
+    if(subTotal <= 0) setSelectedPaymentMethod('cash')
   }, [
     cartId,
     addressId,
@@ -141,15 +141,27 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
         setIsLoading(false);
       }
     } else {
+      const orderData = {
+        cartId,
+        addressId,
+        timeSlotId,
+        storeId,
+        subTotal,
+        couponDiscount,
+        coinsAmount,
+        deliveryCharge: subscribedProducts ? 0 : expressProducts ? deliveryChargeExpress : deliveryCharge,
+        grandTotal: subscribedProducts ? grandTotal : expressProducts ? grandTotal + deliveryChargeExpress : grandTotal + deliveryCharge,
+        source: "WEB"
+      };
       //handle online payment
-      if (grandTotal <= 0) {
+      if (orderData.grandTotal <= 0) {
         console.error("Total amount must be greater than 0 to proceed.");
         return;
       }
       setIsLoading(true);
       try {
         dispatch(setCartUpdated(true));
-        const response = await ordersApi.createPayment(paymentData);
+        const response = await ordersApi.createPayment(orderData);
         if (!response || !response.status) {
           setIsLoading(false);
           toast.error(response.message);
@@ -248,7 +260,7 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
                 onChange={() => handlePaymentMethodChange("cash")}
               />
             </label>
-            { grandTotal > 0 ? (<label className="flex items-center justify-between">
+            { subTotal > 0 ? (<label className="flex items-center justify-between">
               <span>Online Payment</span>
               <input
                 type="checkbox"

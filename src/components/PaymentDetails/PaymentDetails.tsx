@@ -44,17 +44,19 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onTotalChange }) => {
   useEffect(() => {
     if (cartTotal && cartTotal.total !== undefined) {
       //calculate local total by adding delivery charge
-      const totalValue = calculateLocalTotal(cartTotal.total)
+      const totalValue = calculateLocalTotal(cartTotal.total, cartTotal.subTotal)
       setLocalTotal(totalValue);
       if (onTotalChange) onTotalChange(totalValue);
     }
   }, [cartTotal, onTotalChange]);
 
-  const calculateLocalTotal = (total: number) => {
-    //if subscribed products, then there is no delivery charge
+  const calculateLocalTotal = (total: number, subTotal: number) => {
+    //if subTotal is zero, i.e cart contains no items or contains subscribed items only, 
+    //then there is no need to calculate delivery charge
+    if(subTotal <= 0) return total;
+    //if cart contains atleast one subscribed product, then there will be no delivery charge
     //else if express products, then apply express delivery charge,
     //else apply normal delivery charge
-    if(total <= 0) return total;
     return total + (subscribedProducts ? 0 : expressProducts ? deliveryChargeExpress : deliveryCharge)
   }
 
@@ -131,7 +133,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onTotalChange }) => {
           }
 
           {/* express delivery charge */}
-          {(expressProducts && deliveryChargeExpress > 0 && !subscribedProducts && cartTotal.total > 0) ? (
+          {(expressProducts && deliveryChargeExpress > 0 && !subscribedProducts && cartTotal.subTotal > 0) ? (
 
             <div className="flex justify-between items-center mb-4">
               <p className="text-lg text-customGrayLight2">Express Delivery Charge</p>
@@ -148,7 +150,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onTotalChange }) => {
           }
 
           {/* normal delivery charge */}
-          {(!expressProducts && deliveryCharge > 0 && !subscribedProducts && cartTotal.total > 0) ? (
+          {(!expressProducts && deliveryCharge > 0 && !subscribedProducts && cartTotal.subTotal > 0) ? (
 
             <div className="flex justify-between items-center mb-4">
               <p className="text-lg text-customGrayLight2">Delivery Charge</p>
