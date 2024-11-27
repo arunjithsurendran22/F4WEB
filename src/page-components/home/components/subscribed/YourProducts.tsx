@@ -59,13 +59,9 @@ function YourProducts() {
 
   return (
     <div>
-      <div className="flex justify-end md:px-14 md:py-5">
-        {products.length > 0 && <ViewAll onClick={handleClick} />}
-      </div>
-
       <div className="relative w-full">
         {/* Background Image */}
-        <div className="relative w-full flex overflow-hidden h-[500px] xl:h-[620px] lg:h-[600px] md:h-[600px] sm:h-[500px]">
+        <div className="relative w-full flex overflow-hidden h-[500px] xl:h-[640px] lg:h-[640px] md:h-[620px] sm:h-[500px]">
           <Image
             src="/images/your.png"
             alt="Wave Image"
@@ -88,6 +84,7 @@ function YourProducts() {
             </div>
             {/* Adjusted price tag position */}
 
+            {/* 
             <div className="w-[140px] h-[140px] flex justify-center items-center relative top-[-30px] md:top-[-65px] right-[10px]">
               {
                 (plan?.discountPercentage) ?
@@ -109,6 +106,11 @@ function YourProducts() {
                     // </>
 
                   ) : ''}
+            </div> 
+            */}
+
+            <div className="w-[140px] h-[140px] flex justify-center items-center relative top-[-30px] md:top-[-65px]">
+            {products.length > 0 && <ViewAll onClick={handleClick} />}
             </div>
 
 

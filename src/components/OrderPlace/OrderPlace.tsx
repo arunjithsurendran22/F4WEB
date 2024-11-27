@@ -66,6 +66,7 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
 
 
   useEffect(() => {
+    if(grandTotal <= 0) setSelectedPaymentMethod('cash')
     dispatch(fetchCartTotal() as any);
   }, [dispatch]);
 
@@ -247,7 +248,7 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
                 onChange={() => handlePaymentMethodChange("cash")}
               />
             </label>
-            <label className="flex items-center justify-between">
+            { grandTotal > 0 ? (<label className="flex items-center justify-between">
               <span>Online Payment</span>
               <input
                 type="checkbox"
@@ -256,6 +257,7 @@ const OrderPlace: React.FC<OrderPlaceProps> = ({
                 onChange={() => handlePaymentMethodChange("online")}
               />
             </label>
+          ):''}
           </div>
           <div className="mt-4">
             <Button

@@ -44,7 +44,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onTotalChange }) => {
   useEffect(() => {
     if (cartTotal && cartTotal.total !== undefined) {
       //calculate local total by adding delivery charge
-      let totalValue = calculateLocalTotal(cartTotal.total)
+      const totalValue = calculateLocalTotal(cartTotal.total)
       setLocalTotal(totalValue);
       if (onTotalChange) onTotalChange(totalValue);
     }
@@ -54,6 +54,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onTotalChange }) => {
     //if subscribed products, then there is no delivery charge
     //else if express products, then apply express delivery charge,
     //else apply normal delivery charge
+    if(total <= 0) return total;
     return total + (subscribedProducts ? 0 : expressProducts ? deliveryChargeExpress : deliveryCharge)
   }
 
@@ -130,7 +131,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onTotalChange }) => {
           }
 
           {/* express delivery charge */}
-          {(expressProducts && deliveryChargeExpress > 0 && !subscribedProducts) ? (
+          {(expressProducts && deliveryChargeExpress > 0 && !subscribedProducts && cartTotal.total > 0) ? (
 
             <div className="flex justify-between items-center mb-4">
               <p className="text-lg text-customGrayLight2">Express Delivery Charge</p>
@@ -147,7 +148,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onTotalChange }) => {
           }
 
           {/* normal delivery charge */}
-          {(!expressProducts && deliveryCharge > 0 && !subscribedProducts) ? (
+          {(!expressProducts && deliveryCharge > 0 && !subscribedProducts && cartTotal.total > 0) ? (
 
             <div className="flex justify-between items-center mb-4">
               <p className="text-lg text-customGrayLight2">Delivery Charge</p>

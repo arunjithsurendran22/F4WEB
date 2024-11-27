@@ -29,31 +29,15 @@ function PaymentMethod() {
         <div className="mt-10">
           <PaymentDetails onTotalChange={handleTotalChange} />
         </div>
-        {/* <div className="mt-5">
-          <CashOnDelivery
+
+        <div className="mt-5">
+          <OrderPlace
             addressId={addressId}
             timeSlotId={slotId}
             cartId={cartId}
           />
-        </div> */}
-        {
-          total > 0 && (
-            // <div className="mt-5">
-            //   <OnlinePayment
-            //     addressId={addressId}
-            //     timeSlotId={slotId}
-            //     cartId={cartId}
-            //   />
-            // </div>
+        </div>
 
-            <div className="mt-5">
-              <OrderPlace
-                addressId={addressId}
-                timeSlotId={slotId}
-                cartId={cartId}
-              />
-            </div>
-          )}
       </div>
     </div>
   );

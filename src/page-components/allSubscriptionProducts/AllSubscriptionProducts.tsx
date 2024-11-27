@@ -184,8 +184,8 @@ const AllSubscriptionProducts: React.FC = () => {
         </div>
       ) : (
         <div className="flex">
-          {/* Gradient Background Wrapper */}
-          <div className="lg:w-100 my-6 py-14 p-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg">
+          {/* Gradient Background Wrapper bg-customBlue bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 */}
+          <div className="lg:w-100 my-6 py-14 p-1 bg-gradient-to-r from-buttonColor to-customBlue rounded-lg">
             {items.map((item, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg p-5 mb-8">
                 <div className="flex justify-between md:py-5">

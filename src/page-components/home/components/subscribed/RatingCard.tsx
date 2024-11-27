@@ -28,7 +28,7 @@ function RatingCard() {
 
   return (
     <div className="md:p-14 p-3">
-      <Carousel gap={10}>
+      <Carousel>
         {ratings.map((item) => (
           <RatingCardItem
             key={item._id}
