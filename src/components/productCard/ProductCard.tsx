@@ -344,7 +344,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       className={`${width} h-[16rem] md:h-[20rem] rounded-3xl shadow-xl hover:shadow-lg transition-shadow relative bg-white`}
     >
       {/* Offer badge */}
-      {discountPercentage ? (
+      {(discountPercentage && !subscriptionProduct) ? (
         <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
           <div className="flex items-center">
             <p className="text-xs md:text-lg font-medium">

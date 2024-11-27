@@ -29,7 +29,7 @@ const DetailsModal: React.FC<DetailsModalProps> = ({
             {/* Duration and Quantity Info */}
             <div className="flex justify-between items-center mb-4 gap-x-12">
                 {/* Total Quantity */}
-                <div className="border-2 border-blue-500 bg-blue-100 rounded-lg text-center p-3 w-24">
+                <div className="border-2 border-blue-500 bg-blue-100 rounded-lg text-center p-3 w-26">
                     <p className="font-bold text-xl text-blue-700">
                         {planDetails?.allowedQuantity} {planDetails?.unit}
                     </p>
@@ -37,7 +37,7 @@ const DetailsModal: React.FC<DetailsModalProps> = ({
                 </div>
 
                 {/* Used Quantity */}
-                <div className="border-2 border-pink-500 bg-pink-100 rounded-lg text-center p-3 w-24">
+                <div className="border-2 border-pink-500 bg-pink-100 rounded-lg text-center p-3 w-26">
                     <p className="font-bold text-xl text-pink-700">
                         {planDetails?.purchasedQuantity} {planDetails?.unit}
                     </p>
@@ -45,7 +45,7 @@ const DetailsModal: React.FC<DetailsModalProps> = ({
                 </div>
             </div>
 
-            <div className="p-2 overflow-y-auto h-[500px] hide-scrollbar">
+            <div className="p-2 overflow-y-auto h-[460px] hide-scrollbar">
                 <p className="text-sm font-bold text-gray-800 border-b border-gray-200 pb-2">
                     { ordersList?.length ? "Purchased Product List" : "No purchases have been made yet!"}
                 </p>
