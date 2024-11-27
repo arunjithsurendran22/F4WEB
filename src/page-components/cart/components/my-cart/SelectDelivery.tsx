@@ -18,7 +18,7 @@ import { useAppSelector } from "@/hooks/useAppSelector";
 function SelectDelivery() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { couponDiscount, coinsAmount } = useSelector(
+  const { couponDiscount, coinsAmount, subTotal } = useSelector(
     (state: RootState) => state.cart
   );
   const itemCount = useAppSelector((state: RootState) => state.cart.itemCount);
@@ -46,6 +46,10 @@ function SelectDelivery() {
 
   const handleCouponButtonClick = async () => {
     try {
+      if(!subTotal){
+        toast.error("Failed to apply coupon! Cart total is zero")
+        return;
+      } 
       if (cartId && inputValueCoupon) {
         const response = await cartApi.applyCoupon({
           cartId,
@@ -87,9 +91,14 @@ function SelectDelivery() {
     try {
       const coinAmount = parseFloat(inputValueCoins);
       if (coinAmount <= 0) {
-        toast.error("Please enter a coin  valid amount .");
+        toast.error("Please enter a valid coin amount.");
         return;
       }
+
+      if(!subTotal){
+        toast.error("Failed to apply coins! Cart total is zero")
+        return;
+      } 
 
       if (cartId && inputValueCoins) {
         const response = await cartApi.applyCoins({

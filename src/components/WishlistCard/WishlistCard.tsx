@@ -185,14 +185,16 @@ const WishlistCard: React.FC<WishlistCardProps> = ({
       className="md:w-52 rounded-3xl shadow-xl hover:shadow-lg transition-shadow relative cursor-pointer"
     >
       {/* Offer badge */}
-      <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
-        <div className="flex items-center">
-          <p className="text-xs md:text-lg font-medium">
-            {discountPercentage?.toFixed(2)}%{" "}
-          </p>
-          <p className="ml-2 text-xs md:text-md mt-1 text-gray-200">OFF</p>
+      {discountPercentage ? (
+        <div className="absolute top-3 left-3 bg-customRed py-[1px] text-white px-2 rounded-lg">
+          <div className="flex items-center">
+            <p className="text-xs md:text-lg font-medium">
+              {discountPercentage?.toFixed(2)}%{" "}
+            </p>
+            <p className="ml-2 text-xs md:text-md mt-1 text-gray-200">OFF</p>
+          </div>
         </div>
-      </div>
+      ) : ''}
 
       {/* Image section */}
       <div className="flex justify-center items-center w-full md:h-44 bg-customGrayLight rounded-t-2xl overflow-hidden">
@@ -230,11 +232,11 @@ const WishlistCard: React.FC<WishlistCardProps> = ({
 
         <div className="flex items-center gap-5 space-x-2">
           <p className="text-xs md:text-lg font-bold text-gray-800">₹{price}</p>
-          {originalPrice > 0 && (
+          {(originalPrice > 0 && price && originalPrice > price) ? (
             <p className="text-xs  md:text-sm line-through text-customRed font-medium">
               ₹{originalPrice}
             </p>
-          )}
+          ): ''}
         </div>
 
         {/* Button */}

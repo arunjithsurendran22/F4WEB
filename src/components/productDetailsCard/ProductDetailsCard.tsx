@@ -197,13 +197,16 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
 
         <div className="mt-10 lg:mt-0 flex-1 space-y-5">
           <div className="flex gap-4 mb-4">
-            <div className="bg-customYellowLight py-[1px] w-26 text-customBlueLight px-2 rounded-lg">
-              <div className="flex items-center text-center">
-                <span className="text-base font-medium text-customBlueLight">
-                  {formattedDiscount(discount)}% Off
-                </span>
+            {discount ? (
+              <div className="bg-customYellowLight py-[1px] w-26 text-customBlueLight px-2 rounded-lg">
+                <div className="flex items-center text-center">
+                  <span className="text-base font-medium text-customBlueLight">
+                    {formattedDiscount(discount)}% Off
+                  </span>
+                </div>
               </div>
-            </div>
+            ) : ''}
+
             <div className="flex items-center mb-1">
               <FaStar className="text-customYellow h-4 w-4" />
               <p className="ml-1 text-sm font-semibold">{rating.toFixed(2)}</p>
@@ -215,9 +218,8 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
 
           <div className="relative w-full md:max-w-[40rem]">
             <p
-              className={`text-customGrayLight2 transition-all duration-300  text-xs md:text-lg ${
-                isExpanded ? "h-auto" : "line-clamp-2"
-              }`}
+              className={`text-customGrayLight2 transition-all duration-300  text-xs md:text-lg ${isExpanded ? "h-auto" : "line-clamp-2"
+                }`}
             >
               {isExpanded
                 ? description
@@ -238,11 +240,11 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
               {!subscribedProduct ? (
                 <div className="flex items-center gap-10">
                   <p className=" font-bold text-sm md:text-xl">₹ {price}</p>
-                  {originalPrice && (
+                  {(originalPrice && price && originalPrice > price) ? (
                     <p className=" text-md md:text-xl line-through text-customRed font-semibold">
                       ₹ {originalPrice}
                     </p>
-                  )}
+                  ): ''}
                 </div>
               ) : (
                 ""

@@ -51,6 +51,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onTotalChange }) => {
   }, [cartTotal, onTotalChange]);
 
   const calculateLocalTotal = (total: number, subTotal: number) => {
+    console.log(subscribedProducts)
     //if subTotal is zero, i.e cart contains no items or contains subscribed items only, 
     //then there is no need to calculate delivery charge
     if(subTotal <= 0) return total;
