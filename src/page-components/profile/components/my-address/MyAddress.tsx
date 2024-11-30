@@ -33,18 +33,22 @@ function MyAddress() {
         setDefaultAddressId={setDefaultAddressId}
         refetchAddress={refetchAddress}
       />
-      <div className="mt-10">
-        <Button
-          width="w-full md:w-96"
-          height="h-14"
-          backgroundColor="bg-customBlueLight"
-          textColor="text-white"
-          fontSize="font-medium"
-          onClick={handleSetDefaultAddress}
-        >
-          Set as default address
-        </Button>
-      </div>
+      {
+        defaultAddressId && (
+          <div className="mt-10">
+            <Button
+              width="w-full md:w-96"
+              height="h-14"
+              backgroundColor="bg-customBlueLight"
+              textColor="text-white"
+              fontSize="font-medium"
+              onClick={handleSetDefaultAddress}
+            >
+              Set as default address
+            </Button>
+          </div>
+        )
+      }
     </div>
   );
 }

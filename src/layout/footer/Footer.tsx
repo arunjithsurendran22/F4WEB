@@ -61,7 +61,7 @@ function Footer() {
             <div className="flex flex-wrap gap-4 sm:gap-10">
               <div>
                 <span className="underline decoration-customGreenLite decoration-2 underline-offset-4 text-xs sm:text-sm">
-                  (+91) 9999999999
+                  (+91) 9148344848
                 </span>
                 <span className="ml-4 text-customGrayLight2 hidden sm:inline">
                   or
@@ -69,7 +69,7 @@ function Footer() {
               </div>
               <div>
                 <span className="underline decoration-customGreenLite decoration-2 underline-offset-4 text-xs sm:text-sm">
-                  f4fish@gmail.com
+                  support@f4fish.com
                 </span>
               </div>
             </div>
@@ -122,8 +122,21 @@ function Footer() {
               <ul className="space-y-2">
                 <li className="text-customGrayLight2">Contact</li>
                 <li className="text-customGrayLight2">FAQs</li>
-                <li className="text-customGrayLight2">Terms & Condition</li>
-                <li className="text-customGrayLight2">Privacy Policy</li>
+
+                <li className="text-customGrayLight2">
+                  <Link
+                    href={"https://f4fish.com/terms-and-conditions"}>
+                    Terms & Condition
+                  </Link>
+                </li>
+
+                <li className="text-customGrayLight2">
+                  <Link
+                    href={"https://f4fish.com/privacy-policy"}>
+                    Privacy Policy
+                  </Link>
+                </li>
+
               </ul>
             </div>
 

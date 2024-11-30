@@ -33,7 +33,7 @@ function Header() {
               Categories
             </a>
             <a
-              href="#footer"
+              href="/all-offers"
               className="text-gray-300 hover:text-white transition-colors duration-200"
             >
               Offers
@@ -56,10 +56,10 @@ function Header() {
               className="w-5 h-5 sm:w-6 sm:h-6"
             />
             <a
-              href="tel:+1234567890"
+              href="tel:+919148344848"
               className="no-underline hover:text-white transition-colors duration-200"
             >
-              +1 (234) 567-890
+              +91 9148344848
             </a>
           </div>
         </header>

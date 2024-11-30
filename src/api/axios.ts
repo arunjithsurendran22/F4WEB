@@ -10,7 +10,7 @@ export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 }
 
 export const BASE_URL =
-  //process.env.NEXT_PUBLIC_BASE_URL ||
+  process.env.NEXT_PUBLIC_BASE_URL ||
   process.env.NEXT_PUBLIC_BASE_URL_LOCALHOST;
 
 const api = axios.create({
