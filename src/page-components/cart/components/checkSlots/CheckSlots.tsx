@@ -89,7 +89,7 @@ function CheckSlots() {
         <h1 className="font-semibold text-sm sm:text-base md:text-lg">
           Select Booking Slot
         </h1>
-        <div className="flex gap-2 sm:gap-3 items-center">
+        {/* <div className="flex gap-2 sm:gap-3 items-center">
           <Image
             src="/icons/star-coin 2.png"
             alt="Coin Icon"
@@ -99,7 +99,7 @@ function CheckSlots() {
           <p className="font-medium text-sm sm:text-base md:text-lg">
             {coinBalance} Coins
           </p>
-        </div>
+        </div> */}
       </div>
 
       {/* Grid layout for dates and slots */}

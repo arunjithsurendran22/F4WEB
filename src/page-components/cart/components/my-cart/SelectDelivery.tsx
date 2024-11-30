@@ -18,7 +18,7 @@ import { useAppSelector } from "@/hooks/useAppSelector";
 function SelectDelivery() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { couponDiscount, coinsAmount, subTotal } = useSelector(
+  const { couponDiscount, coinsAmount, subTotal, couponCode, coins } = useSelector(
     (state: RootState) => state.cart
   );
   const itemCount = useAppSelector((state: RootState) => state.cart.itemCount);
@@ -27,13 +27,24 @@ function SelectDelivery() {
     (state: RootState) => state.location.storeId || undefined
   );
 
-  const [inputValueCoupon, setInputValueCoupon] = useState<string>("");
-  const [inputValueCoins, setInputValueCoins] = useState<string>("");
+  const [inputValueCoupon, setInputValueCoupon] = useState<string>(couponCode);
+  const [inputValueCoins, setInputValueCoins] = useState<string>('');
   const [isCouponApplied, setIsCouponApplied] = useState<boolean>(false);
   const [isCoinsApplied, setIsCoinsApplied] = useState<boolean>(false);
   const [isEnable, setEnable] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
   const [loader, setLoader] = useState(false);
+
+  useEffect(()=> {
+    setInputValueCoupon(couponCode);
+    setInputValueCoins(coins? coins.toString() : '')
+    if(couponCode){
+      setIsCouponApplied(true)
+    }
+    if(coins){
+      setIsCoinsApplied(true);
+    }
+  },[couponCode])
 
   const handleCouponInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValueCoupon(e.target.value);
@@ -42,7 +53,6 @@ function SelectDelivery() {
   const handleCoinsInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValueCoins(e.target.value);
   };
-
 
   const handleCouponButtonClick = async () => {
     try {
@@ -62,7 +72,7 @@ function SelectDelivery() {
           if (response.data) {
             toast.success("Coupon applied successfully!");
             dispatch(setCartUpdated(true));
-            setInputValueCoupon("");
+            //setInputValueCoupon("");
             setIsCouponApplied(true);
           }
         }
@@ -79,6 +89,7 @@ function SelectDelivery() {
         if (response.data) {
           toast.success("Coupon removed successfully!");
           dispatch(setCartUpdated(true));
+          setInputValueCoupon("");
           setIsCouponApplied(false);
         }
       }
@@ -112,7 +123,7 @@ function SelectDelivery() {
           if (response.data) {
             toast.success("Coins applied successfully!");
             dispatch(setCartUpdated(true));
-            setInputValueCoins("");
+            //setInputValueCoins("");
             setIsCoinsApplied(true);
           }
         }
@@ -129,6 +140,7 @@ function SelectDelivery() {
         if (response.data) {
           toast.success("Coins removed successfully!");
           dispatch(setCartUpdated(true));
+          setInputValueCoins("");
           setIsCoinsApplied(false);
         }
       }
@@ -186,7 +198,7 @@ function SelectDelivery() {
             isCouponApplied ? handleRemoveCoupon : handleCouponButtonClick
           }
           placeholder="Enter Your Promo Code"
-          disabled={itemCount <= 0}
+          disabled={itemCount <= 0 || isCouponApplied}
         />
       </div>
 
@@ -200,7 +212,7 @@ function SelectDelivery() {
             isCoinsApplied ? handleRemoveCoins : handleCoinsButtonClick
           }
           placeholder="Enter Coins Amount"
-          disabled={itemCount <= 0}
+          disabled={itemCount <= 0 || isCoinsApplied}
         />
       </div>
 

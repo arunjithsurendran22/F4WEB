@@ -24,6 +24,8 @@ interface CartState {
   coinsAmount: number;
   cartUpdated?: boolean;
   cartId: string | null;
+  couponCode: string;
+  coins: number;
   itemCount: number;
   itemAddedToCart: boolean;
   expressProducts: boolean;
@@ -45,6 +47,8 @@ const initialState: CartState = {
   coinsAmount: 0,
   cartUpdated: false,
   cartId: null,
+  couponCode :'',
+  coins: 0,
   itemCount: 0,
   itemAddedToCart: false,
   expressProducts: false,
@@ -68,6 +72,8 @@ export const fetchCartItems = createAsyncThunk(
           : 0, // Set itemCount to 0 if cartData is null
         expressProducts: response.data.cartData?.expressProducts || false,
         subscribedProducts: response.data.cartData?.subscribedProducts || false,
+        couponCode: response.data.cartData?.couponCode || '',
+        coins: response.data.cartData?.coins || 0
       };
     } else {
       throw new Error(response.message || "Failed to fetch cart items");
@@ -177,6 +183,9 @@ const cartSlice = createSlice({
         state.itemCount = action.payload.itemCount;
         state.expressProducts = action.payload.expressProducts;
         state.subscribedProducts = action.payload.subscribedProducts;
+        state.couponCode = action.payload.couponCode;
+        state.coins = action.payload.coins;
+
       })
       .addCase(fetchCartItems.rejected, (state, action) => {
         state.loading = false;

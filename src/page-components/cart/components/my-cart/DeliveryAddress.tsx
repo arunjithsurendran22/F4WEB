@@ -21,7 +21,7 @@ function DeliveryAddress() {
       const addresses = response.data.addresses;
       const primary = addresses.find((address: any) => address.primary);
       if (primary) {
-        setPrimaryAddress(`${primary.city}, ${primary.state}`);
+        setPrimaryAddress(`${primary.address} ${primary.city}, ${primary.state}`);
         const checkAvailability = await addressApi.checkAddressAvailability(primary._id, { storeId })
         if (checkAvailability.data && checkAvailability.data.availability) {
           setDeliverable(true)
@@ -40,13 +40,13 @@ function DeliveryAddress() {
   }, []);
 
   return (
-    <div className="delivery-address">
-      <div className="flex gap-3 mt-3 items-center">
+    <div className="delivery-address md:w-[28rem]">
+      <div className="mt-3 items-center">
         <h1 className="font-semibold md:text-xl text-xs">Delivery Address</h1>
         {primaryAddress ? (
 
-          <div className="ml-5">
-            <h1 className="font-medium  text-xs md:text-lg">{primaryAddress}</h1>
+          <div className="mt-2">
+            <h1 className="font-medium text-xs md:text-lg">{primaryAddress}</h1>
             {
               !deliverable ? (
                 <p className="text-xs text-customRed font-medium ml-auto">

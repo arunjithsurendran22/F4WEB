@@ -21,6 +21,8 @@ const InputBoxAddButton: FC<InputBoxProps> = ({
   disabled = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [isButtonFocused, setIsButtonFocused] = useState(false);
+
 
   return (
     <div className="flex flex-col md:w-96">
@@ -44,8 +46,10 @@ const InputBoxAddButton: FC<InputBoxProps> = ({
         />
         <button
           onClick={onButtonClick}
+          onMouseOver={()=> setIsButtonFocused(true)}
+          onMouseLeave={()=> setIsButtonFocused(false)}
           className={`${
-            isFocused ? "text-customBlueLight" : "text-customGrayLight"
+            isButtonFocused ? (buttonLabel == 'Add' || buttonLabel == 'Use') ? "text-customBlueLight" : "text-customRed" : "text-customGrayLight"
           } px-4 py-2`}
         >
           {buttonLabel}

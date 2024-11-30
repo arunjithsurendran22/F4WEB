@@ -33,7 +33,7 @@ function Map() {
       const addresses = response.data.addresses;
       const primary = addresses.find((address: any) => address.primary);
       if (primary) {
-        setPrimaryAddress(`${primary.city}, ${primary.state}`);
+        setPrimaryAddress(`${primary.address} ${primary.city}, ${primary.state}`);
         setPrimaryCoordinates({
           lat: primary.latitude,
           lng: primary.longitude,
@@ -57,7 +57,7 @@ function Map() {
   return (
     <div className="">
       <h1 className="font-semibold text-lg mb-4">Delivery Address</h1>
-      <div className="border border-gray-300 rounded-xl md:w-80 md:h-56 p-4 flex flex-col">
+      <div className="border border-gray-300 rounded-xl md:w-80 md:h-66 p-4 flex flex-col">
         {/* Map Container */}
         <div className="flex justify-center h-full w-full mb-2">
           {primaryCoordinates ? (
