@@ -4,11 +4,8 @@ import { promocodeApi } from "@/services/promocodeService";
 import { FaRegCopy, FaCheckCircle } from "react-icons/fa";
 import toast from "react-hot-toast";
 
-interface OfferProps {
-    id: string | null | undefined;
-}
 
-const Offers: React.FC<OfferProps> = () => {
+function Offers() {
     const [promocodes, setPromocodes] = useState<any>([]);
     const [error, setError] = useState<string | null>(null);
 
